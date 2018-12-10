@@ -90,7 +90,7 @@ function randomizingData(){
 
   dataArray.sort(function(){
     return Math.random() - Math.random();
-  });
+  })
 };
 
 function decisionBtnAction(){
@@ -163,7 +163,7 @@ function cssClassEvent(){
 };
 
 function dataObjectReady(){
-  randomizingData(dataObject);
+  randomizingData();
   configRestaurantList(dataObject);
 };
 
