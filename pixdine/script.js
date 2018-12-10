@@ -47,7 +47,7 @@ var resultDisplay = document.getElementsByClassName('result-display')[0]
 ;
 
 // ajax
-var dataObject, jsonhttp;
+var dataObject, jsonhttp, dataArray;
 
 function getDataAjax(){
   jsonhttp = new XMLHttpRequest();
@@ -79,6 +79,18 @@ function configRestaurantList(json){
     restaurantListString += loopString;
   };
   restaurantList.innerHTML = restaurantListString;
+};
+
+function randomizingData(){
+
+  dataArray = [];
+  for(var key in dataObject){
+    dataArray.push(dataObject[key]);
+  };
+
+  dataArray.sort(function(){
+    return Math.random() - Math.random();
+  });
 };
 
 function decisionBtnAction(){
@@ -151,6 +163,7 @@ function cssClassEvent(){
 };
 
 function dataObjectReady(){
+  randomizingData(dataObject);
   configRestaurantList(dataObject);
 };
 
