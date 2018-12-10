@@ -119,7 +119,6 @@ function listDisplayToggle(){
 };
 
 function writeInResultValue(ran){
-  console.log(ran);
   resultValue.innerText = ran['name'] ;
 };
 

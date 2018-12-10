@@ -106,7 +106,6 @@ h1{
   background-color: #1e405e;
 }
 
-
 .list-btn{
   width: 36px; height: 36px;
   display: block;
@@ -140,16 +139,15 @@ h1{
 }
 .list-display p{
   font-size: 50px;
-  font-weight: lighter;
   font-family: 'Great Vibes', cursive;
+  margin-bottom: 10%;
 }
 .list-display .restaurant-list li{
-
-  margin-top: 3%;
+  margin-top: 6%;
   font-size: 20px;
-}
-.list-display .restaurant-list li:first-child{
-  margin-top: 10%;
+  float: left;
+  text-indent: 8%;
+  font-weight: lighter;
 }
 .list-display.open{
   height: 100%;
