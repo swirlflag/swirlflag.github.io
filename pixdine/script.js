@@ -126,7 +126,6 @@ function writeInResultValue(ran){
 function resultValueAction(){
   var qu01,qu02;
   var randomValue;
-  getDataAjax();
   qu01 = setTimeout(function(){
     resultValue.classList.remove('conclusion');
     resultValue.classList.add('calculating');
