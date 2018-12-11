@@ -78,6 +78,7 @@ function configRestaurantList(json){
     var loopString  = '<li>' + json[key]['name'] + '</li>';
     restaurantListString += loopString;
   };
+  restaurantListString += '<li>111</li><li>111</li>'
   restaurantList.innerHTML = restaurantListString;
 };
 
@@ -137,6 +138,10 @@ function resultValueAction(){
   },1000);
 };
 
+function restaurantAddDisplayAction(bool){
+  bool ? restaurantAddDisplay.classList.add('open') : restaurantAddDisplay.classList.remove('open')
+};
+
 
 function decisionBtnTouchstart(){
   decisionBtn.addEventListener('touchstart', function(){
@@ -152,9 +157,26 @@ function listBtnTouchstart(){
   });
 };
 
+function restaurantAddBtnTouchstart(){
+  restaurantAddBtn.addEventListener('touchstart', function(){
+    restaurantAddDisplayAction(true);
+    setTimeout(function(){
+        restaurantAddDisplayAction(false);
+    },900)
+  });
+};
+
+function restaurantListTouchStart(){
+//   restaurantList.addEventListener('touchstart', function(){
+//     restaurantAddDisplayAction(false);
+//   });
+};
+
 function cssClassEvent(){
   decisionBtnTouchstart();
   listBtnTouchstart();
+  restaurantListTouchStart();
+  restaurantAddBtnTouchstart();
 };
 
 function dataObjectReady(){

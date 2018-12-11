@@ -155,13 +155,36 @@ h1{
   font-weight: lighter;
 }
 .list-display .restaurant-list li:last-child{
-  padding-bottom: 30%;
+  margin-bottom: 10%;
 }
 .list-display.open{
   height: 100%;
   padding: 20% 0;
   background-color: rgba(0, 0, 0, 0.8);
 }
+.restaurant-add-btn{
+  border: 2px solid #fff;
+  width: 50px;
+  height: 50px;
+  display: inline-block;
+  border-radius: 5000px;
+  margin-bottom: 30%;
+  position: relative;
+}
+.restaurant-add-btn .btn::before,.restaurant-add-btn .btn::after{
+  content : '';
+  position: absolute;
+  background-color: #fff;
+}
+.restaurant-add-btn .btn::before{
+  width: 2px; height: 30px;
+  top: 10px;
+  left: 24px;
+}
+.restaurant-add-btn .btn::after{
+  height: 2px; width: 30px;
+  left: 10px; top: 24px;
+}
 
 
 
@@ -169,7 +192,23 @@ h1{
 
 
 
-
-.restaurant-add-display,.restaurant-add-btn{
-  display: none;
+.restaurant-add-display{
+  width: 94%;
+  left: 3%;
+  position: fixed;
+  height: 30%;
+  bottom: -30%;
+  background-color: #fff;
+  color: #555;
+  border-radius: 20px 20px 0 0;
+  font-style: italic;
+  transition:  all 600ms cubic-bezier(0.785, 0.135, 0.15, 0.86);
+}
+.restaurant-add-display.open{
+  bottom: 0;
+}
+.restaurant-add-display p{
+  margin-top: 28%;
+  text-align: center;
+  font-size: 18px;
 }
