@@ -155,7 +155,7 @@ h1{
   font-weight: lighter;
 }
 .list-display .restaurant-list li:last-child{
-  margin-bottom: 10%;
+  margin-bottom: 16%;
 }
 .list-display.open{
   height: 100%;
