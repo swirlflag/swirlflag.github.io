@@ -132,7 +132,7 @@ h1{
   z-index: 1;
   transition: all 600ms cubic-bezier(0.645, 0.045, 0.355, 1);
   overflow: scroll;
-  -webkit-touch-scrolling : touch;
+  -webkit-overflow-scrolling: touch;
   color: #fff;
   text-align: center;
   background-color: rgba(0, 0, 0, 0.3);
@@ -147,8 +147,7 @@ h1{
   font-size: 20px;
   font-weight: lighter;
   overflow: scroll;
-  -webkit-touch-scrolling : touch;
-
+  -webkit-overflow-scrolling: touch;
 }
 .list-display .restaurant-list li{
   margin-top: 6%;
