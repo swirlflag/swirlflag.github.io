@@ -128,7 +128,7 @@ function resultValueAction(){
   qu01 = setTimeout(function(){
     resultValue.classList.remove('conclusion');
     resultValue.classList.add('calculating');
-    randomValue = getRandomValue(dataObject);
+    randomValue = getRandomValue(dataArray);
   },400);
   qu02 = setTimeout(function(){
     writeInResultValue(randomValue);
@@ -136,9 +136,6 @@ function resultValueAction(){
     resultValue.classList.add('conclusion');
   },1000);
 };
-
-
-
 
 
 function decisionBtnTouchstart(){
@@ -162,7 +159,7 @@ function cssClassEvent(){
 
 function dataObjectReady(){
   randomizingData();
-  configRestaurantList(dataObject);
+  configRestaurantList(dataArray);
 };
 
 function documentDraggableSet(){

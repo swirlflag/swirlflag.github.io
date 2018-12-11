@@ -143,12 +143,8 @@ h1{
   margin-bottom: 10%;
 }
 .list-display .restaurant-list li{
-  text-align: left;
-  width: 50%;
   margin-top: 6%;
   font-size: 20px;
-  float: left;
-  text-indent: 8%;
   font-weight: lighter;
 }
 .list-display.open{

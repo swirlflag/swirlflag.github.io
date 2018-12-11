@@ -1,0 +1,8 @@
+*{
+  margin: 0;
+  padding: 0;
+}
+html,body{
+  font-family: 'Noto Sans KR', sans-serif;
+  /* background-image: radial-gradient( circle farthest-corner at 10% 20%,  rgba(255,221,51,1) 100.2%, rgba(187,187,187,1) 100.2% ); */
+}
