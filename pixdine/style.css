@@ -163,9 +163,9 @@ h1{
   background-color: rgba(0, 0, 0, 0.8);
 }
 .restaurant-add-btn{
-  border: 2px solid #fff;
-  width: 50px;
-  height: 50px;
+  border: 1px solid #fff;
+  width: 51px;
+  height: 51px;
   display: inline-block;
   border-radius: 5000px;
   margin-bottom: 30%;
@@ -177,13 +177,13 @@ h1{
   background-color: #fff;
 }
 .restaurant-add-btn .btn::before{
-  width: 2px; height: 30px;
-  top: 10px;
-  left: 24px;
+  width: 1px; height: 30px;
+  top: 11px;
+  left: 25px;
 }
 .restaurant-add-btn .btn::after{
-  height: 2px; width: 30px;
-  left: 10px; top: 24px;
+  height: 1px; width: 30px;
+  left: 11px; top: 25px;
 }
 
 
