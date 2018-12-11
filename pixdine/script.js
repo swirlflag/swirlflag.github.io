@@ -78,7 +78,6 @@ function configRestaurantList(json){
     var loopString  = '<li>' + json[key]['name'] + '</li>';
     restaurantListString += loopString;
   };
-  restaurantListString += '<li>111</li><li>111</li>'
   restaurantList.innerHTML = restaurantListString;
 };
 
