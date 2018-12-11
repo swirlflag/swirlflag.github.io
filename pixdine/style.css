@@ -142,10 +142,21 @@ h1{
   font-family: 'Great Vibes', cursive;
   margin-bottom: 10%;
 }
+.list-display .restaurant-list{
+  margin-top: 6%;
+  font-size: 20px;
+  font-weight: lighter;
+  overflow: scroll;
+  -webkit-touch-scrolling : touch;
+
+}
 .list-display .restaurant-list li{
   margin-top: 6%;
   font-size: 20px;
   font-weight: lighter;
+}
+.list-display .restaurant-list li:last-child{
+  padding-bottom: 30%;
 }
 .list-display.open{
   height: 100%;
