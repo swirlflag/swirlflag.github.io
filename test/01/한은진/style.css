@@ -12,13 +12,13 @@ body.catch{overflow: hidden;}
 
 
 .snap-area{
+  opacity: 0.7;
   position: relative;
   background: #ddd;
   width: 100vw;
   height: 100vh;
 }
 .snap-area.catch{
-  opacity: 0.5;
   position: fixed;
   top: 0; left: 0;
 }
@@ -28,4 +28,17 @@ body.catch{overflow: hidden;}
 
   width: 100vw;
   height: 100vh;
+  opacity: 0;
+}
+.snap-area-tab.active{
+  opacity: 1;
+}
+.snap-area-tab:nth-child(1){
+  background-color: #d3d;
+}
+.snap-area-tab:nth-child(2){
+  background-color: #3d3;
+}
+.snap-area-tab:nth-child(3){
+  background-color: #ff1;
 }

@@ -35,45 +35,67 @@ var body = document.body
 var isSnapState = false
   , snapTabState = 0
   , snapTabLeng = snapTab.length
+  , delta = false;
 ;
 
 
 function changeSnapState(){isSnapState = !isSnapState;};
 
+function findFirstActiveTab(){
+  //맨처음 로딩시 누가 액티브인지 체크
+};
 
 function startSnapArea(){
-  console.log('start');
-  cssSnapToggle();
+  isSnapState = true;
+  ++snapTabState;
+  startSnapModeCss();
+  gotoSnapTab(snapTabState-1);
 };
 
 function endSnapArea(){
   console.log('end');
 };
 
-function allScrollEvent(){
-  if(isSnapState){
-    //종료 조건은 임시임
-    if(snapArea.offsetTop >= domEl.scrollTop){
-      changeSnapState();
-      endSnapArea();
-    };
-  }else{
-    if(snapArea.offsetTop <= domEl.scrollTop){
-      changeSnapState();
-      startSnapArea();
-    };
+function detecedSnap(){
+// snap 상태가 아니며 snap을 지속적으로 찾음
+  if(snapArea.offsetTop <= domEl.scrollTop){
+    console.log('발견');
+    startSnapArea();
   };
+};
+
+function gotoSnapTab(num){
+  for(let i = 0; i < snapTabLeng; ++i){
+    snapTab[i].classList.remove('active');
+  };
+  snapTab[num].classList.add('active');
+};
+function setDeltaYValue(event){
+  delta = event.deltaY >= 0 ? true : false;
+};
+
+function allScrollEvent(){
+
+  if(isSnapState){
+
+
+  }else{
+    detecedSnap();
+  };
+
 };
 
 
 
 
 
+function startSnapModeCss(){
+  // body.classList.add('catch');
+  snapArea.classList.add('catch');
+};
 
-
-function cssSnapToggle(){
-  // body.classList.toggle('catch');
-  snapArea.classList.toggle('catch');
+function endSnapModeCss(){
+  snapArea.classList.remove('catch');
 };
 
 function snapAreaSizeSet(){
@@ -83,6 +105,13 @@ function snapAreaSizeSet(){
 function cssPotionSet(){
   snapAreaSizeSet();
 };
+
+
+
+
+
+
+
 
 window.addEventListener('DOMContentLoaded', function(){
   cssPotionSet();
@@ -94,4 +123,7 @@ window.addEventListener('resize', function(){
 
 window.addEventListener('scroll', function(){
   allScrollEvent();
+});
+window.addEventListener('mousewheel', function(event){
+  setDeltaYValue(event);
 });
