@@ -1,0 +1,31 @@
+*{padding: 0;margin: 0;}
+body.catch{overflow: hidden;}
+.test-dummy{
+  width: 100%;
+  text-align: center;
+  font-size: 40px;
+}
+.test-dummy p{
+  margin-bottom: 20px;
+  border: 1px solid #000;
+}
+
+
+.snap-area{
+  position: relative;
+  background: #ddd;
+  width: 100vw;
+  height: 100vh;
+}
+.snap-area.catch{
+  opacity: 0.5;
+  position: fixed;
+  top: 0; left: 0;
+}
+.snap-area-tab{
+  position: absolute;
+  top: 0;left: 0;
+
+  width: 100vw;
+  height: 100vh;
+}
