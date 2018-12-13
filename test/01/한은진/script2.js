@@ -19,8 +19,6 @@
   };
 })();
 
-//select
-
 var domEl = document.documentElement;
 
 var body = document.body
@@ -69,95 +67,15 @@ function syncScrollSnapArea(){
 
 function tabMovingDelay(sec){
   isTabMoveing = true;
-  console.log('tab moving..');
-  if(!sec){sec = 1000};
   if(sec < 100){sec = sec *1000};
   setTimeout(function(){
-    console.log('tab moving end');
     isTabMoveing = false;
   },sec)
 };
 
-function startSnapMode(){
-  console.log('스냅 시작');
-  isSnapMode = true;
-  preventDocumentScroll();
-  syncScrollSnapArea();
-  snapArea.classList.add('catch');
-  // domEl.scrollTop = snapArea.offsetTop;
-  tabMovingDelay();
-  gotoSnapTab(snapTabState);
-  isScrollBeforeSet();
-  // document.addEventListener('mousewheel', snapMode);
-};
-
-function endSnapMode(){
-  console.log('스냅 종료');
-  isSnapMode = false;
-  restoreDocumentScroll();
-  snapArea.classList.remove('catch');
-  syncScrollSnapArea();
-  // document.removeEventListener('mousewheel', snapMode);
-  isScrollBeforeSet();
-};
-
-// function snapMode(){
-//   console.log(delta);
-//   if(delta){
-//
-//   }
-// };
-
-function detecedSnap(){
-  if(isScrollBefore){
-    if(snapArea.offsetTop < domEl.scrollTop){
-      startSnapMode();
-    };
-  }else{
-    if(snapArea.offsetTop > domEl.scrollTop){
-      startSnapMode();
-    };
-  };
-};
-
-function gotoSnapTab(idx){
-  for(let i = 0; i < snapTabLeng; ++i){
-    snapTab[i].classList.remove('active');
-  };
-  snapTab[idx].classList.add('active');
-};
-
-function setDeltaYValue(event){
-  delta = event.deltaY >= 0 ? true : false;
-};
-
-
-function prevSnapTab(){
-  --snapTabState;
-  if(snapTabState < 0){
-    snapTabState = 0;
-    endSnapMode();
-    return;
-  };
-  tabMovingDelay();
-  gotoSnapTab(snapTabState);
-};
-
-function nextSnapTab(){
-  ++snapTabState;
-  if(snapTabState > snapTabLeng-1){
-    snapTabState = snapTabLeng-1;
-    endSnapMode();
-    return;
-  };
-  tabMovingDelay();
-  gotoSnapTab(snapTabState);
-};
-
 
 function allScrollEvent(){
-  if(isTabMoveing){return};
-  if(isSnapMode){
+  if(isSnapMode && !isTabMoveing){
     if(delta){
       nextSnapTab();
     }else{
@@ -169,8 +87,6 @@ function allScrollEvent(){
 };
 
 
-
-
 function snapAreaSizeSet(){
   snapArea.css('height', window.innerHeight + 'px');
 };
@@ -178,8 +94,6 @@ function snapAreaSizeSet(){
 function cssPotionSet(){
   snapAreaSizeSet();
 };
-
-
 
 window.addEventListener('DOMContentLoaded', function(){
   isScrollBeforeSet();
@@ -192,13 +106,9 @@ window.addEventListener('resize', function(){
 });
 
 window.addEventListener('scroll', function(){
-  // if(isSnapMode){
-  //   syncScrollSnapArea();
-  // };
   allScrollEvent();
 });
 
 window.addEventListener('mousewheel', function(event){
   setDeltaYValue(event);
-  allScrollEvent();
 });
