@@ -1,22 +1,8 @@
-*{padding: 0;margin: 0;}
-body.catch{overflow: hidden;}
-.test-dummy{
-  width: 100%;
-  text-align: center;
-  font-size: 40px;
-}
-.test-dummy p{
-  margin-bottom: 20px;
-  border: 1px solid #000;
-}
-
-
 .snap-area{
-  /* opacity: 0.7; */
   position: relative;
-  background: #ddd;
-  width: 100vw;
-  height: 100vh;
+  width: 100%;
+  height: 100%;
+  background-color: #fff;
 }
 .snap-area.catch{
   position: fixed;
@@ -25,31 +11,41 @@ body.catch{overflow: hidden;}
 .snap-area-tab{
   position: absolute;
   top: 0;left: 0;
-
-  width: 100vw;
-  height: 100vh;
+  width: 100%;
+  height: 100%;
   opacity: 0;
-  color: #fff;
-  transition: all 0.3s ease;
-}
-.snap-area-tab p{
-  background-color: #000;
+  transition: opacity 0.5s ease;
 }
 .snap-area-tab.active{
   opacity: 1;
 }
-.snap-area-tab:nth-child(1){
-  background-color: #d3d;
+
+
+
+
+
+
+
 }
-.snap-area-tab:nth-child(2){
-  background-color: #3d3;
+*{padding: 0;margin: 0;}
+.test-dummy{
+  width: 100%;
+  text-align: center;
+  font-size: 40px;
 }
-.snap-area-tab:nth-child(3){
-  background-color: #ff1;
+.test-dummy p{
+  margin-bottom: 20px;
+  padding: 2% 10%;
+  text-align: left;
 }
-.snap-area-tab:nth-child(4){
-  background-color: #1ff;
+.snap-area-tab{
+  object-fit: cover;
 }
-.snap-area-tab:nth-child(5){
-  background-color: #ddd;
+.snap-area-tab p{
+  color: #000;
+  font-size: 50px;
+}
+.snap-area-tab img{
+  width: 100%;
+  object-fit: cover;
 }

@@ -35,24 +35,23 @@ var isSnapMode = false
   , snapTabLeng = snapTab.length
   , delta = false
   , isTabMoveing = false
+  , snapEndDelay = false
 ;
 
 function justPreventDefault(e){e.preventDefault()};
 
 function preventDocumentScroll(){
-  console.log('스크롤 막음!');
   document.addEventListener('scroll', justPreventDefault);
   document.addEventListener('mousewheel', justPreventDefault);
 };
 
 function restoreDocumentScroll(){
-  console.log('스크롤 재생!');
   document.removeEventListener('scroll', justPreventDefault);
   document.removeEventListener('mousewheel', justPreventDefault);
 };
 
 function isScrollBeforeSet(){
-  snapArea.offsetTop > domEl.scrollTop ? isScrollBefore = true : isScrollBefore = false;
+  snapTabState == 0 ? isScrollBefore = true : isScrollBefore = false;
 };
 
 function changeSnapState(){
@@ -69,48 +68,37 @@ function syncScrollSnapArea(){
 
 function tabMovingDelay(sec){
   isTabMoveing = true;
-  console.log('tab moving..');
   if(!sec){sec = 1000};
   if(sec < 100){sec = sec *1000};
   setTimeout(function(){
-    console.log('tab moving end');
     isTabMoveing = false;
   },sec)
 };
 
 function startSnapMode(){
-  console.log('스냅 시작');
   isSnapMode = true;
-  preventDocumentScroll();
-  syncScrollSnapArea();
   snapArea.classList.add('catch');
-  // domEl.scrollTop = snapArea.offsetTop;
-  tabMovingDelay();
+  syncScrollSnapArea();
+  preventDocumentScroll();
   gotoSnapTab(snapTabState);
   isScrollBeforeSet();
-  // document.addEventListener('mousewheel', snapMode);
 };
 
 function endSnapMode(){
-  console.log('스냅 종료');
   isSnapMode = false;
-  restoreDocumentScroll();
   snapArea.classList.remove('catch');
   syncScrollSnapArea();
-  // document.removeEventListener('mousewheel', snapMode);
+  restoreDocumentScroll();
   isScrollBeforeSet();
+  snapEndDelay = true;
+  setTimeout(function(){
+    snapEndDelay = false;
+  },300);
 };
-
-// function snapMode(){
-//   console.log(delta);
-//   if(delta){
-//
-//   }
-// };
 
 function detecedSnap(){
   if(isScrollBefore){
-    if(snapArea.offsetTop < domEl.scrollTop){
+    if(snapArea.offsetTop <= domEl.scrollTop){
       startSnapMode();
     };
   }else{
@@ -130,7 +118,6 @@ function gotoSnapTab(idx){
 function setDeltaYValue(event){
   delta = event.deltaY >= 0 ? true : false;
 };
-
 
 function prevSnapTab(){
   --snapTabState;
@@ -154,22 +141,14 @@ function nextSnapTab(){
   gotoSnapTab(snapTabState);
 };
 
-
 function allScrollEvent(){
   if(isTabMoveing){return};
   if(isSnapMode){
-    if(delta){
-      nextSnapTab();
-    }else{
-      prevSnapTab();
-    };
+    delta ? nextSnapTab() : prevSnapTab();
   }else{
-    detecedSnap();
+    if(!snapEndDelay){detecedSnap()};
   };
 };
-
-
-
 
 function snapAreaSizeSet(){
   snapArea.css('height', window.innerHeight + 'px');
@@ -178,8 +157,6 @@ function snapAreaSizeSet(){
 function cssPotionSet(){
   snapAreaSizeSet();
 };
-
-
 
 window.addEventListener('DOMContentLoaded', function(){
   isScrollBeforeSet();
@@ -192,9 +169,6 @@ window.addEventListener('resize', function(){
 });
 
 window.addEventListener('scroll', function(){
-  // if(isSnapMode){
-  //   syncScrollSnapArea();
-  // };
   allScrollEvent();
 });
 
