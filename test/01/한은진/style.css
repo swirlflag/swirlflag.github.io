@@ -1,35 +1,18 @@
-.snap-area{
-  position: relative;
-  width: 100%;
-  height: 100%;
-  background-color: #fff;
-}
-.snap-area.catch{
-  position: fixed;
-  left: 0; top: 0;
-}
-.snap-area-tab{
-  position: absolute;
-  top: 0;left: 0;
-  width: 100%;
-  height: 100%;
-  opacity: 0;
-  transition: opacity 0.5s ease;
-}
-.snap-area-tab.active{
-  opacity: 1;
-}
+/* 삭제 ㄴㄴ*/
+.snap-area{position: relative;width: 100%;height: 100%;background-color: #fff;}
+.snap-area.catch{position: fixed;left: 0; top: 0;}
+.snap-area-tab{position: absolute;top: 0;left: 0;width: 100%;height: 100%;opacity: 0;transition: opacity 0.5s ease;}
+.snap-area-tab.active{opacity: 1;}
 
 
 
 
 
 
-
-}
+/* 삭제ㄱㄱ*/
 *{padding: 0;margin: 0;}
 .test-dummy{
-  width: 100%;
+  width: 100%; height: 100%;
   text-align: center;
   font-size: 40px;
 }
@@ -42,10 +25,35 @@
   object-fit: cover;
 }
 .snap-area-tab p{
-  color: #000;
-  font-size: 50px;
-}
-.snap-area-tab img{
+  margin: 0; padding: 0;
   width: 100%;
-  object-fit: cover;
+  text-align: center;
+  color: #fff;
+  font-size: 50px;
+  position: absolute;
+  top: 50px;
+}
+.snap-area-tab .image{
+  width: 100%; height: 100%;
+  display: inline-block;
+}
+.snap-area-tab:nth-child(1) .image{
+  background: url(1.jpeg) no-repeat;
+  background-size: cover;
+}
+.snap-area-tab:nth-child(2) .image{
+  background: url(2.jpeg) no-repeat;
+  background-size: cover;
+}
+.snap-area-tab:nth-child(3) .image{
+  background: url(3.jpeg) no-repeat;
+  background-size: cover;
+}
+.snap-area-tab:nth-child(4) .image{
+  background: url(4.jpeg) no-repeat;
+  background-size: cover;
+}
+.snap-area-tab:nth-child(5) .image{
+  background: url(5.jpeg) no-repeat;
+  background-size: cover;
 }

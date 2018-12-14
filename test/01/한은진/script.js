@@ -20,14 +20,14 @@
 })();
 
 //select
-
-var domEl = document.documentElement;
-
-var body = document.body
+var doc = document.documentElement
+  , body = document.body
   , snapArea = document.querySelector('.snap-area')
   , snapTab = document.querySelectorAll('.snap-area .snap-area-tab')
 ;
 
+var agent = navigator.userAgent.toLowerCase();
+agent.indexOf("chrome") != -1 ? doc = document.documentElement : doc = document.body;
 //value
 var isSnapMode = false
   , isScrollBefore
@@ -38,7 +38,9 @@ var isSnapMode = false
   , snapEndDelay = false
 ;
 
-function justPreventDefault(e){e.preventDefault()};
+function justPreventDefault(e){
+  e.preventDefault()
+};
 
 function preventDocumentScroll(){
   document.addEventListener('scroll', justPreventDefault);
@@ -63,7 +65,7 @@ function findFirstActiveTab(){
 };
 
 function syncScrollSnapArea(){
-  domEl.scrollTop = snapArea.offsetTop;
+  doc.scrollTop = snapArea.offsetTop;
 };
 
 function tabMovingDelay(sec){
@@ -98,11 +100,11 @@ function endSnapMode(){
 
 function detecedSnap(){
   if(isScrollBefore){
-    if(snapArea.offsetTop <= domEl.scrollTop){
+    if(snapArea.offsetTop <= doc.scrollTop){
       startSnapMode();
     };
   }else{
-    if(snapArea.offsetTop > domEl.scrollTop){
+    if(snapArea.offsetTop > doc.scrollTop){
       startSnapMode();
     };
   };
