@@ -38,22 +38,18 @@
   display: inline-block;
 }
 .snap-area-tab:nth-child(1) .image{
-  background: url(1.jpeg) no-repeat;
+  background: url(1.jpg) no-repeat;
   background-size: cover;
 }
 .snap-area-tab:nth-child(2) .image{
-  background: url(2.jpeg) no-repeat;
+  background: url(2.jpg) no-repeat;
   background-size: cover;
 }
 .snap-area-tab:nth-child(3) .image{
-  background: url(3.jpeg) no-repeat;
+  background: url(3.jpg) no-repeat;
   background-size: cover;
 }
 .snap-area-tab:nth-child(4) .image{
-  background: url(4.jpeg) no-repeat;
-  background-size: cover;
-}
-.snap-area-tab:nth-child(5) .image{
-  background: url(5.jpeg) no-repeat;
+  background: url(4.jpg) no-repeat;
   background-size: cover;
 }
