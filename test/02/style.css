@@ -42,6 +42,7 @@ html,body{
   display: inline-block;
   overflow: hidden;
   padding: 2.5%;
+  padding-left: 4%;
 }
 .pick-area{
   border-left: 1px solid #bbb;
