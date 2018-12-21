@@ -29,6 +29,12 @@ var teamScorePlus = (t,teamname) =>{
   // };
 };
 
+var teamScoreMinus = (teamname) =>{
+  teamname = teamname  -1;
+  --obj[teamname]['score'];
+  score[teamname].innerText = obj[teamname]['score'];
+};
+
 var sortObj = (a,b) =>{
   obj2 = obj.sort(function(a,b){
     return b['score'] - a['score'];
