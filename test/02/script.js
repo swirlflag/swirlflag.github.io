@@ -82,20 +82,13 @@ var data = [
   ,'김나영'
 
 ];
+
 data.sort(function(a, b){return 0.5 - Math.random()});
 
 var getRandomColor = () => {
   return '#' + (Math.random()*0xFFFFFF<<0).toString(16);
 };
 
-function getRandomColorRed() {
-  var letters = '0123456789ABCDEF';
-  var color = '#';
-  for (var i = 0; i < 6; i++) {
-    color += letters[Math.floor(Math.random() * 16)];
-  }
-  return color;
-};
 
 var h1 = document.querySelector('h1')
   , start = document.querySelector('.start')
