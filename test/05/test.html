@@ -181,7 +181,7 @@
   <p>back bbbbbck bbbbbck bbbbbck bbbbbck bbbbbck bbbbbck bbbbbck bbbbbck bbbbbck bbbbbck bbbbbck bbbbbck bbbbbck bbbbbbbbb</p>
   <p>back bbbbbck bbbbbck bbbbbck bbbbbck bbbbbck bbbbbck bbbbbck bbbbbck bbbbbck bbbbbck bbbbbck bbbbbck bbbbbck bbbbbbbbb</p>
 </div>
-<div class="side">
+<div class="side" id='side'>
   <p>side</p>
   <p>side</p>
   <p>side</p>
@@ -308,4 +308,21 @@
   <p>side</p>
 </div>
 </body>
+<script type="text/javascript">
+  let side = document.querySelector("#side")
+  window.addEventListener('touchmove', ($e)=>{
+    let isContain = false;
+    for( let i=0; i<$e.path.length; i++){
+      if(side === $e.path[i]){
+        isContain = true;
+        break;
+      }
+    }
+    if(isContain){
+      // $e.preventDefault();
+      // $e.stopPropagation();
+      console.log($e)
+    }
+  })
+</script>
 </html>
