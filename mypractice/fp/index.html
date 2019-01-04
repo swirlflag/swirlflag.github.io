@@ -31,6 +31,18 @@ const curry = (f) => (a,..._) => {
   return _.length ? f(a,..._) : (..._) => f(a,..._);
 };
 
+// function curry(f){
+//   return function(a,..._){
+//     if(_.length){
+//       return f(a,..._);
+//     }else{
+//       return function(..._){
+//         return f(a,..._)
+//       };
+//     };
+//   };
+// };
+
 // const multi = curry((a,b) => a * b);
 // const multi3 = multi(3);
 // console.log(multi3(3));
@@ -170,6 +182,21 @@ const range = (l) =>{
   return res;
 };
 
+
+const join = curry((sep = ',',iter) => {
+  return reduce((a,b) => `${a}${sep}${b}`, iter);
+});
+
+
+
+
+
+
+
+
+
+
+
 //lazy객체
 const L = {};
 
@@ -216,6 +243,12 @@ L.take  = curry(function *(l,iter){
   return res;
 });
 
+L.entries = function *(obj){
+  for(const k in obj){
+    yield [k, obj[k]]
+  };
+};
+
 
 var Lmap01= L.map(a=>a+5,[1,2,3,4,5]);
 
@@ -229,21 +262,55 @@ var Lfilter01 = L.filter(a=>a%2, [1,2,3,4,5]);
 // log(Lfilter01.next());
 // log(Lfilter01.next());
 
-// go(
-//   L.range(10)
-//   , L.map(n => n + 10)
-//   , L.filter(n => n % 2)
-//   , take(2)
-//   , log
-// );
 
 go(
   L.range(10)
   , L.map(n => n + 10)
   , L.filter(n => n % 2)
   , take(2)
-  , log
 );
+
+
+const queryStr = pipe(
+  L.entries
+  // , (a) => {log(a); return a} // 리턴되어 go, pipe 돌고있는 값을 확인하려면 이렇게해보자
+  , L.map(([k,v])=> `${k}=${v}`)
+  , join('&') //reduce((a,b)=> `${a}&${b}`)
+);
+
+// log(queryStr({'limit' : 10 , 'offset': 10 , 'type' : 'notice'}));
+
+
+// function *a(){
+//   yield 10;
+//   yield 10;
+//   yield 10;
+//   yield 10;
+//   yield 10;
+//   yield 10;
+// }
+
+// log(join('-', a()));
+
+const users = [
+  { 'age' : 32}
+  ,{ 'age' : 31}
+  ,{ 'age' : 29}
+  ,{ 'age' : 39}
+  ,{ 'age' : 24}
+  ,{ 'age' : 28}
+  ,{ 'age' : 30}
+  ,{ 'age' : 19}
+  ,{ 'age' : 42}
+  ,{ 'age' : 38}
+];
+
+const find = (f, iter) => go(
+  iter
+  , filter(f)
+);
+
+log(find(p=> p.age > 30, users));
 
 
 
