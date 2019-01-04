@@ -44,6 +44,47 @@ function makeCssToHTMLElement(){
 };
 
 (function(){
+  if(HTMLElement.prototype.css){return false;};
+  HTMLElement.prototype.css = function(prop,value){
+    // if(typeof prop == 'number' || typeof value == 'number'){
+    //   throw "입력형태가 올바르지 않습니다. HTMLElement.css('prop','value') || HTMLElement.css({'prop' : 'value'})"
+    // };
+    var _this = this;
+    function returnStyle(){return window.getComputedStyle(_this);};
+    if(!arguments.length){return returnStyle()};
+    if(typeof prop  == 'object'){
+      for(key in prop){
+        if(typeof prop[key] == 'number'){
+          console.log(1);
+          if(!(prop[key] == 'opacity' && prop[key] == 'z-index')){
+            _this.style[key] = prop[key] + 'px';
+          }else{
+            _this.style[key] = prop[key];
+          };
+        };
+      };
+    }else{
+      if(prop && !value){
+        value = returnStyle()[prop];
+        if(/px/g.test(value)){value = parseInt(value);};
+        return value;
+      }else if(prop && value){
+
+        if(typeof value == 'number'){
+          if(!(prop == 'opacity' && prop == 'z-index')){
+            _this.style[prop] = value + 'px';
+          }else{
+            _this.style[prop] = value;
+          };
+        }else{
+          _this.style[prop] = value;
+        };
+      };
+    };
+  };
+})();
+
+(function(){
   makeCssToHTMLElement();
   makeVanilaSelector();
 })();
