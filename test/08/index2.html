@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Document</title>
+  <title>잡스형 보고있지?</title>
   <style>
   *{
     margin: 0; padding: 0;
@@ -111,8 +111,9 @@ function preventEvent(e) {
   e.stopPropagation();
 }
 
-function toggleClass(el,classname){
-  if(el.classList.contains(classname)){
+function toggleClass(el,classname, condition){
+  if(typeof condition == 'undefined'){condition = el.classList.contains(classname)}
+  if(condition){
     el.classList.remove(classname);
   }else{
     el.classList.add(classname);
@@ -154,7 +155,7 @@ var ScrollTest = function(){
     preventEvent(e);
   };
 
-  function navtest(){
+  function navCorrection(){
     var navSt = this.scrollTop;
     if(navSt <= 0){
       this.scrollTop = 1;
@@ -162,29 +163,31 @@ var ScrollTest = function(){
       this.scrollTop = v.navUnderValue - 1;
     };
   };
-  
-  function scrollOff(){
-    v.nowSt.now();
-    eventHandler(section, 'scroll mousewheel', fixedScroll, true);
-    // eventHandler(section, 'scroll mousewheel', preventEvent, true); 
-    toggleClass(section , 'lock');
-  };
-  function scrollOn(){
-    eventHandler(section, 'scroll mousewheel', fixedScroll, false );
-    // eventHandler(section, 'scroll mousewheel', preventEvent, false); 
-    toggleClass(section , 'lock');
+
+  function scrollOnOff(b){
+    if(b){v.nowSt.now()};
+    eventHandler(section, 'scroll mousewheel', fixedScroll, b);
   };
 
-  function isCanScroll(b){b ? scrollOff() : scrollOn()};
-
-  eventHandler(btn, 'click', function(){
+  function btnClick(){
     v.state.not();
     toggleClass(nav,'open');
-    isCanScroll(v.state.get());
-  });
+    toggleClass(section ,'lock');
+    scrollOnOff(v.state.get());
+  };
 
-  eventHandler(nav, 'scroll', navtest);
+  function sectionClick(){
+    if(!(v.state.get())){return};
+    btnClick();
+  };
+ 
+  function eventHandling(){
+    eventHandler(section, 'click', sectionClick);
+    eventHandler(btn, 'click', btnClick);
+    eventHandler(nav, 'scroll', navCorrection);
+  }; 
 
+  eventHandling();
 }// ScrollTest;
 eventHandler(document, 'DOMContentLoaded', ScrollTest);
 </script>
