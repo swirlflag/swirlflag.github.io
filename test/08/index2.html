@@ -10,6 +10,7 @@
     margin: 0; padding: 0;
   }
   html,body{
+    width: 100%;
     height: 100%;
   }
   #nav{
@@ -18,16 +19,17 @@
     display: inline-block;
     position: fixed;
     left: -80%;
+    opacity: 0.9;
     background-color: #1ff;
-    opacity: 0.5;	
-    z-index: 1;
+    
+    z-index: 10;
     overflow-y: scroll;
     overflow-x : hidden;
     -webkit-overflow-scrolling : touch;
   }
   #btn{
     position: fixed;
-    z-index: 1;
+    z-index: 10;
     padding: 10px;
     right: 0;
     background-color: #fff;
@@ -35,7 +37,7 @@
   #nav.open{
     left: 0;
   }
-  div{
+  section div{
     height: 500px;
   }
   .t1{
@@ -66,6 +68,19 @@
   #nav span:nth-child(2n){
     background-color: #3d3;
   }
+  #dimd{
+    width: 100%;
+    height: 100%;
+    display: inline-block;
+    background-color: #ff1;
+    position: absolute;
+    opacity: 0.4;
+    z-index: 1;
+    display: none;
+  }
+  #dimd.on{
+    display: block;
+  }
 
   </style>
 </head>
@@ -83,6 +98,7 @@
     <span></span>
   </div>
   <button id="btn">nav button</button>
+  <div id="dimd"></div>
   <section id="section">
     <div class="t1"></div>
     <div class="t2"></div>
@@ -124,6 +140,7 @@ var ScrollTest = function(){
   doc = document.scrollingElement;
   var nav = document.getElementById('nav'),
       btn = document.getElementById('btn'),
+      dimd = document.getElementById('dimd'),
       section = document.getElementById('section')
   ;
   var v = (function (){
@@ -181,6 +198,7 @@ var ScrollTest = function(){
   function btnClick(){
     v.state.not();
     toggleClass(nav,'open');
+    toggleClass(dimd,'on');
     toggleClass(section ,'lock');
     scrollOnOff(v.state.get());
   };
