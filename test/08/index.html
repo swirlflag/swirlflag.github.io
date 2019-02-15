@@ -18,7 +18,7 @@
     display: inline-block;
     position: fixed;
     left: -50%;
-    background-color: #d3d;
+    background-color: #3d3;
     opacity: 0.5;	
     z-index: 1;
   }
@@ -96,6 +96,12 @@ function toggleClass(el,classname){
   };
 };
 
+var nav = document.getElementById('nav'),
+    btn = document.getElementById('btn'),
+    section = document.getElementById('section')
+;
+
+
 var ScrollTest = function(){
 
   var agent = navigator.userAgent.toLowerCase() ,doc, isIos;
@@ -103,10 +109,6 @@ var ScrollTest = function(){
   doc = document.scrollingElement;
   isIos = /iPad|iPhone|iPod/.test(navigator.userAgent);
 
-  var nav = document.getElementById('nav'),
-      btn = document.getElementById('btn'),
-      section = document.getElementById('section')
-  ;
 
   var v = (function (){
 
@@ -140,13 +142,14 @@ var ScrollTest = function(){
     v.nowSt.now();
     eventHandler(window, 'scroll mousewheel', fixedScroll, true );
     eventHandler(window, 'scroll mousewheel', preventEvent, true); 
-    // toggleClass(section , 'lock');
+    section.style.overflowY = 'hidden';
     console.log(v.state.get());
   };
 
   function scrollOn(){
     eventHandler(window, 'scroll mousewheel', fixedScroll, false );
     eventHandler(window, 'scroll mousewheel', preventEvent, false); 
+    section.style.overflowY = 'scroll';
     // toggleClass(section , 'lock');
     console.log(v.state.get());
   };
