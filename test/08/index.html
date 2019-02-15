@@ -138,14 +138,14 @@ var ScrollTest = function(){
   
   function scrollOff(){
     v.nowSt.now();
-    eventHandler(window, 'scroll mousewheel', fixedScroll, true );
-    eventHandler(window, 'scroll mousewheel', preventEvent, true); 
+    // eventHandler(window, 'scroll mousewheel', fixedScroll, true );
+    // eventHandler(window, 'scroll mousewheel', preventEvent, true); 
     toggleClass(section , 'lock');
   };
 
   function scrollOn(){
-    eventHandler(window, 'scroll mousewheel', fixedScroll, false );
-    eventHandler(window, 'scroll mousewheel', preventEvent, false); 
+    // eventHandler(window, 'scroll mousewheel', fixedScroll, false );
+    // eventHandler(window, 'scroll mousewheel', preventEvent, false); 
     toggleClass(section , 'lock');
   };
 
