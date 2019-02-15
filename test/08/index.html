@@ -118,12 +118,12 @@ var ScrollTest = function(){
   
   function scrollOff(){
     v.nowSt.now();
-    eventHandler(doc, 'scroll mousewheel', fixedScroll, true );
+    eventHandler(window, 'scroll mousewheel', fixedScroll, true );
     eventHandler(window, 'scroll mousewheel', preventEvent, true); 
   };
 
   function scrollOn(){
-    eventHandler(doc, 'scroll mousewheel', fixedScroll, false );
+    eventHandler(window, 'scroll mousewheel', fixedScroll, false );
     eventHandler(window, 'scroll mousewheel', preventEvent, false); 
   };
 
