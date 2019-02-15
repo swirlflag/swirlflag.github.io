@@ -21,6 +21,7 @@
     background-color: #1ff;
     opacity: 0.5;	
     z-index: 1;
+    overflow-y: scroll;
   }
   #btn{
     position: fixed;
@@ -52,11 +53,32 @@
     overflow-y: hidden;
     -webkit-overflow-scrolling : unset;
   }
+
+  #nav span{
+    width: 100%; height: 150px;
+    display: inline-block;
+    background-color: #d3d;
+  }
+
+  #nav span:nth-child(2n){
+    background-color: #3d3;
+  }
+
   </style>
 </head>
 
 <body>
-  <div id="nav">nav</div>
+  <div id="nav">
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
   <button id="btn">nav button</button>
   <section id="section">
     <div class="t1"></div>
@@ -80,7 +102,6 @@ function eventHandler(el, eventNames,listener, type) {
   for (var i = 0; i < events.length; i++) {
     el.thisTypeEventListener(events[i], listener, false);
   };
-  
 };
 function preventEvent(e) {
   e.preventDefault();
@@ -127,13 +148,13 @@ var ScrollTest = function(){
   
   function scrollOff(){
     v.nowSt.now();
-    eventHandler(window, 'scroll mousewheel', fixedScroll, true );
-    eventHandler(window, 'scroll mousewheel', preventEvent, true); 
+    eventHandler(section, 'scroll mousewheel', fixedScroll, true );
+    eventHandler(section, 'scroll mousewheel', preventEvent, true); 
     toggleClass(section , 'lock');
   };
   function scrollOn(){
-    eventHandler(window, 'scroll mousewheel', fixedScroll, false );
-    eventHandler(window, 'scroll mousewheel', preventEvent, false); 
+    eventHandler(section, 'scroll mousewheel', fixedScroll, false );
+    eventHandler(section, 'scroll mousewheel', preventEvent, false); 
     toggleClass(section , 'lock');
   };
   function isCanScroll(b){b ? scrollOff() : scrollOn()};
@@ -145,5 +166,11 @@ var ScrollTest = function(){
 }// ScrollTest;
 eventHandler(document, 'DOMContentLoaded', ScrollTest ,true);
 </script>
+
+<!-- 
+
+eventHandler(nav, 'touchstart touchmove', preventEvent, true); 
+
+ -->
 
 </html>
