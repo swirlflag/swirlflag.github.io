@@ -18,7 +18,7 @@
     display: inline-block;
     position: fixed;
     left: -50%;
-    background-color: #1ff;
+    background-color: #d3d;
     opacity: 0.5;	
     z-index: 1;
   }
@@ -138,15 +138,17 @@ var ScrollTest = function(){
   
   function scrollOff(){
     v.nowSt.now();
-    // eventHandler(window, 'scroll mousewheel', fixedScroll, true );
-    // eventHandler(window, 'scroll mousewheel', preventEvent, true); 
-    toggleClass(section , 'lock');
+    eventHandler(window, 'scroll mousewheel', fixedScroll, true );
+    eventHandler(window, 'scroll mousewheel', preventEvent, true); 
+    // toggleClass(section , 'lock');
+    console.log(v.state.get());
   };
 
   function scrollOn(){
-    // eventHandler(window, 'scroll mousewheel', fixedScroll, false );
-    // eventHandler(window, 'scroll mousewheel', preventEvent, false); 
-    toggleClass(section , 'lock');
+    eventHandler(window, 'scroll mousewheel', fixedScroll, false );
+    eventHandler(window, 'scroll mousewheel', preventEvent, false); 
+    // toggleClass(section , 'lock');
+    console.log(v.state.get());
   };
 
   function isCanScroll(b){b ? scrollOff() : scrollOn()};
