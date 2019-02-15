@@ -18,7 +18,7 @@
     display: inline-block;
     position: fixed;
     left: -50%;
-    background-color: #d3d;
+    background-color: #ff1;
     opacity: 0.5;	
     z-index: 1;
   }
@@ -46,9 +46,11 @@
     height: 100vh;
     position: fixed;
     overflow-y: scroll;
+    -webkit-overflow-scrolling : touch;
   }
   #section.lock{
     overflow-y: hidden;
+    -webkit-overflow-scrolling : none;
   }
   </style>
 </head>
@@ -126,8 +128,9 @@ var ScrollTest = function(){
           set : function(f){f(nowSt)},
         }
       })(), 
-    };
-  })();
+
+    };//return
+  })();// v;
 
   function fixedScroll(){
     doc.scrollTop = v.nowSt.get();
