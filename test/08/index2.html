@@ -164,7 +164,7 @@ var ScrollTest = function(){
         var filter = "win16|win32|win64|mac", type;
         if (navigator.platform ) {
           if(filter.indexOf(navigator.platform.toLowerCase()) < 0) {
-            return 'touchstart';
+            return 'touchend';
           } else {
             return 'click';
           }
