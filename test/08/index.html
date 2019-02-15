@@ -15,7 +15,7 @@
     display: inline-block;
     position: fixed;
     left: -50%;
-    background-color: #ff1;
+    background-color: #d3d;
     opacity: 0.5;	
   }
   #btn{
@@ -62,6 +62,7 @@ function eventHandler(el, eventNames,listener, type) {
   for (var i = 0; i < events.length; i++) {
     el.thisTypeEventListener(events[i], listener, false);
   };
+  
 };
 
 function preventEvent(e) {
@@ -77,8 +78,12 @@ function toggleClass(el,classname){
   };
 };
 
-
 var ScrollTest = function(){
+
+  var agent = navigator.userAgent.toLowerCase() ,doc, isIos;
+  agent.indexOf("chrome") != -1 ? doc = document.documentElement : doc = document.body;
+  doc = document.documentElement;
+  isIos = /iPad|iPhone|iPod/.test(navigator.userAgent);
 
 
   var nav = document.getElementById('nav'),
@@ -86,11 +91,6 @@ var ScrollTest = function(){
   ;
 
   var v = (function (){
-    
-    var agent = navigator.userAgent.toLowerCase() ,doc, isIos;
-    // agent.indexOf("chrome") != -1 ? doc = document.documentElement : doc = document.body;
-    
-    isIos = /iPad|iPhone|iPod/.test(navigator.userAgent);
 
     var state = false, nowSt = 0;
 
@@ -106,29 +106,26 @@ var ScrollTest = function(){
       nowSt : (function(){
         return {
           get : function(){return nowSt},
-          now : function(){
-            nowSt = document.body.scrollTop;
-          },
+          now : function(){nowSt = doc.scrollTop},
           set : function(f){f(nowSt)},
         }
       })(), 
-      
     };
   })();
 
-
+  function fixedScroll(){
+    doc.scrollTop = v.nowSt.get();
+  };
   
   function scrollOff(){
     v.nowSt.now();
-    console.log(v.nowSt.get());
-
-    // eventHandler(window, 'scroll mousewheel', preventEvent, true);
-    // console.log(document.body.style.overflowY = 'hidden');
+    eventHandler(doc, 'scroll mousewheel', fixedScroll, true );
+    eventHandler(window, 'scroll mousewheel', preventEvent, true); 
   };
 
   function scrollOn(){
-    // eventHandler(window, 'scroll mousewheel', preventEvent, false);
-    // console.log(document.body.style.overflowY = 'scroll');
+    eventHandler(doc, 'scroll mousewheel', fixedScroll, false );
+    eventHandler(window, 'scroll mousewheel', preventEvent, false); 
   };
 
   function isCanScroll(b){b ? scrollOff() : scrollOn()};
