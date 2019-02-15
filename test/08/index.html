@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+  *{
+    margin: 0; padding: 0;
+  }
+  #nav{
+    transition: all 0.3s ease;
+    width: 50% ;height: 100%;
+    display: inline-block;
+    position: fixed;
+    left: -50%;
+    background-color: #000;
+    opacity: 0.5;	
+  }
+  #btn{
+    position: fixed;
+    padding: 10px;
+    right: 0;
+    background-color: #fff;
+  }
+  #nav.open{
+    left: 0;
+  }
+  div{
+    height: 500px;
+  }
+  .t1{
+    background-color: #d3d3d3;
+  }
+  .t2{
+    background-color: #999;
+  } 
+  </style>
+</head>
+
+<body>
+  <div id="nav">nav</div>
+  <button id="btn">nav button</button>
+  <div class="t1"></div>
+  <div class="t2"></div>
+  <div class="t1"></div>
+  <div class="t2"></div>
+  <div class="t1"></div>
+  <div class="t2"></div>
+</body>
+
+<script>
+function eventHandler(el, eventNames,listener, type) {
+  var events = eventNames.split(' ');
+  if(typeof type == 'undefined'){type = true};
+  if(type){
+    el.thisTypeEventListener = window.addEventListener;
+  }else{
+    el.thisTypeEventListener = window.removeEventListener;
+  };
+  for (var i = 0; i < events.length; i++) {
+    el.thisTypeEventListener(events[i], listener, false);
+  };
+};
+
+function preventEvent(e) {
+  e.preventDefault();
+  e.stopPropagation();
+}
+
+function toggleClass(el,classname){
+  if(el.classList.contains(classname)){
+    el.classList.remove(classname);
+  }else{
+    el.classList.add(classname);
+  };
+};
+
+var ScrollTest = function(){
+  var nav = document.getElementById('nav'),
+      btn = document.getElementById('btn')
+  ;
+
+  var state = (function (){
+    var state = false;
+    return {
+      get : function(){return state},
+      not : function(){state = !state},
+      set : function(f){f(state)},
+    };
+  })();
+
+  function scrollOff(){
+    eventHandler(window, 'scroll mousewheel', preventEvent, true);
+  };
+
+  function scrollOn(){
+    eventHandler(window, 'scroll mousewheel', preventEvent, false);
+  };
+
+  function isCanScroll(b){b ? scrollOff() : scrollOn()};
+
+  eventHandler(btn, 'click', function(){
+    state.not();
+    toggleClass(nav,'open');
+    isCanScroll(state.get());
+  },true);
+
+}// ScrollTest;
+
+eventHandler(document, 'DOMContentLoaded', ScrollTest ,true);
+
+</script>
+
+</html>
