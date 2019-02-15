@@ -36,18 +36,27 @@
   .t2{
     background-color: #999;
   } 
+  #section{
+    -webkit-overflow-scrolling: touch;
+  }
+  #section.lock{
+    -webkit-overflow-scrolling: unset;
+  }
   </style>
 </head>
 
 <body>
   <div id="nav">nav</div>
   <button id="btn">nav button</button>
-  <div class="t1"></div>
-  <div class="t2"></div>
-  <div class="t1"></div>
-  <div class="t2"></div>
-  <div class="t1"></div>
-  <div class="t2"></div>
+  <section id="section">
+    <div class="t1"></div>
+    <div class="t2"></div>
+    <div class="t1"></div>
+    <div class="t2"></div>
+    <div class="t1"></div>
+    <div class="t2"></div>
+  </section>
+  
 </body>
 
 <script>
