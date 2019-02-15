@@ -15,7 +15,7 @@
     display: inline-block;
     position: fixed;
     left: -50%;
-    background-color: #d3d;
+    background-color: #3d3;
     opacity: 0.5;	
   }
   #btn{
@@ -82,9 +82,8 @@ var ScrollTest = function(){
 
   var agent = navigator.userAgent.toLowerCase() ,doc, isIos;
   agent.indexOf("chrome") != -1 ? doc = document.documentElement : doc = document.body;
-  doc = document.documentElement;
+  doc = document.scrollingElement;
   isIos = /iPad|iPhone|iPod/.test(navigator.userAgent);
-
 
   var nav = document.getElementById('nav'),
       btn = document.getElementById('btn')
