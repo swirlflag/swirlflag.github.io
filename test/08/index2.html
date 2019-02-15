@@ -14,10 +14,10 @@
   }
   #nav{
     transition: all 0.3s ease;
-    width: 50% ;height: 100%;
+    width: 80% ;height: 100%;
     display: inline-block;
     position: fixed;
-    left: -50%;
+    left: -80%;
     background-color: #1ff;
     opacity: 0.5;	
     z-index: 1;
@@ -121,10 +121,7 @@ function toggleClass(el,classname, condition){
 };
 
 var ScrollTest = function(){
-  // var agent = navigator.userAgent.toLowerCase() ,doc, isIos;
-  // agent.indexOf("chrome") != -1 ? doc = document.documentElement : doc = document.body;
   doc = document.scrollingElement;
-  // isIos = /iPad|iPhone|iPod/.test(navigator.userAgent);
   var nav = document.getElementById('nav'),
       btn = document.getElementById('btn'),
       section = document.getElementById('section')
@@ -146,9 +143,21 @@ var ScrollTest = function(){
           set : function(f){f(nowSt)},
         }
       })(), 
+      clickType : (function(){
+        var filter = "win16|win32|win64|mac", type;
+        if (navigator.platform ) {
+          if(filter.indexOf(navigator.platform.toLowerCase()) < 0) {
+            return 'touchstart';
+          } else {
+            return 'click';
+          }
+        }
+      })(),
       navUnderValue : nav.scrollHeight - nav.offsetHeight ,
     };//return
   })();// v;
+
+  // console.log(v);
 
   function fixedScroll(e){
     doc.scrollTop = v.nowSt.get();
@@ -182,7 +191,7 @@ var ScrollTest = function(){
   };
  
   function eventHandling(){
-    eventHandler(section, 'touchstart click', sectionClick);
+    eventHandler(section, v.clickType, sectionClick);
     eventHandler(btn, 'click', btnClick);
     eventHandler(nav, 'scroll', navCorrection);
   }; 
