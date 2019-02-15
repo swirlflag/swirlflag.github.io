@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>잡스형 보고있지?</title>
+  <title>IOS 스크롤 관련</title>
   <style>
   *{
     margin: 0; padding: 0;
@@ -182,7 +182,7 @@ var ScrollTest = function(){
   };
  
   function eventHandling(){
-    eventHandler(section, 'click', sectionClick);
+    eventHandler(section, 'touchstart click', sectionClick);
     eventHandler(btn, 'click', btnClick);
     eventHandler(nav, 'scroll', navCorrection);
   }; 
