@@ -203,10 +203,10 @@ var ScrollTest = function(){
 
   function btnClick(){
     v.state.not();
-    toggleClass(nav,'open');
-    toggleClass(dimd,'on');
-    toggleClass(section ,'lock');
     scrollOnOff(v.state.get());
+    toggleClass(section ,'lock');
+    toggleClass(dimd,'on');
+    toggleClass(nav,'open');
   };
 
   function dimdClick(){
