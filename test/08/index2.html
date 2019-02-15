@@ -203,13 +203,13 @@ var ScrollTest = function(){
     scrollOnOff(v.state.get());
   };
 
-  function sectionClick(){
+  function dimdClick(){
     if(!(v.state.get())){return};
     btnClick();
   };
  
   function eventHandling(){
-    eventHandler(section, v.clickType, sectionClick);
+    eventHandler(dimd, v.clickType, dimdClick);
     eventHandler(btn, 'click', btnClick);
     eventHandler(nav, 'scroll', navCorrection);
   }; 
