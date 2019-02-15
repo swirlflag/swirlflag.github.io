@@ -15,7 +15,7 @@
     display: inline-block;
     position: fixed;
     left: -50%;
-    background-color: #d3d;
+    background-color: #ff1;
     opacity: 0.5;	
   }
   #btn{
@@ -77,36 +77,66 @@ function toggleClass(el,classname){
   };
 };
 
+
 var ScrollTest = function(){
+
+
   var nav = document.getElementById('nav'),
       btn = document.getElementById('btn')
   ;
 
-  var state = (function (){
-    var state = false;
+  var v = (function (){
+    
+    var agent = navigator.userAgent.toLowerCase() ,doc, isIos;
+    // agent.indexOf("chrome") != -1 ? doc = document.documentElement : doc = document.body;
+    
+    isIos = /iPad|iPhone|iPod/.test(navigator.userAgent);
+
+    var state = false, nowSt = 0;
+
     return {
-      get : function(){return state},
-      not : function(){state = !state},
-      set : function(f){f(state)},
+      state : (function(){
+        return {
+          get : function(){return state},
+          not : function(){state = !state},
+          set : function(f){f(state)},
+        }
+      })(),
+
+      nowSt : (function(){
+        return {
+          get : function(){return nowSt},
+          now : function(){
+            nowSt = document.body.scrollTop;
+          },
+          set : function(f){f(nowSt)},
+        }
+      })(), 
+      
     };
   })();
 
+
+  
   function scrollOff(){
-    eventHandler(window, 'scroll mousewheel', preventEvent, true);
-    console.log(document.body.style.overflowY = 'hidden');
+    v.nowSt.now();
+    console.log(v.nowSt.get());
+
+    // eventHandler(window, 'scroll mousewheel', preventEvent, true);
+    // console.log(document.body.style.overflowY = 'hidden');
   };
 
   function scrollOn(){
-    eventHandler(window, 'scroll mousewheel', preventEvent, false);
-    console.log(document.body.style.overflowY = 'scroll');
+    // eventHandler(window, 'scroll mousewheel', preventEvent, false);
+    // console.log(document.body.style.overflowY = 'scroll');
   };
 
   function isCanScroll(b){b ? scrollOff() : scrollOn()};
 
   eventHandler(btn, 'click', function(){
-    state.not();
+    v.state.not();
     toggleClass(nav,'open');
-    isCanScroll(state.get());
+    isCanScroll(v.state.get());
   },true);
 
 }// ScrollTest;
