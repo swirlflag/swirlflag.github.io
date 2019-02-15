@@ -93,10 +93,12 @@ var ScrollTest = function(){
 
   function scrollOff(){
     eventHandler(window, 'scroll mousewheel', preventEvent, true);
+    console.log(document.body.style.overflowY = 'hidden');
   };
 
   function scrollOn(){
     eventHandler(window, 'scroll mousewheel', preventEvent, false);
+    console.log(document.body.style.overflowY = 'scroll');
   };
 
   function isCanScroll(b){b ? scrollOff() : scrollOn()};
