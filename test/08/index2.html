@@ -178,21 +178,24 @@ var ScrollTest = function(){
 
   function fixedScroll(e){
     doc.scrollTop = v.nowSt.get();
+    if(this.scroll)
     preventEvent(e);
   };
 
-  function navCorrection(){
-    var navSt = this.scrollTop;
-    if(navSt <= 0){
+  function scrollCorrection(){
+    var st = this.scrollTop;
+    var underValue = this.scrollHeight - this.offsetHeight;
+    if(st <= 0){
       this.scrollTop = 1;
-    }else if(navSt >= v.navUnderValue){
-      this.scrollTop = v.navUnderValue - 1;
+    }else if(st >= underValue){
+      this.scrollTop = underValue - 1;
     };
   };
 
   function scrollOnOff(b){
     if(b){v.nowSt.now()};
     eventHandler(section, 'scroll mousewheel', fixedScroll, b);
+    eventHandler(dimd, 'scroll mousewheel', fixedScroll, b);
   };
 
   function btnClick(){
@@ -211,7 +214,8 @@ var ScrollTest = function(){
   function eventHandling(){
     eventHandler(dimd, v.clickType, dimdClick);
     eventHandler(btn, 'click', btnClick);
-    eventHandler(nav, 'scroll', navCorrection);
+    eventHandler(nav, 'scroll', scrollCorrection);
+    eventHandler(section, 'scroll', scrollCorrection);
   }; 
 
   eventHandling();
