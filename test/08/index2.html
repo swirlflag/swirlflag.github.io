@@ -140,7 +140,7 @@ function toggleClass(el,classname, condition){
 };
 
 var ScrollTest = function(){
-  doc = document.scrollingElement;
+  var doc = document.scrollingElement;
   var nav = document.getElementById('nav'),
       btn = document.getElementById('btn'),
       dimd = document.getElementById('dimd'),
@@ -159,7 +159,7 @@ var ScrollTest = function(){
       nowSt : (function(){
         return {
           get : function(){return nowSt},
-          now : function(){nowSt = doc.scrollTop},
+          now : function(){nowSt = section.scrollTop},
           set : function(f){f(nowSt)},
         }
       })(), 
@@ -180,8 +180,7 @@ var ScrollTest = function(){
   // console.log(v);
 
   function fixedScroll(e){
-    doc.scrollTop = v.nowSt.get();
-    if(this.scroll)
+    section.scrollTop = v.nowSt.get();
     preventEvent(e);
   };
 
@@ -195,8 +194,8 @@ var ScrollTest = function(){
     };
   };
 
-  function scrollOnOff(b){
-    if(b){v.nowSt.now()};
+  function scrollOnOff(b){ 
+    v.nowSt.now();
     eventHandler(section, 'scroll mousewheel', fixedScroll, b);
     eventHandler(dimd, 'scroll mousewheel', fixedScroll, b);
   };
