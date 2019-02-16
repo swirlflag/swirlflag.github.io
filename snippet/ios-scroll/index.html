@@ -28,7 +28,6 @@
     overflow-x : hidden;
     -webkit-overflow-scrolling : touch;
     display: inline-block;
-  
   }
   #navbtn{
     position: fixed;
@@ -57,14 +56,14 @@
     left: 0;
   }
 
-  #nav.open #navbtn{
+  #nav.open + #navbtn{
     left: 80%;
     width: 20vw;
     border-radius: 0;
     box-shadow: 5px 0px 5px rgba(0, 0, 0, 0.2);
 
   }  
-  #nav.open #navbtn .fas{
+  #nav.open + #navbtn .fas{
     font-size: 9vw;
     left: 6vw; top: 6vw;
     transform: rotate(-180deg);
@@ -185,9 +184,6 @@
 
 <body>
   <div id="nav">
-    <div id="navbtn">
-      <i class="fas fa-arrow-right"></i>
-    </div>
     <div class="nav-item">
       <i class="fab fa-android"></i>
       <span>Android</span>
@@ -244,8 +240,11 @@
       <i class="fab fa-youtube"></i>
       <span>Youtube</span>
     </div>
-
   </div>
+  <div id="navbtn">
+    <i class="fas fa-arrow-right"></i>
+  </div>
+
   
   <div id="dimd"></div>
   <section id="section">
