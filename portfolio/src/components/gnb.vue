@@ -21,7 +21,7 @@
     <div id="gnb-category">
       <p id="gnb-category-now">
         <span id="gnb-category-now-name">all</span>
-        <span class="arrow-bottom"></span>
+        <span class="arrow-triangle"></span>
       </p>
       <ul id="gnb-category-list">
         <li class="gnb-category-item">
@@ -56,27 +56,35 @@
         </li>
         <li class="gnb-contents-item new-dot">
           <a href="#">only five centuries,</a>
+          <span class="gnb-contents-item-arrow"></span>
         </li>
         <li class="gnb-contents-item new-dot">
           <a href="#">type specimen</a>
+          <span class="gnb-contents-item-arrow"></span>
         </li>
         <li class="gnb-contents-item new-dot">
           <a href="#">publishing</a>
+          <span class="gnb-contents-item-arrow"></span>
         </li>
         <li class="gnb-contents-item">
           <a href="#">software like</a>
+          <span class="gnb-contents-item-arrow"></span>
         </li>
         <li class="gnb-contents-item">
           <a href="#">packages and</a>
+          <span class="gnb-contents-item-arrow"></span>
         </li>
         <li class="gnb-contents-item">
           <a href="#">Ipsum generators</a>
+          <span class="gnb-contents-item-arrow"></span>
         </li>
         <li class="gnb-contents-item">
           <a href="#">or non-characteristic</a>
+          <span class="gnb-contents-item-arrow"></span>
         </li>
         <li class="gnb-contents-item">
           <a href="#">The first line</a>
+          <span class="gnb-contents-item-arrow"></span>
         </li>
 
       </ul>
@@ -85,7 +93,7 @@
 
   <footer id="gnb-bottom">
     <div id="gnb-bottom-wrap">
-      <div class="gnb-bottom-update">2019.02.18 update</div>
+      <div class="gnb-bottom-update new-dot">2019.02.18 update</div>
       <div class="gnb-bottom-copyright">2019 swirlflag</div>
     </div>
   </footer>
@@ -100,6 +108,7 @@ export default {
     return {
       categoryItemHeight : 0,
       categoryFullHeight : 0,
+      testdata : true
     }
   },
 
@@ -110,11 +119,11 @@ export default {
     categoryItem : () => document.getElementsByClassName('gnb-category-item'),
   },
   
-  methods : {
-    navCreate(){ //임시작성 :  값을 전부 즉시변경
-      this.categoryItemHeight = this.categoryNow.offsetHeight;
-      this.categoryFullHeight = this.categoryItemHeight * (this.categoryItem.length + 1);
 
+  //모든 메소드 임시작성 :  값을 전부 즉시변경
+  methods : {
+    navCreate(){ 
+      this.setNavCategoryHeight();
       this.category.addEventListener('click', () => {
         if(this.category.classList.contains('open')){
           this.category.classList.remove('open')
@@ -125,8 +134,22 @@ export default {
         };
       });
       this.category.style.height = this.categoryItemHeight + 'px';
+
+      setInterval(()=>{
+        if(this.category.classList.contains('open')){
+          this.setNavCategoryHeight();
+          this.category.style.height = this.categoryFullHeight + 'px';
+        }else{
+          this.setNavCategoryHeight();
+          this.category.style.height = this.categoryItemHeight + 'px';
+        }
+      },1000);
     },
 
+    setNavCategoryHeight(){
+      this.categoryItemHeight = this.categoryNow.offsetHeight;
+      this.categoryFullHeight = this.categoryItemHeight * (this.categoryItem.length + 1);
+    },
 
     test(){
       this.gnb.classList.toggle('close')
@@ -139,17 +162,14 @@ export default {
   },
 
   mounted(){
-    // console.log(this.hey);
     this.navCreate();
     window.test = this.test;
-  }
+  },
 
 }
 </script>
 
 <style scoped>
-
-
 
 .new-dot{
   position: relative;
@@ -159,13 +179,9 @@ export default {
   width: 4px; height: 4px;
   position: absolute; 
   top: calc(50% - 2px); left: 5px;
-  background-color: red;  
+  background-color: rgb(255, 19, 19);  
   border-radius: 200px;
 }
-.new-dot:hover::before{
-  background-color: #fff;
-}
-
 
 #gnb{
   width: 50%;
@@ -253,6 +269,8 @@ export default {
   border: 1px solid #444;  
   overflow-y:hidden;
   box-sizing: border-box;
+  cursor: pointer;
+  overflow-x: hidden;
 }
 #gnb-category::before{
   content: '';
@@ -265,7 +283,7 @@ export default {
   display: flex;
   align-items: center;
 }
-#gnb-category-now .arrow-bottom{
+#gnb-category-now .arrow-triangle{
   width: 10px; height: 6px;
   background: url(../assets/icons/mini_arrow.png) no-repeat;
   background-size: 10px 12px;
@@ -274,7 +292,7 @@ export default {
   margin-left: auto;
 }
 
-#gnb-category.open #gnb-category-now .arrow-bottom{
+#gnb-category.open #gnb-category-now .arrow-triangle{
   background-position: 0 -6px;
   opacity: 1;
 }
@@ -311,7 +329,29 @@ export default {
   font-size: 15px;
   display: flex;
   align-items: center;
+  overflow-x: hidden;
 }
+
+
+
+#gnb-contents-list .gnb-contents-item:first-child{
+  margin-top: 0;
+}
+
+
+#gnb-contents-list .gnb-contents-item a{ 
+  width: 100%; 
+  display: inline-block;
+  padding: 6px 0px;
+}
+#gnb-contents-list .gnb-contents-item:hover{
+  background-color: #444;
+}
+#gnb-contents-list .gnb-contents-item:hover a{
+  color: #fff;
+}
+
+
 
 #gnb-contents-list .gnb-contents-item-arrow{
   width: 16px;height: 6px;
@@ -319,29 +359,23 @@ export default {
   background-size: contain;
   margin-left: auto;
   position: relative;
+  right: 0;
 }
 #gnb-contents-list .gnb-contents-item-arrow::before{
+  content: '';
   width: 4px; height: 4px;  border-radius: 200px;
-  
+  background: transparent;
+  position: absolute;
+  left: 30px; top: 1px;
 }
 
-#gnb-contents-list .gnb-contents-item:first-child{
-  margin-top: 0;
+#gnb-contents-list .gnb-contents-item:hover .gnb-contents-item-arrow{
+  right: -30px;
 }
-#gnb-contents-list .gnb-contents-item:hover{
-  background-color: #444;
+#gnb-contents-list .gnb-contents-item:hover .gnb-contents-item-arrow::before{
+  background-color: #fff;
+  left: -23px;
 }
-
-#gnb-contents-list .gnb-contents-item:hover a{
-  color: #fff;
-}
-
-#gnb-contents-list .gnb-contents-item a{ 
-  width: 100%; 
-  display: inline-block;
-  padding: 6px 0px;
-}
-
 
 #gnb-bottom{
   position: absolute;
@@ -355,8 +389,7 @@ export default {
 }
 
 
-#gnb-bottom-wrap{
-  /* margin: 0 40px; */
+#gnb-bottom-wrap{  
   padding: 0 40px;
   display: flex;
 }
@@ -372,33 +405,80 @@ export default {
 
 
 /* transition */
+#gnb-inner,
 #gnb-category,
 #gnb-logo a,
 #gnb-top-menu > div[id^="gnb-top"],
 #gnb-top-menu > div[id^="gnb-top"] a,
-#gnb-category-now span,
+#gnb-category-now-name,
 .gnb-category-item span,
 .gnb-contents-item,
 .gnb-contents-item a,
-.new-dot::before
-{cursor: pointer; transition: all 0.5s ease;}
+.new-dot::before,
+.gnb-contents-item-arrow,
+.gnb-contents-item-arrow::before,
+.arrow-triangle
+{transition: all 0.5s ease;}
 
 
 
 
 
 
-@media (max-width: 768px) {
+@media screen and (max-width: 768px) {
 
   #gnb{
     position: fixed;
     width: 100%; max-width:100%;height: 100%;
-    background-color: #ddd;
-
-  }
-  #gnb-inner{
-    
   }
 
-}
+  #gnb.close{
+    margin-left: -100%;
+  }
+  #gnb-contents-list .gnb-contents-item{
+    margin: 0;
+  }
+  #gnb-contents-list .gnb-contents-item a{
+    padding: 20px 0;
+  }
+  #gnb-category-now,
+  .gnb-category-item{
+    padding: 0;
+    /* padding-left: 12px; */
+  }
+
+  #gnb-category-now-name,
+  .gnb-category-item span{
+    display: inline-block;
+    padding: 20px 15px ;
+    display: block;
+    width: 100%;
+  }
+  #gnb-category-now{position: relative;}
+  #gnb-category-now .arrow-triangle{
+    position: absolute;
+    top: calc(50% - 2px); right: 15px;
+  }
+  #gnb-category-now-name:hover{
+    background-color: #fff;
+    color: #444;
+  }
+}/*  */
+
+
+@media screen and (max-width: 1280px ){
+  
+  #gnb-inner,
+  #gnb-bottom-wrap{
+    padding: 0 20px;
+  }
+
+}/*  */
+
+
+@media screen and (min-width: 769px ) and (max-width : 1280px) {
+
+}/*  */
+
+
 </style>
