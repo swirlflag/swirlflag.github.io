@@ -1,5 +1,7 @@
 <template>
-  <section class="section">content</section>
+  <section class="section">
+    <img src="../assets/logo.png" alt="">
+  </section>
 </template>
 
 <script>
@@ -13,7 +15,11 @@ export default {
   width: auto;
   display: block;
   max-width : 100%;
-  background-color: #f3f3f3;
+  background-color: #fff;
   flex : 1;
+  display: flex;
+}
+img{
+  margin:  auto;
 }
 </style>

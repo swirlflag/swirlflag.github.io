@@ -42,7 +42,36 @@
         <li class="gnb-category-item">
           <span>item5</span>
         </li>
-
+        <li class="gnb-category-item">
+          <span>item5</span>
+        </li>
+        <li class="gnb-category-item">
+          <span>item5</span>
+        </li>
+        <li class="gnb-category-item">
+          <span>item5</span>
+        </li>
+        <li class="gnb-category-item">
+          <span>item5</span>
+        </li>
+        <li class="gnb-category-item">
+          <span>item5</span>
+        </li>
+        <li class="gnb-category-item">
+          <span>item5</span>
+        </li>
+        <li class="gnb-category-item">
+          <span>item5</span>
+        </li>
+        <li class="gnb-category-item">
+          <span>item5</span>
+        </li>
+        <li class="gnb-category-item">
+          <span>item5</span>
+        </li>
+        <li class="gnb-category-item">
+          <span>item5</span>
+        </li>
       </ul>
     </div>
 
@@ -81,10 +110,7 @@
   </div>
 
   <footer id="gnb-bottom">
-    <div id="gnb-bottom-wrap">
-      <div class="gnb-bottom-update">2019.02.18 update</div>
-      <div class="gnb-bottom-copyright">2019 swirlflag</div>
-    </div>
+    gnb bottom
   </footer>
 
 </nav>
@@ -143,11 +169,13 @@ export default {
   width: 50%;
   max-width : 500px;
   box-sizing: border-box;
+  
   letter-spacing: 0.1em;
   font-size: 1em;
   position: relative;
   overflow-x : hidden;
-  overflow: hidden;
+  /* overflow-y: scroll; */
+  overflow-y: auto;
   flex-direction: column;
 }
 
@@ -161,7 +189,7 @@ export default {
 }
 
 #gnb-inner{
-  height: 100%;
+  width: 100%; height: 100%;
   padding: 30px 20px 55px;
   padding: 0 40px;
   overflow-y: scroll;
@@ -173,7 +201,6 @@ export default {
 #gnb-top{
   display: flex;
   border: 1px solid #ddd;
-  margin-top: 30px;
 }
 #gnb-logo{
   font-size: 24px;
@@ -225,7 +252,6 @@ export default {
 #gnb-contents{
   padding-top: 30px;
   border-top: 2px solid #000;
-  margin-bottom: 70px !important;
 }
 
 #gnb-contents-list .gnb-contents-item{
@@ -246,28 +272,14 @@ export default {
 
 #gnb-bottom{
   position: absolute;
-  width: 100%;
   bottom: 0; left: 0;
+  width: 100%;
+  /* border: 1px solid #000; */
   border-top: 1px solid #000;
   background: #ddd;
+  /* margin-top: auto; */
+  padding: 15px 0 15px 20px;
   margin-bottom: 0 !important;
-  font-size: 12px;
-  padding: 15px 0;
-}
-
-
-#gnb-bottom-wrap{
-  /* margin: 0 40px; */
-  padding: 0 40px;
-  display: flex;
-}
-#gnb-bottom .gnb-bottom-update{
-  padding-left: 15px;
-}
-
-#gnb-bottom .gnb-bottom-copyright{
-  padding-left: 15px;
-  margin-left: auto;
 }
 
 

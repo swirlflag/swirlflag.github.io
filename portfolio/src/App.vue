@@ -24,12 +24,11 @@ export default {
 </script>
 
 <style>
-
-
-
-
+a{text-decoration: none; color: #333;}
+li{list-style: none;}
 html,body{
-  height: 100%;
+  height: 100%; color: #333; overflow: hidden;
+  font-size: 14px;
 }
 #app {
   width: 100%; height: 100%;
