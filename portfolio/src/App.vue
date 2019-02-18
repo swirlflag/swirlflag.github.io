@@ -10,6 +10,8 @@
 <script>
 import 'reset-css';
 
+import './assets/font/font.css';
+
 import gnb from './components/gnb.vue';
 import contentView from './components/contentView.vue';
 
@@ -24,11 +26,16 @@ export default {
 </script>
 
 <style>
-a{text-decoration: none; color: #333;}
+a{text-decoration: none; color: #444;}
 li{list-style: none;}
 html,body{
-  height: 100%; color: #333; overflow: hidden;
+  
+  
+  font-family:'Helvetica' , 'Noto Sans KR' , sans-serif;
+  
+  height: 100%; color: #444; overflow: hidden;
   font-size: 14px;
+  font-weight: 100;
 }
 #app {
   width: 100%; height: 100%;
