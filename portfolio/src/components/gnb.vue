@@ -52,6 +52,7 @@
       <ul id="gnb-contents-list">
         <li class="gnb-contents-item new-dot">
           <a href="#">Lorem Ipsum</a>
+          <span class="gnb-contents-item-arrow"></span>
         </li>
         <li class="gnb-contents-item new-dot">
           <a href="#">only five centuries,</a>
@@ -249,7 +250,7 @@ export default {
 #gnb-top-menu > div[id^="gnb-top"]:last-child::before{display: none;}
 
 #gnb-category{
-  border: 1px solid #444 ;  
+  border: 1px solid #444;  
   overflow-y:hidden;
   box-sizing: border-box;
 }
@@ -312,12 +313,16 @@ export default {
   align-items: center;
 }
 
-#gnb-contents-list .gnb-contents-item::after{
-  content: '';
+#gnb-contents-list .gnb-contents-item-arrow{
   width: 16px;height: 6px;
   background: url(../assets/icons/mini-arrow2.png) no-repeat;
   background-size: contain;
   margin-left: auto;
+  position: relative;
+}
+#gnb-contents-list .gnb-contents-item-arrow::before{
+  width: 4px; height: 4px;  border-radius: 200px;
+  
 }
 
 #gnb-contents-list .gnb-contents-item:first-child{
