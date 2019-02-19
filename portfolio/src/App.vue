@@ -9,7 +9,6 @@
 
 <script>
 import 'reset-css';
-
 import './assets/font/font.css';
 
 import gnb from './components/gnb.vue';
@@ -20,6 +19,30 @@ export default {
   components : {
     'gnb': gnb,
     'content-view' : contentView,
+  },
+
+  computed : {
+    allWrap : () => document.getElementById('all-wrap'),
+  },
+
+  methods : {
+    setisMobile(){
+      this.$store.commit('LOAD_isMobile');
+      if(this.$store.getters.GET_isMobile){
+        this.allWrap.classList.add('mobile-app');
+      }else{
+        this.allWrap.classList.add('pc-app');
+      }
+      
+    },
+  },
+
+  created(){
+    console.log('create');
+  },
+
+  mounted(){
+    this.setisMobile();
   },
 
 }
@@ -45,7 +68,6 @@ html,body{
   display: flex;
   width: 100%; height: 100%;
 }
-
 
 
 /* transition */
