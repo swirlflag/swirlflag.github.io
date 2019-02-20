@@ -25,7 +25,8 @@
       </p>
       <ul id="gnb-category-list">
         <li class="gnb-category-item">
-          <a>markup</a>
+          <a href="#">markup</a>
+          <!-- <span>markup</span> -->
         </li>
         <li class="gnb-category-item">
           <span>front end</span>
@@ -105,7 +106,6 @@
 // const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
 // import '../css/m_gnb.css';
 
-
 export default {
 
   data(){
@@ -127,8 +127,7 @@ export default {
 
   //모든 메소드 임시작성 :  값을 전부 즉시변경
   methods : {
-
-
+    
     setNavCategoryHeight(){
       this.categoryItemHeight = this.categoryNow.offsetHeight;
       this.categoryFullHeight = this.categoryItemHeight * (this.categoryItem.length + 1);
@@ -146,7 +145,6 @@ export default {
 
     mobileCSS(){
       if(!(this.$store.state.isMobile)){return}
-
     },
   
     navCreate(){ 
@@ -157,6 +155,7 @@ export default {
           this.category.classList.remove('open')
           this.category.style.height = this.categoryItemHeight + 'px';
         }else{
+          console.log(this.categoryFullHeight);
           this.category.classList.add('open');
           this.category.style.height = this.categoryFullHeight + 'px';
         };
@@ -170,6 +169,7 @@ export default {
         })
       };
       setInterval(()=>{
+        console.log(1);	
         if(this.category.classList.contains('open')){
           this.setNavCategoryHeight();
           this.category.style.height = this.categoryFullHeight + 'px';
@@ -335,7 +335,7 @@ export default {
 }
 
 #gnb-category-now-name,
-.gnb-category-item span
+.gnb-category-item span,
 .gnb-category-item a{
   display: inline-block;
   padding: 4px 5px;
@@ -470,7 +470,7 @@ export default {
 .mobile-app #gnb-top-menu > div[id^="gnb-top"] a:active,
 .mobile-app #gnb-category-list .gnb-category-item:active, */
 .pc-app #gnb-top-menu > div[id^="gnb-top"] a:hover,
-.pc-app .gnb-category-item span:hover
+.pc-app .gnb-category-item span:hover,
 .pc-app .gnb-category-item a:hover
 { 
   background: #444;
