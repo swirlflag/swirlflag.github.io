@@ -25,8 +25,7 @@
       </p>
       <ul id="gnb-category-list">
         <li class="gnb-category-item">
-          <a href="#">markup</a>
-          <!-- <span>markup</span> -->
+          <span>markup</span>
         </li>
         <li class="gnb-category-item">
           <span>front end</span>
@@ -122,10 +121,11 @@ export default {
     categoryNow : () => document.getElementById('gnb-category-now'),
     categoryItem : () => document.getElementsByClassName('gnb-category-item'),
     contentsItem : () => document.getElementsByClassName('gnb-contents-item'),
+    mobileActiveElements : () => document.querySelectorAll('#gnb-logo a, #gnb-top-menu a,.gnb-category-item span'),
   },
   
 
-  //모든 메소드 임시작성 :  값을 전부 즉시변경
+  //모든 메소드 임시작성 :  일단모양만 동작하게 값을 전부 즉시변경/. 나중에 무조건 리팩토링 해야함
   methods : {
     
     setNavCategoryHeight(){
@@ -148,7 +148,6 @@ export default {
     },
   
     navCreate(){ 
-      this.mobileCSS();
       this.setNavCategoryHeight();
       this.category.addEventListener('click', () => {
         if(this.category.classList.contains('open')){
@@ -168,8 +167,17 @@ export default {
           this.contentsItem[i].classList.add('select');
         })
       };
+
+      for(let i = 0; i < this.mobileActiveElements.length; ++i){
+        this.mobileActiveElements[i].addEventListener('touchstart', (e) =>{
+          this.mobileActiveElements[i].classList.add('mobile-active');
+        });
+        this.mobileActiveElements[i].addEventListener('touchend', (e) =>{
+          this.mobileActiveElements[i].classList.remove('mobile-active');
+        });
+      };
+
       setInterval(()=>{
-        console.log(1);	
         if(this.category.classList.contains('open')){
           this.setNavCategoryHeight();
           this.category.style.height = this.categoryFullHeight + 'px';
@@ -188,6 +196,7 @@ export default {
   mounted(){
     this.navCreate();
     window.test = this.test;
+    console.log(this.mobileTouchElement);
   },
 
 }
@@ -335,8 +344,8 @@ export default {
 }
 
 #gnb-category-now-name,
-.gnb-category-item span,
-.gnb-category-item a{
+.gnb-category-item span
+{
   display: inline-block;
   padding: 4px 5px;
 }
@@ -462,8 +471,7 @@ export default {
 .mobile-app #gnb-top-menu > div[id^="gnb-top"],
 .mobile-app #gnb-top-menu > div[id^="gnb-top"] a,
 .mobile-app #gnb-category-list .gnb-category-item,
-.mobile-app #gnb-category-list .gnb-category-item span,
-.mobile-app #gnb-category-list .gnb-category-item a
+.mobile-app #gnb-category-list .gnb-category-item span
 {transition: none !important; }
 
 /* .mobile-app #gnb-logo:active a,
@@ -471,20 +479,22 @@ export default {
 .mobile-app #gnb-category-list .gnb-category-item:active, */
 .pc-app #gnb-top-menu > div[id^="gnb-top"] a:hover,
 .pc-app .gnb-category-item span:hover,
-.pc-app .gnb-category-item a:hover
+.mobile-app #gnb-top-menu > div[id^="gnb-top"] a.mobile-active,
+.mobile-app #gnb-logo a.mobile-active,
+.mobile-app .gnb-category-item span.mobile-active
 { 
   background: #444;
   color: #fff;
 }
 
-.mobile-app #gnb-logo,
+
+/* .mobile-app #gnb-logo,
 .mobile-app #gnb-top-menu > div[id^="gnb-top"] a,
 .mobile-app #gnb-category-list .gnb-category-item,
-.mobile-app #gnb-category-list .gnb-category-item a,
 .mobile-app #gnb-category-list .gnb-category-item span
 {
   -webkit-tap-highlight-color: rgba(0,0,0 ,0.8) !important;
-}
+} */
 
 .mobile-app #gnb-category-now,
 .mobile-app .gnb-category-item{
@@ -492,8 +502,8 @@ export default {
 }
 
 .mobile-app #gnb-category-now-name,
-.mobile-app .gnb-category-item span,
-.mobile-app .gnb-category-item a
+.mobile-app .gnb-category-item span
+
 {
   padding: 15px 15px ;
   display: block;
