@@ -25,7 +25,7 @@
       </p>
       <ul id="gnb-category-list">
         <li class="gnb-category-item">
-          <span>markup</span>
+          <a>markup</a>
         </li>
         <li class="gnb-category-item">
           <span>front end</span>
@@ -252,7 +252,6 @@ export default {
 #gnb-inner::-webkit-scrollbar {width: 3px; height: 3px;}
 #gnb-inner::-webkit-scrollbar-track {background: #f5f5f5; }
 #gnb-inner::-webkit-scrollbar-thumb {background: #444; }
-#gnb-inner::-webkit-scrollbar-thumb:hover {}
 
 #gnb-top{
   display: flex;
@@ -336,7 +335,8 @@ export default {
 }
 
 #gnb-category-now-name,
-.gnb-category-item span{
+.gnb-category-item span
+.gnb-category-item a{
   display: inline-block;
   padding: 4px 5px;
 }
@@ -462,7 +462,8 @@ export default {
 .mobile-app #gnb-top-menu > div[id^="gnb-top"],
 .mobile-app #gnb-top-menu > div[id^="gnb-top"] a,
 .mobile-app #gnb-category-list .gnb-category-item,
-.mobile-app #gnb-category-list .gnb-category-item span
+.mobile-app #gnb-category-list .gnb-category-item span,
+.mobile-app #gnb-category-list .gnb-category-item a
 {transition: none !important; }
 
 /* .mobile-app #gnb-logo:active a,
@@ -470,6 +471,7 @@ export default {
 .mobile-app #gnb-category-list .gnb-category-item:active, */
 .pc-app #gnb-top-menu > div[id^="gnb-top"] a:hover,
 .pc-app .gnb-category-item span:hover
+.pc-app .gnb-category-item a:hover
 { 
   background: #444;
   color: #fff;
@@ -477,9 +479,11 @@ export default {
 
 .mobile-app #gnb-logo,
 .mobile-app #gnb-top-menu > div[id^="gnb-top"] a,
-.mobile-app #gnb-category-list .gnb-category-item
+.mobile-app #gnb-category-list .gnb-category-item,
+.mobile-app #gnb-category-list .gnb-category-item a,
+.mobile-app #gnb-category-list .gnb-category-item span
 {
-  -webkit-tap-highlight-color: rgba(114, 114, 114, 0.5);
+  -webkit-tap-highlight-color: rgba(0,0,0 ,0.8) !important;
 }
 
 .mobile-app #gnb-category-now,
@@ -488,7 +492,9 @@ export default {
 }
 
 .mobile-app #gnb-category-now-name,
-.mobile-app .gnb-category-item span{
+.mobile-app .gnb-category-item span,
+.mobile-app .gnb-category-item a
+{
   padding: 15px 15px ;
   display: block;
   width: 100%;
@@ -514,7 +520,7 @@ export default {
   }
 
   #gnb-contents-list .gnb-contents-item a{
-    padding: 20px 0;
+    padding: 15px 0;
   }
 
   #gnb-category-now{position: relative;}
