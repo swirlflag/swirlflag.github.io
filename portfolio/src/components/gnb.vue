@@ -226,6 +226,9 @@ export default {
   -webkit-tap-highlight-color: transparent;
 }
 
+
+
+
 #gnb.close{/* 임시 */
   margin-left: -50%;
 }
@@ -307,7 +310,6 @@ export default {
 #gnb-category::before{
   content: '';
   width: 10px;height: 10px;
-  background-color: #d3d;
 }
 
 #gnb-category-now{
@@ -463,15 +465,23 @@ export default {
 .mobile-app #gnb-category-list .gnb-category-item span
 {transition: none !important; }
 
-.mobile-app #gnb-logo:active a,
+/* .mobile-app #gnb-logo:active a,
 .mobile-app #gnb-top-menu > div[id^="gnb-top"] a:active,
-.mobile-app #gnb-category-list .gnb-category-item:active,
+.mobile-app #gnb-category-list .gnb-category-item:active, */
 .pc-app #gnb-top-menu > div[id^="gnb-top"] a:hover,
 .pc-app .gnb-category-item span:hover
 { 
   background: #444;
   color: #fff;
 }
+
+.mobile-app #gnb-logo,
+.mobile-app #gnb-top-menu > div[id^="gnb-top"] a,
+.mobile-app #gnb-category-list .gnb-category-item
+{
+  -webkit-tap-highlight-color: rgba(114, 114, 114, 0.5);
+}
+
 .mobile-app #gnb-category-now,
 .mobile-app .gnb-category-item{
   padding: 0;
