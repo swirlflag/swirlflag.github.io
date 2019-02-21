@@ -131,13 +131,15 @@ export default {
     scrollCorrection(el){
       el.addEventListener('scroll', function(){
         if(el.offsetHeight + el.scrollTop != el.scrollHeight){return};
-        el.scrollTop = (el.scrollHeight - (el.scrollHeight - el.scrollTop)) - 1;
+        el.scrollTop = (el.scrollHeight - (el.scrollHeight - el.scrollTop)) - 0.1;
       });
     },
 
     setNavCategoryHeight(){
       this.categoryItemHeight = this.categoryNow.offsetHeight;
       this.categoryFullHeight = this.categoryItemHeight * (this.categoryItem.length + 1);
+      this.category.style.height = this.categoryFullHeight + 'px';
+      console.log(this.categoryItemHeight);
     },
 
     resetSelectContentsItem(){
@@ -146,18 +148,17 @@ export default {
       };
     },
 
-    test(){
-      this.gnb.classList.toggle('close')
-    },
+    testtoggle(){this.gnb.classList.toggle('close')},
+    testclose(){this.gnb.classList.add('close')},
+    testopen(){this.gnb.classList.remove('close')},
 
-    mobileCSS(){
-      if(!(this.$store.state.isMobile)){return}
-    },
+    mobileCSS(){if(!(this.$store.state.isMobile)){return}},
   
     navCreate(){ 
       var _this = this;
       this.scrollCorrection(this.gnbInner);
       this.setNavCategoryHeight();
+
       this.category.addEventListener('click', () => {
         if(this.category.classList.contains('open')){
           this.category.classList.remove('open')
@@ -167,20 +168,14 @@ export default {
           this.category.style.height = this.categoryFullHeight + 'px';
         };
       });
+
       this.category.style.height = this.categoryItemHeight + 'px';
 
       for(let i = 0; i < this.contentsItem.length; ++i){
-        // if(this.$store.state.isMobile){
-        //   this.contentsItem[i].addEventListener('touchend', function(){
-        //     _this.resetSelectContentsItem();
-        //     this.classList.add('select');
-        //   });
-        // }else{
-          this.contentsItem[i].addEventListener('click', function(){
-            _this.resetSelectContentsItem();
-            this.classList.add('select');
-          });
-        // }
+        this.contentsItem[i].addEventListener('click', function(){
+          _this.resetSelectContentsItem();
+          this.classList.add('select');
+        });
       };
 
       for(let i = 0; i < this.mobileActiveElements.length; ++i){
@@ -193,16 +188,14 @@ export default {
       };
 
       setInterval(()=>{
+        this.setNavCategoryHeight();
         if(this.category.classList.contains('open')){
-          this.setNavCategoryHeight();
           this.category.style.height = this.categoryFullHeight + 'px';
         }else{
-          this.setNavCategoryHeight();
           this.category.style.height = this.categoryItemHeight + 'px';
         }
       },1000);
 
-  
     },
   },
 
@@ -212,7 +205,9 @@ export default {
 
   mounted(){
     this.navCreate();
-    window.test = this.test;
+    window.testtoggle = this.testtoggle;
+    window.testopen = this.testopen;
+    window.testclose = this.testclose;
   },
 
 }
@@ -269,10 +264,14 @@ export default {
 #gnb-inner > div[id^="gnb"]{
   margin-bottom: 30px;
 }
-
+/* 
 #gnb-inner::-webkit-scrollbar {width: 3px; height: 3px;}
 #gnb-inner::-webkit-scrollbar-track {background: #f5f5f5; }
-#gnb-inner::-webkit-scrollbar-thumb {background: #444; }
+#gnb-inner::-webkit-scrollbar-thumb {background: #444; } */
+
+::-webkit-scrollbar {width: 3px !important; height: 3px !important;}
+::-webkit-scrollbar-track {background: #f5f5f5 !important; }
+::-webkit-scrollbar-thumb {background: #444 !important; }
 
 #gnb-top{
   display: flex;
@@ -294,6 +293,7 @@ export default {
 #gnb-top-menu{
   display: flex;
   margin-left: auto;
+  margin-right: -6px;
   align-items: flex-end;
   letter-spacing: 0.15em;
 }
@@ -315,6 +315,7 @@ export default {
   background: #ddd;
 }
 
+
 #gnb-top-menu > div[id^="gnb-top"]:last-child{margin-right: 0;}
 #gnb-top-menu > div[id^="gnb-top"]:last-child::before{display: none;}
 
@@ -325,7 +326,6 @@ export default {
   cursor: pointer;
   overflow-x: hidden;
   letter-spacing: 0.1em;
-  
 }
 #gnb-category::before{
   content: '';
@@ -362,8 +362,6 @@ export default {
   padding: 4px 5px;
 }
 
-
-
 #gnb-contents{
   padding-top: 30px;
   border-top: 2px solid #000;
@@ -390,7 +388,7 @@ export default {
 #gnb-contents-list .gnb-contents-item a{ 
   width: 100%; 
   display: inline-block;
-  padding: 6px 0px;
+  padding: 5px 0px 6px;
 }
 
 
@@ -442,6 +440,7 @@ export default {
 #gnb-bottom .gnb-bottom-copyright{
   padding-left: 15px;
   margin-left: auto;
+  margin-right: 2px;
 }
 
 /* transition */
@@ -492,9 +491,6 @@ export default {
 .mobile-app #gnb-category-list .gnb-category-item span
 {transition: none !important; }
 
-/* .mobile-app #gnb-logo:active a,
-.mobile-app #gnb-top-menu > div[id^="gnb-top"] a:active,
-.mobile-app #gnb-category-list .gnb-category-item:active, */
 .pc-app #gnb-top-menu > div[id^="gnb-top"] a:hover,
 .pc-app .gnb-category-item span:hover,
 .mobile-app #gnb-top-menu > div[id^="gnb-top"] a.mobile-active,
@@ -506,29 +502,31 @@ export default {
 }
 
 
-/* .mobile-app #gnb-logo,
-.mobile-app #gnb-top-menu > div[id^="gnb-top"] a,
-.mobile-app #gnb-category-list .gnb-category-item,
-.mobile-app #gnb-category-list .gnb-category-item span
-{
-  -webkit-tap-highlight-color: rgba(0,0,0 ,0.8) !important;
-} */
-
 .mobile-app #gnb-category-now,
 .mobile-app .gnb-category-item{
   padding: 0;
 }
 
+.mobile-app .gnb-contents-item{
+  padding-left: 20px !important;
+}
+
 .mobile-app #gnb-category-now-name,
 .mobile-app .gnb-category-item span
-
 {
-  padding: 15px 15px ;
+  padding:20px;
   display: block;
   width: 100%;
 }
-
-
+.mobile-app #gnb-bottom .gnb-bottom-update{
+  padding-left: 20px;
+}
+.mobile-app #gnb-bottom{
+  width: 100%;
+}
+.mobile-app #gnb-top-menu > div[id^="gnb-top"]{margin:0 10px !important;}
+.mobile-app #gnb-top-menu > div[id^="gnb-top"]::before{right: -10px !important; }
+.mobile-app #gnb-top-menu > div[id^="gnb-top"]:last-child{margin-right: 0 !important;}
 
 
 @media screen and (max-width: 768px) {
@@ -548,7 +546,7 @@ export default {
   }
 
   #gnb-contents-list .gnb-contents-item a{
-    padding: 15px 0;
+    padding: 20px 0;
     font-size: 14px;
     box-sizing: border-box;
   }
@@ -560,10 +558,12 @@ export default {
   }
   .new-dot::before{
     width: 5px; height: 5px; 
-    top: calc(50% - 3px);
+    top: calc(50% - 2px);
     border-radius: 2000px;
-    left: 1px;
+    left: 5px;
   }
+  
+  
 
 }/*  */
 
@@ -577,6 +577,7 @@ export default {
   #gnb-top{
     margin-top: 30px;
   }
+
 
 }/*  */
 
