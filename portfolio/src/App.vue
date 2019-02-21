@@ -38,12 +38,11 @@ export default {
   },
 
   created(){
-    console.log('create');
+    console.log('create app');
   },
 
   mounted(){
     this.setisMobile();
-
   },
 
 }
