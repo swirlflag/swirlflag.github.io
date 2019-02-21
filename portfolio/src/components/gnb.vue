@@ -117,6 +117,7 @@ export default {
 
   computed : {
     gnb: () => document.getElementById('gnb'),
+    gnbInner: () => document.getElementById('gnb-inner'),
     category : () => document.getElementById('gnb-category'),
     categoryNow : () => document.getElementById('gnb-category-now'),
     categoryItem : () => document.getElementsByClassName('gnb-category-item'),
@@ -124,10 +125,16 @@ export default {
     mobileActiveElements : () => document.querySelectorAll('#gnb-logo a, #gnb-top-menu a,.gnb-category-item span'),
   },
   
-
   //모든 메소드 임시작성 :  일단모양만 동작하게 값을 전부 즉시변경/. 나중에 무조건 리팩토링 해야함
   methods : {
     
+    scrollCorrection(el){
+      el.addEventListener('scroll', function(){
+        if(el.offsetHeight + el.scrollTop < el.scrollHeight){return};
+        el.scrollTop = (el.scrollHeight - (el.scrollHeight - el.scrollTop)) - 1;
+      });
+    },
+
     setNavCategoryHeight(){
       this.categoryItemHeight = this.categoryNow.offsetHeight;
       this.categoryFullHeight = this.categoryItemHeight * (this.categoryItem.length + 1);
@@ -149,6 +156,7 @@ export default {
   
     navCreate(){ 
       var _this = this;
+      this.scrollCorrection(this.gnbInner);
       this.setNavCategoryHeight();
       this.category.addEventListener('click', () => {
         if(this.category.classList.contains('open')){
@@ -186,6 +194,8 @@ export default {
           this.category.style.height = this.categoryItemHeight + 'px';
         }
       },1000);
+
+      
     },
   },
 
@@ -414,7 +424,6 @@ export default {
   letter-spacing: 0.1em;
 }
 
-
 #gnb-bottom-wrap{  
   padding: 0 40px;
   display: flex;
@@ -428,7 +437,6 @@ export default {
   margin-left: auto;
 }
 
-
 /* transition */
 #gnb-inner,
 #gnb-logo a,
@@ -439,7 +447,6 @@ export default {
 .gnb-contents-item,
 .gnb-contents-item a,
 .new-dot::before
-
 {transition: all 0.2s ease;}
 
 .arrow-triangle,
