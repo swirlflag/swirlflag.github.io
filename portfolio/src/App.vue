@@ -26,22 +26,28 @@ export default {
   },
 
   methods : {
-    setisMobile(){
+    decisionIsMobile(){
       this.$store.commit('LOAD_isMobile');
+    },
+
+    setIsMobile(){
       if(this.$store.getters.GET_isMobile){
         this.allWrap.classList.add('mobile-app');
       }else{
         this.allWrap.classList.add('pc-app');
-      }
+      };
     },
+
+    
   },
 
   created(){
     console.log('create app');
+    this.decisionIsMobile();
   },
 
   mounted(){
-    this.setisMobile();
+    this.setIsMobile();
   },
 
 }

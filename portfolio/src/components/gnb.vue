@@ -170,10 +170,17 @@ export default {
       this.category.style.height = this.categoryItemHeight + 'px';
 
       for(let i = 0; i < this.contentsItem.length; ++i){
-        this.contentsItem[i].addEventListener('click', function(){
-          _this.resetSelectContentsItem();
-          this.classList.add('select');
-        });
+        // if(this.$store.state.isMobile){
+        //   this.contentsItem[i].addEventListener('touchend', function(){
+        //     _this.resetSelectContentsItem();
+        //     this.classList.add('select');
+        //   });
+        // }else{
+          this.contentsItem[i].addEventListener('click', function(){
+            _this.resetSelectContentsItem();
+            this.classList.add('select');
+          });
+        // }
       };
 
       for(let i = 0; i < this.mobileActiveElements.length; ++i){
@@ -195,7 +202,7 @@ export default {
         }
       },1000);
 
-      
+  
     },
   },
 
@@ -457,19 +464,23 @@ export default {
 #gnb-category
 {transition: all 1s cubic-bezier(0.645, 0.045, 0.355, 1);}
 
-#gnb-contents-list .gnb-contents-item:hover,
+.pc-app #gnb-contents-list .gnb-contents-item:hover,
 #gnb-contents-list .gnb-contents-item.select{
   background-color: #000;
 }
-#gnb-contents-list .gnb-contents-item:hover a,
+.pc-app #gnb-contents-list .gnb-contents-item:hover a,
 #gnb-contents-list .gnb-contents-item.select a{
   color: #fff;
 }
 
-#gnb-contents-list .gnb-contents-item:hover .gnb-contents-item-arrow{
+.pc-app #gnb-contents-list .gnb-contents-item:hover .gnb-contents-item-arrow,
+.mobile-app #gnb-contents-list .gnb-contents-item.select .gnb-contents-item-arrow
+{
   right: -30px;
 }
-#gnb-contents-list .gnb-contents-item:hover .gnb-contents-item-arrow::before{
+.pc-app #gnb-contents-list .gnb-contents-item:hover .gnb-contents-item-arrow::before,
+.mobile-app #gnb-contents-list .gnb-contents-item.select .gnb-contents-item-arrow::before
+{
   background-color: #fff;
   left: -23px;
 }
