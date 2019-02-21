@@ -19,6 +19,7 @@ export default {
   flex : 1;
   display: flex;
 }
+
 img{
   margin:  auto;
 }

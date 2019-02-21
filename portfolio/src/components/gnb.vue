@@ -154,7 +154,6 @@ export default {
           this.category.classList.remove('open')
           this.category.style.height = this.categoryItemHeight + 'px';
         }else{
-          console.log(this.categoryFullHeight);
           this.category.classList.add('open');
           this.category.style.height = this.categoryFullHeight + 'px';
         };
@@ -162,10 +161,10 @@ export default {
       this.category.style.height = this.categoryItemHeight + 'px';
 
       for(let i = 0; i < this.contentsItem.length; ++i){
-        this.contentsItem[i].addEventListener('click',(e)=>{
+        this.contentsItem[i].addEventListener('click', function(){
           this.resetSelectContentsItem();
-          this.contentsItem[i].classList.add('select');
-        })
+          this.classList.add('select');
+        });
       };
 
       for(let i = 0; i < this.mobileActiveElements.length; ++i){
@@ -196,7 +195,6 @@ export default {
   mounted(){
     this.navCreate();
     window.test = this.test;
-    console.log(this.mobileTouchElement);
   },
 
 }
@@ -225,17 +223,13 @@ export default {
   font-size: 1em;
   position: relative;
   overflow-x : hidden;
-  /* overflow: hidden; */
   flex-direction: column;
-  transition: all 2.5s ease;
+  transition: all 2s cubic-bezier(0.645, 0.045, 0.355, 1);
   background: #fff;
   font-weight: lighter;
-  /* transform: perspective(500px) translate3d(10px,0px,0px); */
   -webkit-overflow-scrolling: touch;
   -webkit-tap-highlight-color: transparent;
 }
-
-
 
 
 #gnb.close{/* 임시 */
@@ -275,7 +269,7 @@ export default {
 }
 
 .pc-app #gnb-logo:hover a{
-  text-shadow: 0 0 7px #444;
+  text-shadow: 0 0 8px #000;
   color: #fff;
 }
 
@@ -436,7 +430,6 @@ export default {
 
 /* transition */
 #gnb-inner,
-#gnb-category,
 #gnb-logo a,
 #gnb-top-menu > div[id^="gnb-top"],
 #gnb-top-menu > div[id^="gnb-top"] a,
@@ -444,15 +437,21 @@ export default {
 .gnb-category-item span,
 .gnb-contents-item,
 .gnb-contents-item a,
-.new-dot::before,
+.new-dot::before
+
+{transition: all 0.2s ease;}
+
+.arrow-triangle,
 .gnb-contents-item-arrow,
-.gnb-contents-item-arrow::before,
-.arrow-triangle
+.gnb-contents-item-arrow::before
 {transition: all 0.5s ease;}
+
+#gnb-category
+{transition: all 1s cubic-bezier(0.645, 0.045, 0.355, 1);}
 
 #gnb-contents-list .gnb-contents-item:hover,
 #gnb-contents-list .gnb-contents-item.select{
-  background-color: #444;
+  background-color: #000;
 }
 #gnb-contents-list .gnb-contents-item:hover a,
 #gnb-contents-list .gnb-contents-item.select a{
@@ -483,7 +482,7 @@ export default {
 .mobile-app #gnb-logo a.mobile-active,
 .mobile-app .gnb-category-item span.mobile-active
 { 
-  background: #444;
+  background: #000;
   color: #fff;
 }
 
@@ -531,6 +530,8 @@ export default {
 
   #gnb-contents-list .gnb-contents-item a{
     padding: 15px 0;
+    font-size: 14px;
+    box-sizing: border-box;
   }
 
   #gnb-category-now{position: relative;}

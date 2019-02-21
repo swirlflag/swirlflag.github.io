@@ -33,7 +33,6 @@ export default {
       }else{
         this.allWrap.classList.add('pc-app');
       }
-      
     },
   },
 
@@ -72,8 +71,7 @@ html,body{
 
 /* transition */
 
-#gnb,
-.section
-{transition: all 0.3s ease;}
+/* .section
+{transition: all 5s ease;} */
 
 </style>
