@@ -148,6 +148,7 @@ export default {
     },
   
     navCreate(){ 
+      var _this = this;
       this.setNavCategoryHeight();
       this.category.addEventListener('click', () => {
         if(this.category.classList.contains('open')){
@@ -162,7 +163,7 @@ export default {
 
       for(let i = 0; i < this.contentsItem.length; ++i){
         this.contentsItem[i].addEventListener('click', function(){
-          this.resetSelectContentsItem();
+          _this.resetSelectContentsItem();
           this.classList.add('select');
         });
       };
