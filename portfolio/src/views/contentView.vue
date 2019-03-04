@@ -93,11 +93,7 @@ export default {
 </script>
 
 <style>
-
-[class^="icon-arrow"]{
-  cursor: pointer;
-}
-
+[class^="icon-arrow"]{cursor: pointer;}
 #content-page{
   width: auto;
   display: block;
@@ -108,19 +104,16 @@ export default {
   overflow-x: hidden;
   box-sizing: border-box;
 }
-
 .page-controls,
 .page-controls > a{
   display: flex;
   align-items: center;
 }
-
 #content-image-view{
   display: block;
   width: 100%; 
   box-sizing: border-box;
 }
-
 #content-image-container{
   width: 300%; height: 100%;
   display: flex;
@@ -130,38 +123,21 @@ export default {
   box-sizing: border-box;
   object-fit: cover;
 }
-
-.content-image-item:nth-child(1){
-
-}
-
 .content-image-item img{
   display: inline-block;
   width: 100%; height: 100%;
   vertical-align: middle;
   object-fit: cover;
 }
-
 #content-image-controls{
   margin: 40px;
   display: flex;
   margin-left: auto;
   justify-content: flex-end;
 }
-
-
-
-#content-image-number{
-  display: inline-block;
-}
-#content-image-number span[id$="number"]{
-  padding: 0 20px;
-}
-
-#content-now-number{
-  position: relative;
-}
-
+#content-image-number{display: inline-block;}
+#content-image-number span[id$="number"]{padding: 0 20px;}
+#content-now-number{position: relative;}
 #content-now-number::before{
   content: '';
   display: inline-block;
@@ -171,16 +147,10 @@ export default {
   background: #444;
   transform: rotate(30deg);
 }
+#content-main{padding: 0 42px;}
+#content-main > div{margin-bottom: 40px;}
+#content-category{font-size: 12px;}
 
-#content-main{
-  padding: 0 42px;
-}
-#content-main > div{
-  margin-bottom: 40px;
-}
-#content-category{
-  font-size: 12px;
-}
 #content-category,
 .content-info-property{
   color: #999;
@@ -190,16 +160,11 @@ export default {
   margin-top: 10px;
   font-size: 24px;
 }
-
-#content-link{
-  font-size: 14px;
-}
+#content-link{font-size: 14px;}
 #content-link span{
   margin-right: 20px;
   display: inline-block;
 }
-
-
 #content-maintext{
   border-top: 1px solid #000;
   border-bottom: 1px solid #000;
@@ -207,12 +172,10 @@ export default {
   line-height: 24px;
   padding-left: 20%;
 }
-
 #content-info{
   display: flex;
   justify-content: flex-start;
 }
-
 .content-info-item{
   display: inline-block;
   margin-right: 40px;
@@ -222,107 +185,38 @@ export default {
   font-size: 12px;
   margin-bottom: 8px;
 }
-
 #content-page-controls{
   margin: 80px 0;
   display: flex;
   justify-content: space-between;
 }
 
-@media screen and (max-width: 1280px ){
-
-  #content-main{
-    padding: 0 23px;
-  }
-
-  #content-image-controls{
-    margin: 20px; 
-  }
-  #content-header{
-    padding-top : 20px;
-  }
-  #content-maintext{
-    padding-left: 0;
-  }
-
+@media screen and (max-width: 1280px){
+  #content-main{padding: 0 23px;}
+  #content-image-controls{margin: 20px;}
+  #content-header{padding-top : 20px;}
+  #content-maintext{padding-left: 0;}
 }/*  */
 
 @media screen and (min-width : 1640px){
-
-  #content-page{
-
-  }
-
-  .page-controls,
-  .page-controls > a{
-
-  }
-
-  #content-image-view{
-
-  }
-
-  #content-image-container{
-
-  }
-  .content-image-item{
-
-  }
-
-  .content-image-item:nth-child(1){
-
-  }
-
-  .content-image-item img{
-
-  }
-
-  #content-image-controls{
-    margin: 3.2vw;
-  }
-
-  #content-image-number{
-    
-  }
+  #content-image-controls{margin: 3.2vw;}
   #content-image-number span[id$="number"]{
     padding: 0 1.5vw;
     font-size: 1.1vw;
   }
-
-  #content-now-number{
-    
-  }
-
-  #content-now-number::before{
-    width: 0.1vw;
-  }
-
+  #content-now-number::before{width: 0.1vw;}
   #content-main{
     padding: 0 3.2vw;
     font-size: 1.1vw !important;
   }
-
-  #content-main > div{
-    margin-bottom: 3.4vw;
-  }
-  #content-category{
-    font-size: 0.8vw;
-  }
-  #content-category,
-  .content-info-property{
-  }
+  #content-main > div{margin-bottom: 3.4vw;}
+  #content-category{font-size: 0.8vw;}
   #content-name{
     margin-top: 1vw;
     font-size: 1.8vw;
   }
-  #content-link{
-    font-size: 1.1vw;
-  }
-  #content-link span{
-    margin-right: 1.5vw;
-  }
-
-
+  #content-link{font-size: 1.1vw;}
+  #content-link span{margin-right: 1.5vw;}
   #content-maintext{
     border-top: 1px solid #000;
     border-bottom: 1px solid #000;
@@ -330,27 +224,11 @@ export default {
     line-height: 1.8em;
     padding-left: 25%;
   }
-
-  #content-info{
-
-  }
-
-  .content-info-item{
-    margin-right: 3.4vw;
-    
-  }
+  .content-info-item{margin-right: 3.4vw;}
   .content-info-property{
     font-size: 0.8vw;
     margin-bottom: 0.8vw;
   }
-
-  #content-page-controls{
-    margin: 6.8vw 0;
-    
-  }
-
+  #content-page-controls{margin: 6.8vw 0;}
 }/*  */
-
-
-
 </style>

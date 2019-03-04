@@ -34,14 +34,9 @@ export default {
     },
 
     setIsMobile(){
-      if(this.$store.getters.GET_isMobile){
-        this.allWrap.classList.add('mobile-app');
-      }else{
-        this.allWrap.classList.add('pc-app');
-      };
+      this.allWrap.classList.add(this.$store.getters.GET_isMobile ? 'mobile-app' : 'pc-app');
     },
 
-    
   },
 
   created(){
@@ -57,6 +52,7 @@ export default {
 </script>
 
 <style>
+
 a{text-decoration: none; color: #444;}
 li{list-style: none;}
 html,body{height: 100%; }
@@ -64,10 +60,10 @@ html,body{height: 100%; }
 ::-webkit-scrollbar-track {background: #f1f1f1 !important; }
 ::-webkit-scrollbar-thumb {background: #444 !important; }
 #app {
-   font-family:'Helvetica' , 'Noto Sans KR' , sans-serif;
-   color: #444; overflow: hidden;
-   font-size: 14px;
+  font-family:'Helvetica' , 'Noto Sans KR' , sans-serif;
+  font-size: 14px;
   font-weight: 100;
+  color: #444;
   width: 100%; height: 100%;
   overflow: hidden;
   letter-spacing: 0.1em;
@@ -77,13 +73,10 @@ html,body{height: 100%; }
   display: flex;
   width: 100%; height: 100%;
 }
-
-[class^="icon-arrow"]{
-  
+[class^="icon-arrow"]{ 
   display: inline-block;
   position: relative;
   width: 26px; height: 16px;
-  
 }
 [class^="icon-arrow"]::before{
   content: '';
@@ -92,29 +85,17 @@ html,body{height: 100%; }
   background: url(./assets/icons/mini-arrow2.png) no-repeat center;  
   background-size: 100%;
 }
-.icon-arrow-right{
-}
-.icon-arrow-left{
-  transform: rotate(180deg);
-}
-
+.icon-arrow-right{}
+.icon-arrow-left{transform: rotate(180deg);}
 
 @media screen and (min-width : 1640px){
-  html,body,#app{
-    font-size: 1.1vw !important;
-  }
-
+  html,body,#app{font-size: 1.1vw !important;}
   ::-webkit-scrollbar {width: 0.25vw !important;}
-
-  
-  [class^="icon-arrow"]{
-    width: 2vw; height: 1.28vw;
-  }
+  [class^="icon-arrow"]{width: 2vw; height: 1.28vw;}
   [class^="icon-arrow"]::before{
     width: 1.6vw; height: 0.64vw; 
     top: 0.32vw; left: 0.2vw; 
   }
-
 }
 
 </style>
