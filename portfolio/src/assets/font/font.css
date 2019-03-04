@@ -20,6 +20,10 @@ font-family: 'Ubuntu', sans-serif;
   font-family: 'Poiret One', cursive;
    */
 
+/* 
+font-family: 'Futura', sans-serif;
+*/
+
 @font-face {
   font-family: 'Helvetica';
   font-style: normal;
@@ -72,29 +76,24 @@ font-family: 'Ubuntu', sans-serif;
 }
 
 
-/* @font-face {
+@font-face {
   font-family: 'Futura';
   font-style: normal;
-  font-weight: normal;
-  src: url('Helvetica.woff') format('woff');
+  font-weight: thin;
+  src: url('futura_thin.ttf') format('ttf');
 }
-
+@font-face {
+  font-family: 'Futura';
+  font-style: normal;
+  font-weight: 300;
+  src: url('futura_light.ttf') format('ttf');
+}
 @font-face {
   font-family: 'Futura';
   font-style: normal;
   font-weight: normal;
-  src: url('futura light bt.woff') format('woff');
-} */
-
-
-
-
-
-
-
-
-
-
+  src: url('futura_medium.ttf') format('ttf');
+}
 
 
 

@@ -1,8 +1,9 @@
 <template>
 
-<nav id="gnb" class="">
+<nav id="gnb">
   <div id="gnb-inner">
-
+    
+    <div class="arrow-icon-right"></div>
     <div id="gnb-top">
       <h1 id="gnb-logo">
         <a href="#">swirlflag.</a>
@@ -17,6 +18,7 @@
         </div>
       </div>
     </div>
+    
 
     <div id="gnb-category">
       <p id="gnb-category-now">
@@ -48,43 +50,63 @@
       </ul>
     </div>
 
+    
+
     <div id="gnb-contents">
       <ul id="gnb-contents-list">
         <li class="gnb-contents-item new-dot">
-          <a href="#">Lorem Ipsum</a>
-          <span class="gnb-contents-item-arrow"></span>
+          <a href="#">
+            <span>Lorem Ipsum</span>
+            <span class="icon-arrow-right"></span>
+          </a>
         </li>
         <li class="gnb-contents-item new-dot">
-          <a href="#">only five centuries,</a>
-          <span class="gnb-contents-item-arrow"></span>
+          <a href="#">
+            <span>only five centuries,</span>
+            <span class="icon-arrow-right"></span>
+          </a>
         </li>
         <li class="gnb-contents-item new-dot">
-          <a href="#">type specimen</a>
-          <span class="gnb-contents-item-arrow"></span>
+          <a href="#">
+            <span>type specimen</span>
+            <span class="icon-arrow-right"></span>
+          </a>
         </li>
         <li class="gnb-contents-item new-dot">
-          <a href="#">publishing</a>
-          <span class="gnb-contents-item-arrow"></span>
+          <a href="#">
+            <span>publishing</span>
+            <span class="icon-arrow-right"></span>
+          </a>
         </li>
         <li class="gnb-contents-item">
-          <a href="#">software like</a>
-          <span class="gnb-contents-item-arrow"></span>
+          <a href="#">
+            <span>software like</span>
+            <span class="icon-arrow-right"></span>
+          </a>
         </li>
         <li class="gnb-contents-item">
-          <a href="#">packages and</a>
-          <span class="gnb-contents-item-arrow"></span>
+          <a href="#">
+            <span>packages and</span>
+            <span class="icon-arrow-right"></span>
+          </a>
         </li>
         <li class="gnb-contents-item">
-          <a href="#">Ipsum generators</a>
-          <span class="gnb-contents-item-arrow"></span>
+          <a href="#">
+            <span>Ipsum generators</span>
+            <span class="icon-arrow-right"></span>
+          </a>
         </li>
         <li class="gnb-contents-item">
-          <a href="#">or non-characteristic</a>
-          <span class="gnb-contents-item-arrow"></span>
+          <a href="#">  
+            <span>or non-characteristic</span>
+            <span class="icon-arrow-right"></span>
+          </a>
         </li>
         <li class="gnb-contents-item">
-          <a href="#">The first line</a>
-          <span class="gnb-contents-item-arrow"></span>
+          <a href="#">  
+            <span>The first line</span>
+            <span class="icon-arrow-right"></span>
+          </a>
         </li>
 
       </ul>
@@ -96,6 +118,7 @@
       <div class="gnb-bottom-update new-dot">2019.02.18 update</div>
       <div class="gnb-bottom-copyright">2019 swirlflag</div>
     </div>
+    
   </footer>
 
 </nav>
@@ -139,7 +162,6 @@ export default {
       this.categoryItemHeight = this.categoryNow.offsetHeight;
       this.categoryFullHeight = this.categoryItemHeight * (this.categoryItem.length + 1);
       this.category.style.height = this.categoryFullHeight + 'px';
-      console.log(this.categoryItemHeight);
     },
 
     resetSelectContentsItem(){
@@ -219,20 +241,18 @@ export default {
   position: relative;
 }
 .new-dot::before{
-  content : '';
-  width: 4px; height: 4px;
-  position: absolute; 
-  top: calc(50% - 2px); left: 6px;
-  background-color: rgb(255, 0, 0);  
-  border-radius: 200px;
+  content: '';
+  width: 5px; height: 5px;
+  position: absolute;
+  left: 5px; top: calc(50% - 2px);
+  background: url(../assets/icons/dot-red.png) no-repeat;
+  background-size: cover;
 }
-
 #gnb{
   width: 50%;
   max-width : 520px;
   left: 0%;
   box-sizing: border-box;
-  letter-spacing: 0.03em;
   font-size: 1em;
   position: relative;
   overflow-x : hidden;
@@ -240,10 +260,11 @@ export default {
   transition: all 2s cubic-bezier(0.645, 0.045, 0.355, 1);
   background: #fff;
   font-weight: lighter;
+  z-index: 10;
+  
   -webkit-overflow-scrolling: touch;
   -webkit-tap-highlight-color: transparent;
 }
-
 
 #gnb.close{/* 임시 */
   margin-left: -50%;
@@ -264,14 +285,6 @@ export default {
 #gnb-inner > div[id^="gnb"]{
   margin-bottom: 30px;
 }
-/* 
-#gnb-inner::-webkit-scrollbar {width: 3px; height: 3px;}
-#gnb-inner::-webkit-scrollbar-track {background: #f5f5f5; }
-#gnb-inner::-webkit-scrollbar-thumb {background: #444; } */
-
-::-webkit-scrollbar {width: 3px !important; height: 3px !important;}
-::-webkit-scrollbar-track {background: #f5f5f5 !important; }
-::-webkit-scrollbar-thumb {background: #444 !important; }
 
 #gnb-top{
   display: flex;
@@ -295,7 +308,6 @@ export default {
   margin-left: auto;
   margin-right: -6px;
   align-items: flex-end;
-  letter-spacing: 0.15em;
 }
 
 #gnb-top-menu > div[id^="gnb-top"]{
@@ -325,8 +337,14 @@ export default {
   box-sizing: border-box;
   cursor: pointer;
   overflow-x: hidden;
-  letter-spacing: 0.1em;
+  font-weight: lighter;
 }
+
+#gnb-category,
+#gnb-top-menu{
+  font-family: 'Ubuntu';
+}
+
 #gnb-category::before{
   content: '';
   width: 10px;height: 10px;
@@ -360,6 +378,7 @@ export default {
 {
   display: inline-block;
   padding: 4px 5px;
+  font-weight: 100;
 }
 
 #gnb-contents{
@@ -368,54 +387,56 @@ export default {
   margin-bottom: 70px !important;
 }
 
-#gnb-contents-list .gnb-contents-item{
+.gnb-contents-item{
   margin: 20px 0;
-  padding: 0 15px;
-  padding-right: 9px;
   font-size: 15px;
   display: flex;
   align-items: center;
   overflow-x: hidden;
-  font-weight: normal;
+  font-weight: lighter;
   box-sizing:border-box;
 }
-
-#gnb-contents-list .gnb-contents-item:first-child{
+.gnb-contents-item:first-child{
   margin-top: 0;
 }
-
-
-#gnb-contents-list .gnb-contents-item a{ 
+.gnb-contents-item a{ 
   width: 100%; 
   display: inline-block;
-  padding: 5px 0px 6px;
+  padding: 5px 0px 6px 17px;
+  display: flex;
+  align-items: center;
 }
-
-
-#gnb-contents-list .gnb-contents-item.select .gnb-contents-item-arrow{
-  right: -30px;
-}
-#gnb-contents-list .gnb-contents-item.select .gnb-contents-item-arrow::before{
-  background-color: #fff;
-  left: -23px;
-}
-
-
-#gnb-contents-list .gnb-contents-item-arrow{
-  width: 16px;height: 6px;
-  background: url(../assets/icons/mini-arrow2.png) no-repeat;
-  background-size: contain;
+.gnb-contents-item .icon-arrow-right{
   margin-left: auto;
-  position: relative;
-  right: 0;
+  margin-right: 6px;
 }
-#gnb-contents-list .gnb-contents-item-arrow::before{
+.gnb-contents-item .icon-arrow-right::after{ 
   content: '';
-  width: 4px; height: 4px;  border-radius: 200px;
-  background: transparent;
-  position: absolute;
-  left: 30px; top: 1px;
+  display: inline-block;
+  background: url(../assets/icons/dot-white.png) no-repeat;
+  background-size: cover;
+  width: 5px; height: 5px;
+  opacity: 0;
+  position: absolute;   
+  top: 6px;  right: -10px;
 }
+.gnb-contents-item.select .icon-arrow-right::before,
+.pc-app .gnb-contents-item:hover .icon-arrow-right::before{
+  left: 20px;   
+  opacity: 0;
+}
+.gnb-contents-item.select .icon-arrow-right::after,
+.pc-app .gnb-contents-item:hover .icon-arrow-right::after{
+  opacity: 1;
+  right: 5px;
+}
+
+
+
+
+
+
+
 
 #gnb-bottom{
   position: absolute;
@@ -426,7 +447,6 @@ export default {
   margin-bottom: 0 !important;
   font-size: 10px;
   padding: 15px 0;
-  letter-spacing: 0.1em;
 }
 
 #gnb-bottom-wrap{  
@@ -451,44 +471,33 @@ export default {
 #gnb-category-now-name,
 .gnb-category-item span,
 .gnb-contents-item,
-.gnb-contents-item a,
-.new-dot::before
+.gnb-contents-item a
+
 {transition: all 0.2s ease;}
 
 .arrow-triangle,
-.gnb-contents-item-arrow,
-.gnb-contents-item-arrow::before
+.gnb-contents-item .icon-arrow-right,
+.gnb-contents-item .icon-arrow-right::before,
+.gnb-contents-item .icon-arrow-right::after
 {transition: all 0.5s ease;}
 
 #gnb-category
 {transition: all 1s cubic-bezier(0.645, 0.045, 0.355, 1);}
 
-.pc-app #gnb-contents-list .gnb-contents-item:hover,
-#gnb-contents-list .gnb-contents-item.select{
+.pc-app .gnb-contents-item:hover,
+.gnb-contents-item.select{
   background-color: #000;
 }
-.pc-app #gnb-contents-list .gnb-contents-item:hover a,
-#gnb-contents-list .gnb-contents-item.select a{
+.pc-app .gnb-contents-item:hover a,
+.gnb-contents-item.select a{
   color: #fff;
-}
-
-.pc-app #gnb-contents-list .gnb-contents-item:hover .gnb-contents-item-arrow,
-.mobile-app #gnb-contents-list .gnb-contents-item.select .gnb-contents-item-arrow
-{
-  right: -30px;
-}
-.pc-app #gnb-contents-list .gnb-contents-item:hover .gnb-contents-item-arrow::before,
-.mobile-app #gnb-contents-list .gnb-contents-item.select .gnb-contents-item-arrow::before
-{
-  background-color: #fff;
-  left: -23px;
 }
 
 .mobile-app #gnb-logo a,
 .mobile-app #gnb-top-menu > div[id^="gnb-top"],
 .mobile-app #gnb-top-menu > div[id^="gnb-top"] a,
-.mobile-app #gnb-category-list .gnb-category-item,
-.mobile-app #gnb-category-list .gnb-category-item span
+.mobile-app .gnb-category-item,
+.mobile-app .gnb-category-item span
 {transition: none !important; }
 
 .pc-app #gnb-top-menu > div[id^="gnb-top"] a:hover,
@@ -507,10 +516,6 @@ export default {
   padding: 0;
 }
 
-.mobile-app .gnb-contents-item{
-  padding-left: 20px !important;
-}
-
 .mobile-app #gnb-category-now-name,
 .mobile-app .gnb-category-item span
 {
@@ -518,11 +523,14 @@ export default {
   display: block;
   width: 100%;
 }
-.mobile-app #gnb-bottom .gnb-bottom-update{
-  padding-left: 20px;
+.mobile-app .gnb-bottom-update{
+  padding-left: 20px !important;
+}
+.mobile-app .gnb-bottom-copyright{
+  padding-right: 4px;
 }
 .mobile-app #gnb-bottom{
-  width: 100%;
+  width: 100% !important;
 }
 .mobile-app #gnb-top-menu > div[id^="gnb-top"]{margin:0 10px !important;}
 .mobile-app #gnb-top-menu > div[id^="gnb-top"]::before{right: -10px !important; }
@@ -546,7 +554,7 @@ export default {
   }
 
   #gnb-contents-list .gnb-contents-item a{
-    padding: 20px 0;
+    padding: 20px 0 20px 20px;
     font-size: 14px;
     box-sizing: border-box;
   }
@@ -562,11 +570,14 @@ export default {
     border-radius: 2000px;
     left: 5px;
   }
-  
-  
 
 }/*  */
 
+@media screen and (min-width : 1040px){
+  #gnb.close{
+    margin-left: -520px;
+  }
+}
 
 @media screen and (max-width: 1280px ){
   
@@ -578,8 +589,141 @@ export default {
     margin-top: 30px;
   }
 
-
 }/*  */
 
+
+
+
+
+@media screen and (min-width : 1640px){
+
+
+  #gnb{
+    width: 36.6% !important;
+    max-width: none;
+  }
+
+
+  #gnb.close{/* 임시 */
+    margin-left: -40%;
+  }
+
+  #gnb-inner{
+    padding: 0 3vw;
+  }
+  #gnb-inner > div[id^="gnb"]{
+    margin-bottom: 2.8vw;
+  }
+  #gnb-logo{
+    font-size: 1.8vw;
+  }
+  .pc-app #gnb-logo:hover a{
+    text-shadow: 0 0 0.7vw #000;
+  }
+  #gnb-top{
+    margin-top: 3.5vw;
+  }
+  #gnb-top-menu{
+    margin-right: -0.4vw;
+    font-size: 1vw;
+  }
+
+  #gnb-top-menu > div[id^="gnb-top"]{
+    margin:  0 1vw;
+  }
+
+  #gnb-top-menu > div[id^="gnb-top"] a{
+    padding: 0.2vw 0.4vw;
+  }
+
+  #gnb-top-menu > div[id^="gnb-top"]::before{
+    width: 0.1vw; height: 100%;
+    right: -1vw;
+  } 
+
+
+  #gnb-category-now .arrow-triangle{
+    width: 1vw; height: 0.6vw;
+    background-size: 1vw 1.2vw;
+  }
+
+  #gnb-category.open #gnb-category-now .arrow-triangle{
+    background-position: 0 -0.6vw;
+  }
+
+  #gnb-category-now,
+  .gnb-category-item{
+    padding: 1.1vw;
+    padding-left: 1.1vw;
+  }
+
+  #gnb-category-now-name,
+  .gnb-category-item span
+  {
+    padding: 0.3vw 0.4vw;
+    font-size: 1vw;
+  }
+
+  #gnb-contents{
+    padding-top: 2.8vw;
+    border-top: 0.15vw solid #000;
+    margin-bottom: 5.5vw !important;
+  }
+
+  #gnb-contents-list .gnb-contents-item{
+    margin: 1.3vw 0;
+    font-size: 1.1vw;
+  }
+
+  #gnb-contents-list .gnb-contents-item:first-child{
+  }
+
+  #gnb-contents-list .gnb-contents-item a{ 
+    padding: 0.6vw 0 0.6vw 1.5vw;
+  }
+
+  #gnb-bottom{
+    width: calc(100% - 0.25vw);
+    font-size: 0.8vw;
+    padding: 1.2vw 0;
+  }
+
+  #gnb-bottom-wrap{  
+    padding:0 3vw;
+  }
+  #gnb-bottom .gnb-bottom-update{
+    padding-left: 1.5vw;
+  }
+
+  #gnb-bottom .gnb-bottom-copyright{
+    padding-left: 2vw;
+    margin-right: 0.1vw;
+  }
+
+  .new-dot::before{
+    width: 0.4vw ; height: 0.4vw;
+    left: 0.4vw; 
+    top: calc(50% - 0.2vw);
+  }
+
+  .gnb-contents-item .icon-arrow-right{
+    margin-right: 0.5vw;
+  }
+  .gnb-contents-item .icon-arrow-right::after{
+    width: 0.4vw ; height: 0.4vw;
+    top: 0.5vw; right: -0.5vw;
+  }
+  .gnb-contents-item.select .icon-arrow-right::before,
+  .pc-app .gnb-contents-item:hover .icon-arrow-right::before{
+    opacity: 0;
+    left: 1vw;
+  }
+  .gnb-contents-item.select .icon-arrow-right::after,
+  .pc-app .gnb-contents-item:hover .icon-arrow-right::after{
+    opacity: 1;
+    right: 0.5vw;
+  }
+
+}
 
 </style>
