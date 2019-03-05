@@ -230,6 +230,8 @@ export default {
     window.testtoggle = this.testtoggle;
     window.testopen = this.testopen;
     window.testclose = this.testclose;
+
+    console.log('gnb mounted');
   },
 
 }
@@ -392,6 +394,7 @@ export default {
   font-size: 10px;
   padding: 15px 0;
 }
+
 #gnb-bottom-wrap{  
   padding: 0 40px;
   display: flex;

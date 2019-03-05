@@ -1,5 +1,9 @@
 <template>
   <section id="content-page">
+    <div id="content-goto-gnb" class="page-controls">
+      <span class="icon-arrow-left"></span>
+      <span>BACK TO LIST</span>
+    </div>
     
     <div id="content-image-view">
       <ul id="content-image-container">
@@ -109,6 +113,15 @@ export default {
   display: flex;
   align-items: center;
 }
+#content-goto-gnb{
+  justify-content: center;
+  border-bottom: 1px solid #000;
+  padding: 20px 0;
+  cursor: pointer;
+  display: none;
+  letter-spacing: 0.3em;
+}
+#content-goto-gnb .icon-arrow-left{margin-right: 15px;}
 #content-image-view{
   display: block;
   width: 100%; 
@@ -190,6 +203,10 @@ export default {
   display: flex;
   justify-content: space-between;
 }
+
+@media screen and (max-width: 768px) {
+  #content-goto-gnb{display: flex;}
+}/*  */
 
 @media screen and (max-width: 1280px){
   #content-main{padding: 0 23px;}
