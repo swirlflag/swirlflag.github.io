@@ -8,10 +8,11 @@
 </template>
 
 <script>
+import axios from 'axios';
+import { mapState, mapGetters, mapMutations } from 'vuex';
+
 import 'reset-css';
 import './assets/font/font.css';
-
-import axios from 'axios';
 
 import gnb from './components/gnb.vue';
 import contentView from './views/contentView.vue';
@@ -28,6 +29,7 @@ export default {
 
   computed : {
     allWrap : () => document.getElementById('all-wrap'),
+    ...mapState(['axiosData']),
   },
 
   methods : {
@@ -41,18 +43,33 @@ export default {
 
   },
 
-  created(){
+  beforeCreated(){
+    // axios.get('https://swirlflag.github.io/portfolio/src/data/contentsData.json')
+    //   .then(res => {this.$store.state.axiosData = res; console.log(this.axiosData)})
+    //   .catch(err => console.log(err));
     
+  },
+  created(){
     this.decisionIsMobile();
   },
-
+  beforeMount(){
+    
+    
+  },
   mounted(){
     this.setIsMobile();
-    
-    // axios.get('https://swirlflag.github.io/portfolio/src/data/data.json')
-    axios.get('https://swirlflag.github.io/portfolio/src/data/contentsData.json')
-      .then(res => console.log(res))
-      .catch(err => console.log(err));
+
+    // console.log(this.axiosData);
+    // console.log(this.$store.state.axiosData);
+
+    // axios.get('https://swirlflag.github.io/portfolio/src/data/contentsData.json')
+    //   .then(res => {this.$store.state.axiosData = res; console.log(this.axiosData)})
+    //   .catch(err => console.log(err));
+
+    // axios.get('https://swirlflag.github.io/portfolio/src/data/adminData.json')
+    //   .then(res => )
+    //   .catch(err => console.log(err));
+
 
   },
 

@@ -67,12 +67,17 @@
 </template>
 
 <script>
+import axios from 'axios';
+import { mapState , mapGetters , mapMutations} from 'vuex';
+
 export default {
 
   computed: {
     imageView : () => document.getElementById('content-image-view'),
     imageContainer : () => document.getElementById('content-image-container'),
     imageItem : () => document.getElementsByClassName('content-image-item'),
+    
+    // ...mapState(['axiosData', 'nowContentData']),
   },
 
   methods : {
@@ -85,14 +90,16 @@ export default {
   },
 
   created(){
-    
+    // axios.get('https://swirlflag.github.io/portfolio/src/data/contentsData.json')
+    //   .then(res => console.log(res))
+    //   .catch(err => console.log(err));  
+       
   },
 
   mounted(){
     this.resizeImageView();
     window.addEventListener('resize',this.resizeImageView );
-
-    
+    // console.log(this.axiosData);
   },
 
   
