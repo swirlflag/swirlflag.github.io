@@ -2,8 +2,7 @@
 <div id="app">
   <div id="all-wrap">
     <gnb></gnb>
-    <content-view></content-view>
-    <!-- <logo-view></logo-view> -->
+    <router-view></router-view>
   </div>
 </div>
 </template>
@@ -12,9 +11,12 @@
 import 'reset-css';
 import './assets/font/font.css';
 
+import axios from 'axios';
+
 import gnb from './components/gnb.vue';
 import contentView from './views/contentView.vue';
 import logoView from './views/logoView.vue';
+
 
 export default {
 
@@ -40,13 +42,18 @@ export default {
   },
 
   created(){
-    console.log('create app');
+    
     this.decisionIsMobile();
   },
 
   mounted(){
     this.setIsMobile();
-    console.log('mounted app');
+    
+    // axios.get('https://swirlflag.github.io/portfolio/src/data/data.json')
+    axios.get('https://my-json-server.typicode.com/typicode/demo/db')
+      .then(res => console.log(res))
+      .catch(err => console.log(err));
+
   },
 
 }

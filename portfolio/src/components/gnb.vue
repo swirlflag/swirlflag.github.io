@@ -10,11 +10,10 @@
       </h1>
       <div id="gnb-top-menu">
         <div id="gnb-top-about">
-          <a href="#">about</a>
-
+          <router-link to="/logo">about</router-link>
         </div>
         <div id="gnb-top-contact">
-          <a href="#">contact</a>
+          <router-link to="/cont">contact</router-link>
         </div>
       </div>
     </div>
@@ -230,8 +229,7 @@ export default {
     window.testtoggle = this.testtoggle;
     window.testopen = this.testopen;
     window.testclose = this.testclose;
-
-    console.log('gnb mounted');
+    // console.log(axios);
   },
 
 }
@@ -352,7 +350,7 @@ export default {
   font-weight: lighter;
   box-sizing:border-box;
 }
-.gnb-contents-item:first-child{margin-top: 0;}
+.gnb-contents-item:first-child{margin-top: 0 !important;}
 .gnb-contents-item a{ 
   width: 100%; 
   display: inline-block;
@@ -547,8 +545,8 @@ export default {
   #gnb-category.open #gnb-category-now .arrow-triangle{background-position: 0 -0.6vw;}
   #gnb-category-now,
   .gnb-category-item{
-    padding: 1.1vw;
-    padding-left: 1.1vw;
+    padding: 1.05vw;
+    padding-left: 1.05vw;
   }
   #gnb-category-now-name,
   .gnb-category-item span{
@@ -561,10 +559,10 @@ export default {
     margin-bottom: 5.5vw !important;
   }
   #gnb-contents-list .gnb-contents-item{
-    margin: 1.3vw 0;
-    font-size: 1.1vw;
+    margin: 1.5vw 0;
+    font-size: 1.05vw;
   }
-  #gnb-contents-list .gnb-contents-item a{padding: 0.6vw 0 0.6vw 1.5vw;}
+  #gnb-contents-list .gnb-contents-item a{padding: 0.3vw 0 0.4vw 1.5vw;}
   #gnb-bottom{
     width: calc(100% - 0.25vw);
     font-size: 0.8vw;
@@ -596,5 +594,6 @@ export default {
     opacity: 1;
     right: 0.5vw;
   }
+
 }
 </style>

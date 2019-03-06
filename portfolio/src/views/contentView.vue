@@ -91,7 +91,11 @@ export default {
   mounted(){
     this.resizeImageView();
     window.addEventListener('resize',this.resizeImageView );
+
+    
   },
+
+  
 
 }
 </script>
@@ -219,12 +223,12 @@ export default {
   #content-image-controls{margin: 3.2vw;}
   #content-image-number span[id$="number"]{
     padding: 0 1.5vw;
-    font-size: 1.1vw;
+    font-size: 1.05vw;
   }
   #content-now-number::before{width: 0.1vw;}
   #content-main{
     padding: 0 3.2vw;
-    font-size: 1.1vw !important;
+    font-size: 1.05vw !important;
   }
   #content-main > div{margin-bottom: 3.4vw;}
   #content-category{font-size: 0.8vw;}
@@ -232,7 +236,7 @@ export default {
     margin-top: 1vw;
     font-size: 1.8vw;
   }
-  #content-link{font-size: 1.1vw;}
+  #content-link{font-size: 1.05vw;}
   #content-link span{margin-right: 1.5vw;}
   #content-maintext{
     border-top: 1px solid #000;

@@ -1,5 +1,5 @@
 {
-  "name": "portfolio",
+  "name": "test",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -46,5 +46,9 @@
     "> 1%",
     "last 2 versions",
     "not ie <= 8"
-  ]
+  ],
+  "description": "## Project setup ``` npm install ```",
+  "main": "babel.config.js",
+  "author": "",
+  "license": "ISC"
 }
