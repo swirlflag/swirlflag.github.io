@@ -50,7 +50,7 @@ export default {
     this.setIsMobile();
     
     // axios.get('https://swirlflag.github.io/portfolio/src/data/data.json')
-    axios.get('https://my-json-server.typicode.com/typicode/demo/db')
+    axios.get('https://swirlflag.github.io/portfolio/src/data/contentsData.json')
       .then(res => console.log(res))
       .catch(err => console.log(err));
 
