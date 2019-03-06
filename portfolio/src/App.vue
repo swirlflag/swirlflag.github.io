@@ -62,9 +62,9 @@ export default {
     // console.log(this.axiosData);
     // console.log(this.$store.state.axiosData);
 
-    // axios.get('https://swirlflag.github.io/portfolio/src/data/contentsData.json')
-    //   .then(res => {this.$store.state.axiosData = res; console.log(this.axiosData)})
-    //   .catch(err => console.log(err));
+    axios.get('https://swirlflag.github.io/portfolio/src/data/contentsData.json')
+      .then(res => {this.$store.state.axiosData = res; })
+      .catch(err => console.log(err));
 
     // axios.get('https://swirlflag.github.io/portfolio/src/data/adminData.json')
     //   .then(res => )
