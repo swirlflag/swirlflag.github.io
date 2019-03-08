@@ -1,5 +1,6 @@
 export default {
   isMobile : null,
   axiosData : {},
-  nowContentData : {},
+  contentsData : {},
+  adminData : {},
 }

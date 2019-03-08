@@ -21,7 +21,7 @@ export const router = new VueRouter({
       component: logoView,
     },
     {
-      path: '/cont',
+      path: '/work/:id',
       component: contentView,
     },
 

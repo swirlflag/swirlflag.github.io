@@ -1,6 +1,6 @@
 <template>
 
-<nav id="gnb">
+<nav id="gnb" class="close">
   <div id="gnb-inner">
     
     <div class="arrow-icon-right"></div>
@@ -13,7 +13,7 @@
           <router-link to="/logo">about</router-link>
         </div>
         <div id="gnb-top-contact">
-          <router-link to="/cont">contact</router-link>
+          <router-link to="/work">contact</router-link>
         </div>
       </div>
     </div>
@@ -107,6 +107,18 @@
             <span class="icon-arrow-right"></span>
           </a>
         </li>
+        <li class="gnb-contents-item">
+          <router-link to="/work">
+            <span>test01</span>
+            <span class="icon-arrow-right"></span>
+          </router-link>
+        </li>
+        <li class="gnb-contents-item">
+          <a href="#">  
+            <span>test02</span>
+            <span class="icon-arrow-right"></span>
+          </a>
+        </li>
 
       </ul>
     </div>
@@ -127,6 +139,8 @@
 // const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
 // import '../css/m_gnb.css';
 
+import { mapGetters } from 'vuex';
+
 export default {
 
   data(){
@@ -145,6 +159,10 @@ export default {
     categoryItem : () => document.getElementsByClassName('gnb-category-item'),
     contentsItem : () => document.getElementsByClassName('gnb-contents-item'),
     mobileActiveElements : () => document.querySelectorAll('#gnb-logo a, #gnb-top-menu a,.gnb-category-item span'),
+
+    ...mapGetters({
+      contentsData : 'GET_contentData'
+    }),
   },
   
   //모든 메소드 임시작성 :  일단모양만 동작하게 값을 전부 즉시변경/. 나중에 무조건 리팩토링 해야함
@@ -220,16 +238,24 @@ export default {
     },
   },
 
+  beforeCreate(){
+  
+  },
   created(){
     // this.navCreate();
+    
   },
 
   mounted(){
     this.navCreate();
+
     window.testtoggle = this.testtoggle;
     window.testopen = this.testopen;
     window.testclose = this.testclose;
-    // console.log(axios);
+
+    // console.log(this.contentsData);
+    // console.log(this.$store.getters.GET_contentData)
+
   },
 
 }

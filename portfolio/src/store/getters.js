@@ -4,4 +4,8 @@ export default{
     return state.isMobile;
   }, 
 
+  GET_contentData(state){
+    return state.axiosData;
+  }
+
 }

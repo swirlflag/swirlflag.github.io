@@ -8,11 +8,11 @@
 </template>
 
 <script>
-import axios from 'axios';
 import { mapState, mapGetters, mapMutations } from 'vuex';
 
 import 'reset-css';
 import './assets/font/font.css';
+import { getContentsData , getAdminData } from './api/index.js';
 
 import gnb from './components/gnb.vue';
 import contentView from './views/contentView.vue';
@@ -29,10 +29,12 @@ export default {
 
   computed : {
     allWrap : () => document.getElementById('all-wrap'),
-    ...mapState(['axiosData']),
+    ...mapState(['contentsData', 'adminData']),
   },
 
   methods : {
+    ...mapMutations(['SET_contentsData']),
+
     decisionIsMobile(){
       this.$store.commit('LOAD_isMobile');
     },
@@ -41,14 +43,25 @@ export default {
       this.allWrap.classList.add(this.$store.getters.GET_isMobile ? 'mobile-app' : 'pc-app');
     },
 
+    finishContentsDataLoad(){
+      console.log('contentsData LOAD');
+      console.log('contents : ',this.contentsData);
+    },
+    
+    setAllData(){
+      getContentsData()
+        .then(({data}) => {this.SET_contentsData(data)})
+        .then(this.finishContentsDataLoad)
+        .catch(error => console.log(error))
+      ;
+    },
+
   },
 
-  beforeCreated(){
-    // axios.get('https://swirlflag.github.io/portfolio/src/data/contentsData.json')
-    //   .then(res => {this.$store.state.axiosData = res; console.log(this.axiosData)})
-    //   .catch(err => console.log(err));
-    
+  beforeCreate(){
+    // console.log('bfc'); 
   },
+  
   created(){
     this.decisionIsMobile();
   },
@@ -57,19 +70,8 @@ export default {
     
   },
   mounted(){
-    this.setIsMobile();
-
-    // console.log(this.axiosData);
-    // console.log(this.$store.state.axiosData);
-
-    axios.get('https://swirlflag.github.io/portfolio/src/data/contentsData.json')
-      .then(res => {this.$store.state.axiosData = res; })
-      .catch(err => console.log(err));
-
-    // axios.get('https://swirlflag.github.io/portfolio/src/data/adminData.json')
-    //   .then(res => )
-    //   .catch(err => console.log(err));
-
+    this.setIsMobile(); 
+    this.setAllData();
 
   },
 
