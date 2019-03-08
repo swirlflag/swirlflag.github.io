@@ -9,7 +9,7 @@ const config = {
   baseUrl : 'https://swirlflag.github.io/portfolio/src/data'
 }
 
-function getContentsData(){
+function getAppData(){
   return axios.get(`${config.baseUrl}/appData.json`);
 }
 function getAdminData(){
@@ -17,6 +17,6 @@ function getAdminData(){
 }
 
 export {
-  getContentsData,
+  getAppData,
   getAdminData,
 }

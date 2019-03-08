@@ -12,16 +12,16 @@ export const router = new VueRouter({
 
   routes: [
 
-    // {
-    //   path: '/',
-    //   redirect: '/index',
-    // },
+    {
+      path: '/',
+      redirect: '/logo',
+    },
     {
       path: '/logo',
       component: logoView,
     },
     {
-      path: '/work/:id',
+      path: '/work/:name',
       component: contentView,
     },
 

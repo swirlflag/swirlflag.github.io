@@ -76,7 +76,7 @@ export default {
 
   data(){
     return {
-      contentName : 'Content Name Axios',
+      contentName : null,
       contentsData : null,
       contentsMainText : null,
     }
@@ -87,7 +87,8 @@ export default {
     imageContainer : () => document.getElementById('content-image-container'),
     imageItem : () => document.getElementsByClassName('content-image-item'),
     
-    ...mapState(['axiosData', 'nowContentData']),
+    // ...mapState([]),
+    ...mapGetters(['adminData'])
     
   },
 
@@ -104,7 +105,6 @@ export default {
     // axios.get('https://swirlflag.github.io/portfolio/src/data/contentsData.json')
     //   .then(res => console.log(res))
     //   .catch(err => console.log(err));  
-    console.log(this.$routes);
   },
 
   mounted(){

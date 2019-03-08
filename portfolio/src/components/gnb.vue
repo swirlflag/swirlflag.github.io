@@ -18,14 +18,16 @@
       </div>
     </div>
     
-
     <div id="gnb-category">
       <p id="gnb-category-now">
         <span id="gnb-category-now-name">all</span>
         <span class="arrow-triangle"></span>
       </p>
       <ul id="gnb-category-list">
-        <li class="gnb-category-item">
+        <li class="gnb-category-item" v-for="item in this.categoryItems" v-bind:key="item">
+          <span>{{ item }}</span>
+        </li>
+        <!-- <li class="gnb-category-item">
           <span>markup</span>
         </li>
         <li class="gnb-category-item">
@@ -45,7 +47,7 @@
         </li>
         <li class="gnb-category-item">
           <span>category7</span>
-        </li>
+        </li> -->
       </ul>
     </div>
 
@@ -114,10 +116,10 @@
           </router-link>
         </li>
         <li class="gnb-contents-item">
-          <a href="#">  
+          <router-link to="/work/test02">
             <span>test02</span>
             <span class="icon-arrow-right"></span>
-          </a>
+          </router-link>
         </li>
 
       </ul>
@@ -136,10 +138,9 @@
 </template>
 
 <script>
-// const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-// import '../css/m_gnb.css';
 
-import { mapGetters } from 'vuex';
+import { mapGetters, mapMutations , mapActions} from 'vuex';
+import { getAppData } from '../api/index.js';
 
 export default {
 
@@ -147,11 +148,14 @@ export default {
     return {
       categoryItemHeight : 0,
       categoryFullHeight : 0,
-      testdata : true
+      adminData : [],
+      categoryItems : [],
     }
   },
 
   computed : {
+    ...mapGetters(['GET_contentsData']),
+
     gnb: () => document.getElementById('gnb'),
     gnbInner: () => document.getElementById('gnb-inner'),
     category : () => document.getElementById('gnb-category'),
@@ -159,14 +163,11 @@ export default {
     categoryItem : () => document.getElementsByClassName('gnb-category-item'),
     contentsItem : () => document.getElementsByClassName('gnb-contents-item'),
     mobileActiveElements : () => document.querySelectorAll('#gnb-logo a, #gnb-top-menu a,.gnb-category-item span'),
-
-    ...mapGetters({
-      contentsData : 'GET_contentData'
-    }),
   },
   
   //모든 메소드 임시작성 :  일단모양만 동작하게 값을 전부 즉시변경/. 나중에 무조건 리팩토링 해야함
   methods : {
+    ...mapActions(['setAdminData']),
     
     scrollCorrection(el){
       el.addEventListener('scroll', function(){
@@ -239,23 +240,29 @@ export default {
   },
 
   beforeCreate(){
-  
-  },
-  created(){
-    // this.navCreate();
     
+  },
+
+  created(){
+    getAppData()
+      .then((res)=>{
+        this.adminData = res.data['admin-data'];
+        this.categoryItems = res.data['admin-data']['category'];
+      })
+      .catch(error => console.log(error))
+    ;
   },
 
   mounted(){
     this.navCreate();
-
     window.testtoggle = this.testtoggle;
     window.testopen = this.testopen;
     window.testclose = this.testclose;
 
-    // console.log(this.contentsData);
-    // console.log(this.$store.getters.GET_contentData)
+  },
 
+  updated(){
+    console.log('update')
   },
 
 }

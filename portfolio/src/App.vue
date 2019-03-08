@@ -1,3 +1,4 @@
+
 <template>
 <div id="app">
   <div id="all-wrap">
@@ -8,11 +9,12 @@
 </template>
 
 <script>
-import { mapState, mapGetters, mapMutations } from 'vuex';
+// 목표. 데이터 test1,2 에 연동된 데이터 각자 불러보기
+import { mapState, mapGetters, mapMutations, mapActions } from 'vuex';
 
 import 'reset-css';
 import './assets/font/font.css';
-import { getContentsData , getAdminData } from './api/index.js';
+import { getAppData , getAdminData } from './api/index.js';
 
 import gnb from './components/gnb.vue';
 import contentView from './views/contentView.vue';
@@ -33,46 +35,52 @@ export default {
   },
 
   methods : {
-    ...mapMutations(['SET_contentsData']),
-
-    decisionIsMobile(){
-      this.$store.commit('LOAD_isMobile');
+    ...mapMutations([
+      'LOAD_isMobile',
+      'SET_appData', 
+      'CL_gnbClose', 
+      'SET_gnbSelect',
+    ]),
+    ...mapActions([
+      'setAllData'
+    ]),
+    decisionIsMobile(){ 
+      this.LOAD_isMobile();
     },
-
     setIsMobile(){
       this.allWrap.classList.add(this.$store.getters.GET_isMobile ? 'mobile-app' : 'pc-app');
     },
 
-    finishContentsDataLoad(){
-      console.log('contentsData LOAD');
+    // setAllData(){
+    //   getAppData()
+    //     .then(({data}) => {this.SET_appData(data)})
+    //     .then(this.finishDataLoad)
+    //     .catch(error => console.log(error))
+    //   ;
+    // },
+
+    finishDataLoad(){
+      console.log('DATA LOAD');
       console.log('contents : ',this.contentsData);
-    },
-    
-    setAllData(){
-      getContentsData()
-        .then(({data}) => {this.SET_contentsData(data)})
-        .then(this.finishContentsDataLoad)
-        .catch(error => console.log(error))
-      ;
+      // console.log('admin : ',this.adminData);
+      this.SET_gnbSelect();
+      this.CL_gnbClose();
     },
 
   },
 
   beforeCreate(){
-    // console.log('bfc'); 
+    
   },
-  
   created(){
     this.decisionIsMobile();
+    this.setAllData(this.finishDataLoad);
   },
   beforeMount(){
     
-    
   },
   mounted(){
-    this.setIsMobile(); 
-    this.setAllData();
-
+    this.setIsMobile();  
   },
 
 }
