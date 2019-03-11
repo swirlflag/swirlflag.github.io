@@ -7,6 +7,7 @@ import navStates from './states/navStates.js';
 import appGetters from './getters/appGetters.js';
 import navGetters from './getters/navGetters.js';
 
+import appMethods from './mutations/appMethods.js'
 import appMutations from './mutations/appMutations.js'
 import navMutations from './mutations/navMutations.js';
 
@@ -24,6 +25,7 @@ export const store = new Vuex.Store({
     ...navGetters,
   },
   mutations: {
+    ...appMethods,
     ...appMutations, 
     ...navMutations,
   },

@@ -165,16 +165,14 @@ export default {
     mobileActiveElements : () => document.querySelectorAll('#gnb-logo a, #gnb-top-menu a,.gnb-category-item span'),
   },
   
-  //모든 메소드 임시작성 :  일단모양만 동작하게 값을 전부 즉시변경/. 나중에 무조건 리팩토링 해야함
   methods : {
-    ...mapActions(['setAdminData']),
+    ...mapActions([
+      'setAdminData',
+    ]),
     
-    scrollCorrection(el){
-      el.addEventListener('scroll', function(){
-        if(el.offsetHeight + el.scrollTop != el.scrollHeight){return};
-        el.scrollTop = (el.scrollHeight - (el.scrollHeight - el.scrollTop)) - 0.1;
-      });
-    },
+    ...mapMutations([
+      'scrollCorrection'
+    ]),
 
     setNavCategoryHeight(){
       this.categoryItemHeight = this.categoryNow.offsetHeight;
@@ -193,9 +191,11 @@ export default {
     testopen(){this.gnb.classList.remove('close')},
 
     mobileCSS(){if(!(this.$store.state.isMobile)){return}},
+
+  
+
   
     navCreate(){ 
-      var _this = this;
       this.scrollCorrection(this.gnbInner);
       this.setNavCategoryHeight();
 
@@ -212,9 +212,9 @@ export default {
       this.category.style.height = this.categoryItemHeight + 'px';
 
       for(let i = 0; i < this.contentsItem.length; ++i){
-        this.contentsItem[i].addEventListener('click', function(){
-          _this.resetSelectContentsItem();
-          this.classList.add('select');
+        this.contentsItem[i].addEventListener('click', (event)=>{
+          this.resetSelectContentsItem();
+          this.contentsItem[i].classList.add('select');
         });
       };
 

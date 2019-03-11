@@ -22,6 +22,4 @@ export default {
     state.adminData = data['admin-data'];
   },
 
-  
-
 }
