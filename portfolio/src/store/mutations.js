@@ -1,10 +1,5 @@
 export default {
-  scrollCorrection(state,el){
-    el.addEventListener('scroll', function(){
-      if(el.offsetHeight + el.scrollTop != el.scrollHeight){return};
-      el.scrollTop = (el.scrollHeight - (el.scrollHeight - el.scrollTop)) - 0.1;
-    });
-  },
+
 
   LOAD_isMobile(state) {
     state.isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
@@ -82,12 +77,4 @@ export default {
     state.spy.action();
   },
 
-  ACT_gnbOpen(state){
-    state.gnb.classList.remove('close');
-  },  
-  
-  ACT_gnbClose(state){
-    state.gnb.classList.add('close');
-  },
-  
 }

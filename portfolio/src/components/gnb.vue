@@ -1,28 +1,16 @@
-
-
 <template>
 <!-- 
   
   전체 페이지 호출후   
   카테고리 리스트 높이계산하는 부분에서 문제 발생..
-
   높이가 현재 아이템 1 에서 0 개 값의 높이로 설정됨.
-
-
-
-
-
-
-
-
-
-
-
+  
+  active한 카테고리의 텍스트 슬라이드 애니메이션 완성.
+  임무=> 카테고리 - 컨텐츠 간 연동 출력
 
 -->
 <nav id="gnb" class="close">
   <div id="gnb-inner">
-    
     <div class="arrow-icon-right"></div>
     <div id="gnb-top">
       <h1 id="gnb-logo">
@@ -38,14 +26,16 @@
       </div>
     </div>
     
-    <div id="gnb-category">
+    <div id="gnb-category" @click="this.categoryCheck">
       <p id="gnb-category-now">
-        <span id="gnb-category-now-name">all</span>
+        <span id="gnb-category-now-name">
+          all
+        </span>
         <span class="arrow-triangle"></span>
       </p>
-      <ul id="gnb-category-list">
-        <li class="gnb-category-item" v-for="item in this.categoryItems" v-bind:key="item">
-          <span class="mobile-active-elements">{{ item }}</span>
+      <ul id="gnb-category-list" >
+        <li class="gnb-category-item" v-for="item in categoryData" v-bind:key="item">
+          <span class="mobile-active-elements" @click="categoryItemClick" v-bind:data-name="item">{{ item }}</span>
         </li>
         <!-- <li class="gnb-category-item">
           <span>markup</span>
@@ -75,68 +65,69 @@
 
     <div id="gnb-contents">
       <ul id="gnb-contents-list">
+        <!-- v-for  보류하고 임시로 만듬 -->
         <li class="gnb-contents-item new-dot">
-          <a href="#">
+          <a href="#" @click="contentsItemClick">
             <span>Lorem Ipsum</span>
             <span class="icon-arrow-right"></span>
           </a>
         </li>
         <li class="gnb-contents-item new-dot">
-          <a href="#">
+          <a href="#" @click="contentsItemClick">
             <span>only five centuries,</span>
             <span class="icon-arrow-right"></span>
           </a>
         </li>
         <li class="gnb-contents-item new-dot">
-          <a href="#">
+          <a href="#" @click="contentsItemClick">
             <span>type specimen</span>
             <span class="icon-arrow-right"></span>
           </a>
         </li>
         <li class="gnb-contents-item new-dot">
-          <a href="#">
+          <a href="#" @click="contentsItemClick">
             <span>publishing</span>
             <span class="icon-arrow-right"></span>
           </a>
         </li>
         <li class="gnb-contents-item">
-          <a href="#">
+          <a href="#" @click="contentsItemClick">
             <span>software like</span>
             <span class="icon-arrow-right"></span>
           </a>
         </li>
         <li class="gnb-contents-item">
-          <a href="#">
+          <a href="#" @click="contentsItemClick">
             <span>packages and</span>
             <span class="icon-arrow-right"></span>
           </a>
         </li>
         <li class="gnb-contents-item">
-          <a href="#">
+          <a href="#" @click="contentsItemClick">
             <span>Ipsum generators</span>
             <span class="icon-arrow-right"></span>
           </a>
         </li>
         <li class="gnb-contents-item">
-          <a href="#">  
+          <a href="#" @click="contentsItemClick">
             <span>or non-characteristic</span>
             <span class="icon-arrow-right"></span>
           </a>
         </li>
         <li class="gnb-contents-item">
-          <a href="#">  
+          <a href="#" @click="contentsItemClick">
             <span>The first line</span>
             <span class="icon-arrow-right"></span>
           </a>
         </li>
         <li class="gnb-contents-item">
-          <router-link to="/work">
+          <router-link to="/work" @click="contentsItemClick" >
             <span>test01</span>
             <span class="icon-arrow-right"></span>
           </router-link>
         </li>
         <li class="gnb-contents-item">
-          <router-link to="/work/test02">
+          <router-link to="/work/test02" @click="contentsItemClick">
             <span>test02</span>
             <span class="icon-arrow-right"></span>
           </router-link>
@@ -166,32 +157,36 @@ export default {
 
   data(){
     return {
+      activeCategory : null,
       categoryItemHeight : 0,
       categoryFullHeight : 0,
 
       adminData : [],
-      categoryItems : [],
+      categoryData : [],
     }
   },
 
   computed : {
     ...mapGetters([
       'GET_contentsData',
+      'GET_adminData',
       'GET_isMobile',
     ]),
     gnb: () => document.getElementById('gnb'),
     gnbInner: () => document.getElementById('gnb-inner'),
     category : () => document.getElementById('gnb-category'),
     categoryNow : () => document.getElementById('gnb-category-now'),
+    categoryNowName : () => document.getElementById('gnb-category-now-name'),
     categoryItem : () => document.getElementsByClassName('gnb-category-item'),
     contentsItem : () => document.getElementsByClassName('gnb-contents-item'),
   },
   
   methods : {
     ...mapMutations([
-      'scrollCorrection',
-      'ACT_gnbOpen',
-      'ACT_gnbClose',
+      'OPR_scrollCorrection',
+      'OPR_gnbOpen',
+      'OPR_gnbClose',
+      'OPR_textSlide',
       'SET_gnbSelect',
       'SET_MobileActiveElements',
       'LOAD_finshedDataLoad',
@@ -203,16 +198,21 @@ export default {
 
     ]),
     
-
     setNavCategoryHeight(){
       this.categoryItemHeight = this.categoryNow.offsetHeight;
-      this.categoryFullHeight = this.categoryItemHeight * (this.categoryItem.length + 1);
+      this.categoryFullHeight = this.categoryItemHeight * (this.categoryData.length + 1);
+    },
+    setCategoryData(data){this.categoryData = data},
+    setActiveCategory(data){this.activeCategory = data},
+    setMobileActiveElements(elements){
+
     },
 
     openNavCategoryHeight(){
       this.category.classList.add('open');
       this.category.style.height = this.categoryFullHeight + 'px';
     },
+
     closeNavCategoryHeight(){
       this.category.classList.remove('open');
       this.category.style.height = this.categoryItemHeight + 'px';
@@ -224,75 +224,72 @@ export default {
       };
     },
 
-    setMobileActiveElements(elements){
-
+    categoryCheck(){
+      this.category.classList.contains('open')? 
+        this.closeNavCategoryHeight() :
+        this.openNavCategoryHeight();
     },
 
-    onclickCategory(){
-      this.category.addEventListener('click', ()=>{
-        const b = this.category.classList.contains('open');
-        b ? this.closeNavCategoryHeight() : this.openNavCategoryHeight();
+    categoryItemClick(e){
+      this.setActiveCategory(e.target.getAttribute('data-name'));
+      this.OPR_textSlide({
+        el : this.categoryNowName,
+        msg : this.activeCategory,
       });
     },
 
-    // finishFetchDataFunction(response){
-    //   this.setNavCategoryHeight();
-    //   this.SET_MobileActiveElements('.mobile-active-elements');
-    //   this.SET_gnbSelect();
-    //   this.ACT_gnbOpen();
-    // },
+    contentsItemClick(e){
+      this.resetSelectContentsItem();
+      e.target.parentElement.classList.add('select');
+    },
 
-    
+    dataAwaitGnb(response){
+      this.setCategoryData(this.GET_adminData.category)
+      this.setNavCategoryHeight();
+      this.closeNavCategoryHeight();
+      this.OPR_gnbOpen();
+    },
 
     testtoggle(){this.gnb.classList.toggle('close')},
     testclose(){this.gnb.classList.add('close')},
     testopen(){this.gnb.classList.remove('close')},
+    testaction(){
+    },
     testfunction(){
       window.testtoggle = this.testtoggle;
       window.testopen = this.testopen;
       window.testclose = this.testclose;
-    },
-
-
-    dataAwaitGnb(response){
-      console.log(1, response);
-      this.setNavCategoryHeight();
-      this.onclickCategory();
-
+      window.testaction = this.testaction;
+      // this.testaction();
     },
 
 
   }, // method
-
-  beforeCreate(){
-    
-  },
 
   created(){
     
   },
 
   mounted(){
-    this.scrollCorrection(this.gnbInner);
-    
-    
+    this.OPR_scrollCorrection(this.gnbInner);
     this.SET_gnbSelect();
-    this.ACT_gnbOpen();
 
     this.category.style.height = this.categoryItemHeight + 'px';
 
-    for(let i = 0; i < this.contentsItem.length; ++i){
-      this.contentsItem[i].addEventListener('click', (event)=>{
-        this.resetSelectContentsItem();
-        this.contentsItem[i].classList.add('select');
-      });
-    };
+    // for(let i = 0; i < this.contentsItem.length; ++i){
+    //   this.contentsItem[i].addEventListener('click', (event)=>{
+    //     this.resetSelectContentsItem();
+    //     this.contentsItem[i].classList.add('select');
+    //   });
+    // };
 
     this.SET_spySubscribe(this.dataAwaitGnb);
 
     window.addEventListener('resize', ()=>{
       this.setNavCategoryHeight();
+      this.closeNavCategoryHeight();
     });
+
     this.testfunction();
   },
 
@@ -388,18 +385,39 @@ export default {
   margin-left: auto;
 }
 #gnb-category.open #gnb-category-now .arrow-triangle{background-position: 0 -6px;}
+#gnb-category-now{
+  /* border: 1px solid #d3d; */
+  box-sizing: border-box;
+}
+#gnb-category-now-name{
+  /* border: 1px solid #3d3;  */
+  /* position: relative; */
+  /* width: 100%; */
+  /* box-sizing: border-box; */
+  padding-left: 4px;
+  padding: 4px 5px;
+  overflow: hidden;
+  width: 100%;
+  /* height: 50%; */
+}
+#gnb-category-now-name-item{
+  /* display: block; */
+  /* border: 1px solid #000; */
+}
+.gnb-category-item span{
+  display: inline-block;
+  padding: 4px 5px;
+  font-weight: 100;
+}
 #gnb-category-now,
 .gnb-category-item{
   padding: 12px;
   padding-left: 12px;
   box-sizing: border-box;
 }
-#gnb-category-now-name,
-.gnb-category-item span{
-  display: inline-block;
-  padding: 4px 5px;
-  font-weight: 100;
-}
+
+
+
 #gnb-contents{
   padding-top: 30px;
   border-top: 2px solid #000;
