@@ -1,19 +1,39 @@
-<template>
 
+
+<template>
+<!-- 
+  
+  전체 페이지 호출후   
+  카테고리 리스트 높이계산하는 부분에서 문제 발생..
+
+  높이가 현재 아이템 1 에서 0 개 값의 높이로 설정됨.
+
+
+
+
+
+
+
+
+
+
+
+
+-->
 <nav id="gnb" class="close">
   <div id="gnb-inner">
     
     <div class="arrow-icon-right"></div>
     <div id="gnb-top">
       <h1 id="gnb-logo">
-        <a href="#">swirlflag.</a>
+        <a href="#" class="mobile-active-elements">swirlflag.</a>
       </h1>
       <div id="gnb-top-menu">
         <div id="gnb-top-about">
-          <router-link to="/logo">about</router-link>
+          <router-link to="/logo" class="mobile-active-elements">about</router-link>
         </div>
         <div id="gnb-top-contact">
-          <router-link to="/work">contact</router-link>
+          <router-link to="/work" class="mobile-active-elements">contact</router-link>
         </div>
       </div>
     </div>
@@ -25,7 +45,7 @@
       </p>
       <ul id="gnb-category-list">
         <li class="gnb-category-item" v-for="item in this.categoryItems" v-bind:key="item">
-          <span>{{ item }}</span>
+          <span class="mobile-active-elements">{{ item }}</span>
         </li>
         <!-- <li class="gnb-category-item">
           <span>markup</span>
@@ -148,36 +168,54 @@ export default {
     return {
       categoryItemHeight : 0,
       categoryFullHeight : 0,
+
       adminData : [],
       categoryItems : [],
     }
   },
 
   computed : {
-    ...mapGetters(['GET_contentsData']),
-
+    ...mapGetters([
+      'GET_contentsData',
+      'GET_isMobile',
+    ]),
     gnb: () => document.getElementById('gnb'),
     gnbInner: () => document.getElementById('gnb-inner'),
     category : () => document.getElementById('gnb-category'),
     categoryNow : () => document.getElementById('gnb-category-now'),
     categoryItem : () => document.getElementsByClassName('gnb-category-item'),
     contentsItem : () => document.getElementsByClassName('gnb-contents-item'),
-    mobileActiveElements : () => document.querySelectorAll('#gnb-logo a, #gnb-top-menu a,.gnb-category-item span'),
   },
   
   methods : {
+    ...mapMutations([
+      'scrollCorrection',
+      'ACT_gnbOpen',
+      'ACT_gnbClose',
+      'SET_gnbSelect',
+      'SET_MobileActiveElements',
+      'LOAD_finshedDataLoad',
+      'LOAD_isMobile',
+      'SET_spySubscribe',
+    ]),
+
     ...mapActions([
-      'setAdminData',
+
     ]),
     
-    ...mapMutations([
-      'scrollCorrection'
-    ]),
 
     setNavCategoryHeight(){
       this.categoryItemHeight = this.categoryNow.offsetHeight;
       this.categoryFullHeight = this.categoryItemHeight * (this.categoryItem.length + 1);
+    },
+
+    openNavCategoryHeight(){
+      this.category.classList.add('open');
       this.category.style.height = this.categoryFullHeight + 'px';
+    },
+    closeNavCategoryHeight(){
+      this.category.classList.remove('open');
+      this.category.style.height = this.categoryItemHeight + 'px';
     },
 
     resetSelectContentsItem(){
@@ -186,83 +224,76 @@ export default {
       };
     },
 
+    setMobileActiveElements(elements){
+
+    },
+
+    onclickCategory(){
+      this.category.addEventListener('click', ()=>{
+        const b = this.category.classList.contains('open');
+        b ? this.closeNavCategoryHeight() : this.openNavCategoryHeight();
+      });
+    },
+
+    // finishFetchDataFunction(response){
+    //   this.setNavCategoryHeight();
+    //   this.SET_MobileActiveElements('.mobile-active-elements');
+    //   this.SET_gnbSelect();
+    //   this.ACT_gnbOpen();
+    // },
+
+    
+
     testtoggle(){this.gnb.classList.toggle('close')},
     testclose(){this.gnb.classList.add('close')},
     testopen(){this.gnb.classList.remove('close')},
+    testfunction(){
+      window.testtoggle = this.testtoggle;
+      window.testopen = this.testopen;
+      window.testclose = this.testclose;
+    },
 
-    mobileCSS(){if(!(this.$store.state.isMobile)){return}},
 
-  
-
-  
-    navCreate(){ 
-      this.scrollCorrection(this.gnbInner);
+    dataAwaitGnb(response){
+      console.log(1, response);
       this.setNavCategoryHeight();
-
-      this.category.addEventListener('click', () => {
-        if(this.category.classList.contains('open')){
-          this.category.classList.remove('open')
-          this.category.style.height = this.categoryItemHeight + 'px';
-        }else{
-          this.category.classList.add('open');
-          this.category.style.height = this.categoryFullHeight + 'px';
-        };
-      });
-
-      this.category.style.height = this.categoryItemHeight + 'px';
-
-      for(let i = 0; i < this.contentsItem.length; ++i){
-        this.contentsItem[i].addEventListener('click', (event)=>{
-          this.resetSelectContentsItem();
-          this.contentsItem[i].classList.add('select');
-        });
-      };
-
-      for(let i = 0; i < this.mobileActiveElements.length; ++i){
-        this.mobileActiveElements[i].addEventListener('touchstart', (e) =>{
-          this.mobileActiveElements[i].classList.add('mobile-active');
-        });
-        this.mobileActiveElements[i].addEventListener('touchend', (e) =>{
-          this.mobileActiveElements[i].classList.remove('mobile-active');
-        });
-      };
-
-      setInterval(()=>{
-        this.setNavCategoryHeight();
-        if(this.category.classList.contains('open')){
-          this.category.style.height = this.categoryFullHeight + 'px';
-        }else{
-          this.category.style.height = this.categoryItemHeight + 'px';
-        }
-      },1000);
+      this.onclickCategory();
 
     },
-  },
+
+
+  }, // method
 
   beforeCreate(){
     
   },
 
   created(){
-    getAppData()
-      .then((res)=>{
-        this.adminData = res.data['admin-data'];
-        this.categoryItems = res.data['admin-data']['category'];
-      })
-      .catch(error => console.log(error))
-    ;
+    
   },
 
   mounted(){
-    this.navCreate();
-    window.testtoggle = this.testtoggle;
-    window.testopen = this.testopen;
-    window.testclose = this.testclose;
+    this.scrollCorrection(this.gnbInner);
+    
+    
+    this.SET_gnbSelect();
+    this.ACT_gnbOpen();
 
-  },
+    this.category.style.height = this.categoryItemHeight + 'px';
 
-  updated(){
-    console.log('update')
+    for(let i = 0; i < this.contentsItem.length; ++i){
+      this.contentsItem[i].addEventListener('click', (event)=>{
+        this.resetSelectContentsItem();
+        this.contentsItem[i].classList.add('select');
+      });
+    };
+
+    this.SET_spySubscribe(this.dataAwaitGnb);
+
+    window.addEventListener('resize', ()=>{
+      this.setNavCategoryHeight();
+    });
+    this.testfunction();
   },
 
 }

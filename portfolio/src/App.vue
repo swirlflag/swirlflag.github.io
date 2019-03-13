@@ -1,7 +1,7 @@
-
 <template>
 <div id="app">
   <div id="all-wrap">
+    <data-render></data-render>
     <gnb></gnb>
     <router-view></router-view>
   </div>
@@ -9,77 +9,41 @@
 </template>
 
 <script>
-// 목표. 데이터 test1,2 에 연동된 데이터 각자 불러보기
-import { mapState, mapGetters, mapMutations, mapActions } from 'vuex';
-
+import { mapGetters, mapMutations } from 'vuex';
 import 'reset-css';
 import './assets/font/font.css';
-import { getAppData , getAdminData } from './api/index.js';
 
+import dataRender from './components/dataRender.vue'
 import gnb from './components/gnb.vue';
-import contentView from './views/contentView.vue';
-import logoView from './views/logoView.vue';
 
 
 export default {
 
   components : {
+    'data-render': dataRender,
     'gnb': gnb,
-    'content-view' : contentView,
-    'logo-view' : logoView,
   },
 
   computed : {
     allWrap : () => document.getElementById('all-wrap'),
-    ...mapState(['contentsData', 'adminData']),
+    ...mapGetters(['GET_isMobile']),
   },
 
   methods : {
-    ...mapMutations([
-      'LOAD_isMobile',
-      'SET_appData', 
-      'CL_gnbClose', 
-      'SET_gnbSelect',
-    ]),
-    ...mapActions([
-      'setAllData'
-    ]),
-    decisionIsMobile(){ 
-      this.LOAD_isMobile();
-    },
+    ...mapMutations(['SET_spySubscribe']),
     setIsMobile(){
-      this.allWrap.classList.add(this.$store.getters.GET_isMobile ? 'mobile-app' : 'pc-app');
+      this.allWrap.classList.add(this.GET_isMobile ? 'mobile-app' : 'pc-app');
     },
-
-    // setAllData(){
-    //   getAppData()
-    //     .then(({data}) => {this.SET_appData(data)})
-    //     .then(this.finishDataLoad)
-    //     .catch(error => console.log(error))
-    //   ;
-    // },
-
-    finishDataLoad(){
-      console.log('DATA LOAD');
-      console.log('contents : ',this.contentsData);
-      // console.log('admin : ',this.adminData);
-      this.SET_gnbSelect();
-      this.CL_gnbClose();
-    },
-
   },
-
-  beforeCreate(){
-    
-  },
+  
   created(){
-    this.decisionIsMobile();
-    this.setAllData(this.finishDataLoad);
+
   },
-  beforeMount(){
-    
-  },
+
   mounted(){
+    this.SET_spySubscribe(function(response){
+      console.log(2, response);
+    });
     this.setIsMobile();  
   },
 

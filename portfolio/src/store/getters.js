@@ -1,7 +1,20 @@
-export default {
+export default{
+
+  GET_isMobile(state){
+    return state.isMobile;
+  }, 
+
+  GET_adminData(state){
+    return state.adminData;
+  },
+
+  GET_contentsData(state){
+    return state.contentsData;
+  },
+
   GET_gnb(state){
     if(state.gnb == null){
-      state.gnb = document.getElementById('gnb');
+      this.commit('SET_gnbSelect');
     };
     return state.gnb;
   },
@@ -11,6 +24,6 @@ export default {
       state.gnb = document.getElementsByClassName('gnb-contents-item');
     }
     return state.gnbItems;
-  }
+  },
 
 }
