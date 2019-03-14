@@ -2,11 +2,26 @@
 
   "admin-data" : {
     "category" : [
-      "markup",
-      "front-end",
-      "snippet",
-      "design",
-      "post"
+      {
+        "id" : 1,
+        "name" : "markup"
+      },
+      {
+        "id" : 2,
+        "name" : "front-end"
+      },
+      {
+        "id" : 3,
+        "name" : "snippet"
+      },
+      {
+        "id" : 4,
+        "name" : "design"
+      },
+      {
+        "id" : 5,
+        "name" : "post"
+      }
     ]
   },
 
