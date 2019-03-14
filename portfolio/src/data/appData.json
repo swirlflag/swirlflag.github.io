@@ -2,9 +2,10 @@
 
   "admin-data" : {
     "category" : [
-      "markup / style",
-      "front end",
-      "framework",
+      "markup",
+      "front-end",
+      "snippet",
+      "design",
       "post"
     ]
   },
