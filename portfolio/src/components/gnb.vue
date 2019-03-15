@@ -18,7 +18,7 @@
       </div>
     </div>
     
-    <div id="gnb-category" @click="this.categoryCheck">
+    <div id="gnb-category" @click="categoryCheck">
       <p id="gnb-category-now">
         <span id="gnb-category-now-name" data-item="{id:0,name:all}">
           all
@@ -37,16 +37,17 @@
   
     <div id="gnb-contents">
       <ul id="gnb-contents-list">
-        
-        <transition name="fade">
-          <li class="gnb-contents-item new-dot" @click="contentsItemClick" v-if="true">
+        <transition name="fade" v-for="item in activeCategoryContents" :key="item.id">
+          <li class="gnb-contents-item" @click="contentsItemClick" v-if="test2">
             <a href="#">
-              <span>Lorem Ipsum</span>
+              <span>
+                {{ item['content-name'] }}
+              </span>
               <span class="icon-arrow-right"></span>
             </a>
           </li>
         </transition>
-
+        <!-- <span v-for="item in activeCategoryContents" :key="item">{{item}}</span> -->
       </ul>
     </div>
   </div>
@@ -73,12 +74,14 @@ export default {
   data(){
     return {
       activeCategory : {id:0,name:'all'},
+      activeCategoryContents : {},
       categoryItemHeight : 0,
       categoryFullHeight : 0,
 
       adminData : [],
       categoryData : [],
       test : false,
+      test2 : true,
     }
   },
 
@@ -129,6 +132,20 @@ export default {
     },
     setActiveCategory(data){
       this.activeCategory = {...data};
+    },
+    setActiveCategoryContents(data){
+      this.activeCategoryContents = {};
+      if(this.activeCategory.id == 0){
+        console.log('all');
+        this.activeCategoryContents = {...data};
+      }else{
+        console.log('not all');
+        for(var key in data){
+          if(data[key]['content-category'] == this.activeCategory.name){
+            this.activeCategoryContents[key] = data[key];
+          }
+        }
+      };
     },
     setCategoryHeight(num){
       this.category.style.height = parseInt(num) + 'px';
@@ -182,6 +199,8 @@ export default {
         msg : this.activeCategory.name,
       });
 
+      this.setActiveCategoryContents(this.GET_contentsData);
+
     },
 
     contentsItemClick(e){
@@ -191,15 +210,13 @@ export default {
 
     dataAwaitGnb(response){
       this.setCategoryData(this.GET_adminData.category)
+      this.setActiveCategoryContents(this.GET_contentsData);
       this.setNavCategoryHeight();
       this.closeNavCategoryHeight();
       setTimeout(()=>{
-        console.log(1);
         this.setNavCategoryHeight();
         this.closeNavCategoryHeight();
       },1000)
-      
-      
       this.OPR_gnbOpen();
     },
 
@@ -207,19 +224,23 @@ export default {
     testclose(){this.gnb.classList.add('close')},
     testopen(){this.gnb.classList.remove('close')},
     testaction(){
-      console.log(this.GET_contentsData);
+      this.setActiveCategoryContents(this.GET_contentsData);
     },
     testfunction(){
       window.testtoggle = this.testtoggle;
       window.testopen = this.testopen;
       window.testclose = this.testclose;
       window.t = this.testaction;
-      window.tt = (b) =>{
+      window.t1 = (b) =>{
+        console.log(this.test)
         this.test = b 
       }
+      window.t2 = () =>{
+        console.log(this.GET_contentsData);
+      }
+
       // this.testaction();
     },
-
 
   }, // method
 
@@ -230,11 +251,8 @@ export default {
   mounted(){
     this.OPR_scrollCorrection(this.gnbInner);
     this.SET_gnbSelect();
-
-    // this.setCategoryHeight(this.categoryItemHeight);
-
     this.SET_spySubscribe(this.dataAwaitGnb);
-
+    
     window.addEventListener('resize', ()=>{
       this.setNavCategoryHeight();
       this.closeNavCategoryHeight();
@@ -630,7 +648,7 @@ export default {
 }
 
 .fade-enter-active, .fade-leave-active {
-  transition: opacity 5s;
+  transition: opacity 1s;
 }
 .fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
   opacity: 0;
