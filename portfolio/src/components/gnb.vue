@@ -1,137 +1,51 @@
 <template>
-<!-- 
-  
-  전체 페이지 호출후   
-  카테고리 리스트 높이계산하는 부분에서 문제 발생..
-  높이가 현재 아이템 1 에서 0 개 값의 높이로 설정됨.
-  
-  active한 카테고리의 텍스트 슬라이드 애니메이션 완성.
-  임무=> 카테고리 - 컨텐츠 간 연동 출력
-
--->
 <nav id="gnb" class="close">
   <div id="gnb-inner">
     <div class="arrow-icon-right"></div>
     <div id="gnb-top">
-      <h1 id="gnb-logo">
-        <a href="#" class="mobile-active-elements">swirlflag.</a>
+      <h1 id="gnb-logo" @touchstart="OPR_mobileActiveTouchStart" @touchend="OPR_mobileActiveTouchEnd">
+        <a href="#" class="">swirlflag.</a>
       </h1>
       <div id="gnb-top-menu">
-        <div id="gnb-top-about">
-          <router-link to="/logo" class="mobile-active-elements">about</router-link>
+        <div id="gnb-top-about" @touchstart="OPR_mobileActiveTouchStart" @touchend="OPR_mobileActiveTouchEnd">
+          <router-link to="/logo">
+            about
+          </router-link>
         </div>
-        <div id="gnb-top-contact">
-          <router-link to="/work" class="mobile-active-elements">contact</router-link>
+        <div id="gnb-top-contact" @touchstart="OPR_mobileActiveTouchStart" @touchend="OPR_mobileActiveTouchEnd">
+          <router-link to="/work">contact</router-link>
         </div>
       </div>
     </div>
     
     <div id="gnb-category" @click="this.categoryCheck">
       <p id="gnb-category-now">
-        <span id="gnb-category-now-name">
+        <span id="gnb-category-now-name" data-item="{id:0,name:all}">
           all
         </span>
         <span class="arrow-triangle"></span>
       </p>
       <ul id="gnb-category-list" >
-        <li class="gnb-category-item" v-for="item in categoryData" v-bind:key="item">
-          <span class="mobile-active-elements" @click="categoryItemClick" v-bind:data-name="item">{{ item }}</span>
+        <li class="gnb-category-item" v-for="item in categoryData" v-bind:key="item.id">
+          <span @click="categoryItemClick" v-bind:data-item="JSON.stringify(item)" @touchstart="OPR_mobileActiveTouchStart" @touchend="OPR_mobileActiveTouchEnd">
+            {{ item.name }}
+          </span>
         </li>
-        <!-- <li class="gnb-category-item">
-          <span>markup</span>
-        </li>
-        <li class="gnb-category-item">
-          <span>front end</span>
-        </li>
-        <li class="gnb-category-item">
-          <span>framework</span>
-        </li>
-        <li class="gnb-category-item">
-          <span>design</span>
-        </li>
-        <li class="gnb-category-item">
-          <span>etc</span>
-        </li>
-        <li class="gnb-category-item">
-          <span>posts</span>
-        </li>
-        <li class="gnb-category-item">
-          <span>category7</span>
-        </li> -->
       </ul>
     </div>
 
-    
-
+  
     <div id="gnb-contents">
       <ul id="gnb-contents-list">
-        <!-- v-for  보류하고 임시로 만듬 -->
-        <li class="gnb-contents-item new-dot">
-          <a href="#" @click="contentsItemClick">
-            <span>Lorem Ipsum</span>
-            <span class="icon-arrow-right"></span>
-          </a>
-        </li>
-        <li class="gnb-contents-item new-dot">
-          <a href="#" @click="contentsItemClick">
-            <span>only five centuries,</span>
-            <span class="icon-arrow-right"></span>
-          </a>
-        </li>
-        <li class="gnb-contents-item new-dot">
-          <a href="#" @click="contentsItemClick">
-            <span>type specimen</span>
-            <span class="icon-arrow-right"></span>
-          </a>
-        </li>
-        <li class="gnb-contents-item new-dot">
-          <a href="#" @click="contentsItemClick">
-            <span>publishing</span>
-            <span class="icon-arrow-right"></span>
-          </a>
-        </li>
-        <li class="gnb-contents-item">
-          <a href="#" @click="contentsItemClick">
-            <span>software like</span>
-            <span class="icon-arrow-right"></span>
-          </a>
-        </li>
-        <li class="gnb-contents-item">
-          <a href="#" @click="contentsItemClick">
-            <span>packages and</span>
-            <span class="icon-arrow-right"></span>
-          </a>
-        </li>
-        <li class="gnb-contents-item">
-          <a href="#" @click="contentsItemClick">
-            <span>Ipsum generators</span>
-            <span class="icon-arrow-right"></span>
-          </a>
-        </li>
-        <li class="gnb-contents-item">
-          <a href="#" @click="contentsItemClick">
-            <span>or non-characteristic</span>
-            <span class="icon-arrow-right"></span>
-          </a>
-        </li>
-        <li class="gnb-contents-item">
-          <a href="#" @click="contentsItemClick">
-            <span>The first line</span>
-            <span class="icon-arrow-right"></span>
-          </a>
-        </li>
-        <li class="gnb-contents-item">
-          <router-link to="/work" @click="contentsItemClick" >
-            <span>test01</span>
-            <span class="icon-arrow-right"></span>
-          </router-link>
-        </li>
-        <li class="gnb-contents-item">
-          <router-link to="/work/test02" @click="contentsItemClick">
-            <span>test02</span>
-            <span class="icon-arrow-right"></span>
-          </router-link>
-        </li>
+        
+        <transition name="fade">
+          <li class="gnb-contents-item new-dot" @click="contentsItemClick" v-if="true">
+            <a href="#">
+              <span>Lorem Ipsum</span>
+              <span class="icon-arrow-right"></span>
+            </a>
+          </li>
+        </transition>
 
       </ul>
     </div>
@@ -139,7 +53,7 @@
 
   <footer id="gnb-bottom">
     <div id="gnb-bottom-wrap">
-      <div class="gnb-bottom-update new-dot">2019.02.18 update</div>
+      <div class="gnb-bottom-update new-dot">2019.02 update</div>
       <div class="gnb-bottom-copyright">2019 swirlflag</div>
     </div>
     
@@ -150,6 +64,7 @@
 
 <script>
 
+import u from '../utils/u.js'
 import { mapGetters, mapMutations , mapActions} from 'vuex';
 import { getAppData } from '../api/index.js';
 
@@ -157,12 +72,13 @@ export default {
 
   data(){
     return {
-      activeCategory : null,
+      activeCategory : {id:0,name:'all'},
       categoryItemHeight : 0,
       categoryFullHeight : 0,
 
       adminData : [],
       categoryData : [],
+      test : false,
     }
   },
 
@@ -187,10 +103,12 @@ export default {
       'OPR_gnbOpen',
       'OPR_gnbClose',
       'OPR_textSlide',
-      'SET_gnbSelect',
-      'SET_MobileActiveElements',
+      'OPR_mobileActiveTouchStart',
+      'OPR_mobileActiveTouchEnd',
+      
       'LOAD_finshedDataLoad',
       'LOAD_isMobile',
+      'SET_gnbSelect',
       'SET_spySubscribe',
     ]),
 
@@ -201,21 +119,34 @@ export default {
     setNavCategoryHeight(){
       this.categoryItemHeight = this.categoryNow.offsetHeight;
       this.categoryFullHeight = this.categoryItemHeight * (this.categoryData.length + 1);
+      console.log('set category height!' ,'item : ' +this.categoryItemHeight, 'full : ' + this.categoryFullHeight);
     },
-    setCategoryData(data){this.categoryData = data},
-    setActiveCategory(data){this.activeCategory = data},
-    setMobileActiveElements(elements){
-
+    setCategoryData(data){
+      this.categoryData = data;
+    },
+    getActiveCategory(){
+      
+    },
+    setActiveCategory(data){
+      this.activeCategory = {...data};
+    },
+    setCategoryHeight(num){
+      this.category.style.height = parseInt(num) + 'px';
+    },
+    pushCategoryData(data){
+      this.categoryData.push(data);
     },
 
     openNavCategoryHeight(){
+      if(u.preventDuplicationAnimation(this.category,1)){return};
       this.category.classList.add('open');
-      this.category.style.height = this.categoryFullHeight + 'px';
+      this.setCategoryHeight(this.categoryFullHeight);
     },
 
     closeNavCategoryHeight(){
+      if(u.preventDuplicationAnimation(this.category,1)){return};
       this.category.classList.remove('open');
-      this.category.style.height = this.categoryItemHeight + 'px';
+      this.setCategoryHeight(this.categoryItemHeight);
     },
 
     resetSelectContentsItem(){
@@ -231,11 +162,26 @@ export default {
     },
 
     categoryItemClick(e){
-      this.setActiveCategory(e.target.getAttribute('data-name'));
+      const t = e.target;
+      const targetdata = JSON.parse(t.getAttribute('data-item'));
+      const index = u.getThisIndex(this.categoryItem, t.parentElement);
+      const before = this.activeCategory;
+      this.setActiveCategory(targetdata);
+      setTimeout(()=>{
+        this.categoryData.splice(index,1);
+        this.categoryData.push(before);  
+        this.categoryData.sort((a,b)=>a.id - b.id);
+      },1000)
+
+      setTimeout(()=>{
+        this.closeNavCategoryHeight();
+      },100);
+
       this.OPR_textSlide({
         el : this.categoryNowName,
-        msg : this.activeCategory,
+        msg : this.activeCategory.name,
       });
+
     },
 
     contentsItemClick(e){
@@ -247,6 +193,13 @@ export default {
       this.setCategoryData(this.GET_adminData.category)
       this.setNavCategoryHeight();
       this.closeNavCategoryHeight();
+      setTimeout(()=>{
+        console.log(1);
+        this.setNavCategoryHeight();
+        this.closeNavCategoryHeight();
+      },1000)
+      
+      
       this.OPR_gnbOpen();
     },
 
@@ -254,12 +207,16 @@ export default {
     testclose(){this.gnb.classList.add('close')},
     testopen(){this.gnb.classList.remove('close')},
     testaction(){
+      console.log(this.GET_contentsData);
     },
     testfunction(){
       window.testtoggle = this.testtoggle;
       window.testopen = this.testopen;
       window.testclose = this.testclose;
-      window.testaction = this.testaction;
+      window.t = this.testaction;
+      window.tt = (b) =>{
+        this.test = b 
+      }
       // this.testaction();
     },
 
@@ -274,14 +231,7 @@ export default {
     this.OPR_scrollCorrection(this.gnbInner);
     this.SET_gnbSelect();
 
-    this.category.style.height = this.categoryItemHeight + 'px';
-
-    // for(let i = 0; i < this.contentsItem.length; ++i){
-    //   this.contentsItem[i].addEventListener('click', (event)=>{
-    //     this.resetSelectContentsItem();
-    //     this.contentsItem[i].classList.add('select');
-    //   });
-    // };
+    // this.setCategoryHeight(this.categoryItemHeight);
 
     this.SET_spySubscribe(this.dataAwaitGnb);
 
@@ -678,5 +628,13 @@ export default {
   }
 
 }
+
+.fade-enter-active, .fade-leave-active {
+  transition: opacity 5s;
+}
+.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+  opacity: 0;
+}
+
 
 </style>

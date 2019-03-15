@@ -16,7 +16,6 @@ import './assets/font/font.css';
 import dataRender from './components/dataRender.vue'
 import gnb from './components/gnb.vue';
 
-
 export default {
 
   components : {

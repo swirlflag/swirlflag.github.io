@@ -1,32 +1,7 @@
 export default {
 
-
   LOAD_isMobile(state) {
     state.isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-  },
-
-  // LOAD_finshedDataLoad(state){
-  //   // console.log('LOAD DATA');
-  //   // console.log('content :', state.contentsData);
-  //   // console.log('admin :', state.adminData);
-  //   this.commit('SET_gnbSelect');
-  //   this.commit('ACT_gnbClose');
-  // },
-  
-  SET_MobileActiveElements(state,elements){
-    
-    if(!this.GET_isMobile){return};
-    
-    state.mobileActiveElements = document.querySelectorAll(elements);
-    for(let i = 0; i < this.mobileActiveElements.length; ++i){
-      this.mobileActiveElements[i].addEventListener('touchstart', () =>{
-        this.mobileActiveElements[i].classList.add('mobile-active');
-      });
-      this.mobileActiveElements[i].addEventListener('touchend', () =>{
-        this.mobileActiveElements[i].classList.remove('mobile-active');
-      });
-    }
-
   },
 
   SET_adminData(state,data){

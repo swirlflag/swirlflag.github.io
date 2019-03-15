@@ -6,7 +6,7 @@ export default {
       const response = await getAppData();
       commit('SET_appData', response.data);
       await finishLoadFuncton(response, state.spy.subscriberList);
-    }catch(error){console.log(error)};
+    }catch(error){console.log(error, + 'settingAllData')};
   }, 
 
   // setAdminData(state,t){

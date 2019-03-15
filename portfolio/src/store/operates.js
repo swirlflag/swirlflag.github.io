@@ -1,4 +1,10 @@
+import u from '../utils/u.js'
+
 export default{
+  TEST(state, payload){
+    console.log(state, payload);
+  },
+
   OPR_scrollCorrection(state,el){
     el.addEventListener('scroll', function(){
       if(el.offsetHeight + el.scrollTop != el.scrollHeight){return};
@@ -15,11 +21,10 @@ export default{
   },
 
   OPR_textSlide(state,{el,msg,d}){
-    if(el.classList.contains('is-sl-an')){return};
+    if(el.classList.contains('is-text-sliding')){return};
     if(!d){d = 1};
-    const pxDel = npx => parseInt(npx.split('px')[0]);
     const style = getComputedStyle(el);
-    el.classList.add('is-sl-an');
+    el.classList.add('is-text-sliding');
     let wrap = document.createElement('span'),
         beforespan = document.createElement('span'),
         afterspan = document.createElement('span');
@@ -30,15 +35,16 @@ export default{
     wrap.style.transition = `all ${d}s ease`;
     beforespan.innerText = el.innerText;
     afterspan.innerText = msg;
+    
     let decrease = {
-      w : pxDel(style['padding-right']) + 
-          pxDel(style['border-right']) + 
-          pxDel(style['padding-left']) + 
-          pxDel(style['border-left']),
-      h : pxDel(style['padding-top']) + 
-          pxDel(style['border-top']) + 
-          pxDel(style['padding-bottom']) + 
-          pxDel(style['border-bottom']),
+      w : u.pxDel(style['padding-right']) + 
+          u.pxDel(style['border-right']) + 
+          u.pxDel(style['padding-left']) + 
+          u.pxDel(style['border-left']),
+      h : u.pxDel(style['padding-top']) + 
+          u.pxDel(style['border-top']) + 
+          u.pxDel(style['padding-bottom']) + 
+          u.pxDel(style['border-bottom']),
     };
     afterspan.style.marginTop = decrease.h + 'px';
     if(style['box-sizing'] == 'border-box'){w += 2; h += 2};
@@ -53,12 +59,17 @@ export default{
     setTimeout(()=>{wrap.style.marginTop = '-' + el.offsetHeight + 'px'},10);
     setTimeout(()=>{
       el.innerHTML = msg;
-      el.classList.remove('is-sl-an');
+      el.classList.remove('is-text-sliding');
     },d * 1000 + 10);
   },
 
-  TEST(state, payload){
-    console.log(state, payload);
+  OPR_mobileActiveTouchStart(state,e){
+    if(!this.getters.GET_isMobile){return};
+    e.target.classList.add('mobile-active');
+  },
+  
+  OPR_mobileActiveTouchEnd(state,e){
+    e.target.classList.remove('mobile-active');
   },
 
 }
