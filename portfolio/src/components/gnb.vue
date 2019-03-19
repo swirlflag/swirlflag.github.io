@@ -38,7 +38,7 @@
     <div id="gnb-contents">
       <ul id="gnb-contents-list">
         <transition name="fade" v-for="item in activeCategoryContents" :key="item.id" leave-active-class="contentstest">
-          <li class="gnb-contents-item active" @click="contentsItemClick" v-if="test2" v-bind:data-category="item['content-category']">
+          <li class="gnb-contents-item active" @click="contentsItemClick" v-if="test2" v-bind:data-content="JSON.stringify({date : item['update-date']})">
             <a href="#">
               <span>
                 {{ item['content-name'] }}
@@ -53,7 +53,7 @@
 
   <footer id="gnb-bottom">
     <div id="gnb-bottom-wrap">
-      <div class="gnb-bottom-update new-dot">2019.02 update</div>
+      <div class="gnb-bottom-update new-dot">{{this.updateDate.y}}.{{this.updateDate.m}} update</div>
       <div class="gnb-bottom-copyright">2019 swirlflag</div>
     </div>
     
@@ -79,6 +79,7 @@ export default {
 
       adminData : [],
       categoryData : [],
+      updateDate : {},
       targetContentList : [],
       test : false,
       test2 : true,
@@ -123,10 +124,12 @@ export default {
     setNavCategoryHeight(){
       this.categoryItemHeight = this.categoryNow.offsetHeight;
       this.categoryFullHeight = this.categoryItemHeight * (this.categoryData.length + 1);
-      // console.log('set category height!' ,'item : ' +this.categoryItemHeight, 'full : ' + this.categoryFullHeight);
     },
-    setCategoryData(data){
-      this.categoryData = data;
+    setAdminData(data){
+      this.categoryData = data['category'];
+      for(let key in data['update-date']){
+        this.updateDate[key] = u.zs(data['update-date'][key]);
+      };     
     },
     setTargetContentList(data){
       this.targetContentList = data;
@@ -141,12 +144,9 @@ export default {
       this.activeCategoryContents = {...data};
     },
     showHideContentList(data){
-      console.log(1);
       for(let i = 0; i < this.contentsItem.length; ++i){
         this.contentsItem[i].classList.remove('active');
-        console.log('active');
         setTimeout(()=>{
-          console.log('hidden');
           this.contentsItem[i].classList.add('hidden');
         },1000);
       };
@@ -227,14 +227,10 @@ export default {
     },
 
     dataAwaitGnb(response){
-      this.setCategoryData(this.GET_adminData.category)
+      this.setAdminData(this.GET_adminData);
       this.setActiveCategoryContent(this.GET_contentsData);
       this.setNavCategoryHeight();
       this.closeNavCategoryHeight();
-      setTimeout(()=>{
-        this.setNavCategoryHeight();
-        this.closeNavCategoryHeight();
-      },1000)
       this.OPR_gnbOpen();
     },
 
@@ -288,28 +284,14 @@ export default {
 
 <style>
 
-.gnb-contents-item{
-  transition: opacity 1s ease !important;
-  opacity: 0;
-}
-.gnb-contents-item.active{
-  opacity: 1;
-}
-.hidden{
-  height: none !important;
-  margin: none !important;
-  opacity: 0;
-  font-size: 0;
-  display: none !important;
-}
-
-
 
 
 
 </style>
 
 <style scoped>
+
+
 #gnb{
   width: 50%;
   max-width : 520px;
@@ -444,7 +426,19 @@ export default {
   overflow-x: hidden;
   font-weight: lighter;
   box-sizing:border-box;
+  opacity: 0;
 }
+.gnb-contents-item.active{
+  opacity: 1;
+}
+.hidden{
+  height: none !important;
+  margin: none !important;
+  opacity: 0;
+  font-size: 0;
+  display: none !important;
+}
+
 .gnb-contents-item:first-child{margin-top: 0 !important;}
 .gnb-contents-item a{ 
   width: 100%; 
@@ -518,9 +512,9 @@ export default {
 .gnb-contents-item a{
   transition: all 0.25s ease;}
 
-/* .gnb-contents-item{
-  transition: opacity 1s ease;
-} */
+.gnb-contents-item{
+  transition: opacity 0.8s ease;
+}
 
 .arrow-triangle,
 .gnb-contents-item .icon-arrow-right,
@@ -711,5 +705,24 @@ export default {
 }
 
 
+
+</style>
+
+<style>
+
+/* .gnb-contents-item{
+  transition: opacity 1s ease !important;
+  opacity: 0;
+}
+.gnb-contents-item.active{
+  opacity: 1;
+}
+.hidden{
+  height: none !important;
+  margin: none !important;
+  opacity: 0;
+  font-size: 0;
+  display: none !important;
+} */
 
 </style>

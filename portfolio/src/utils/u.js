@@ -33,6 +33,11 @@ export default{
   pxDel(npx){
     return parseInt(npx.split('px')[0]);
   },
+
+  zs(n){
+    if(typeof n != 'number'){n = parseInt(n)};
+    return n = n < 10 ? '0' + n : n;
+  },
   
   getThisIndex(parent,element){
     for(let i = 0, l = parent.length; i < l; ++i){

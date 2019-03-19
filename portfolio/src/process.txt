@@ -9,24 +9,35 @@ C 모바일 액티브 터치 효과 재설정
 C 전체 페이지 호출후 카테고리 리스트 높이계산 불일치
 C 카테고리 높이가 현재 아이템 1 에서 0 개 값의 높이로 설정
 C 카테고리 목록 정렬을 위한 id와 아이템의 실체 index불일치 
+C 카테고리목록 - 컨텐츠 목록 간 연동해서 출력하는 기능
+C 카테고리 목록 데이터 양방향 바인딩이 아니라 동적 엘리먼트 생성으로 변경하기
+C 카테고리 전환시 컨텐츠아이템의 active상태가 index순서대로 적용되는것 수정
 
-N 카테고리목록 - 컨텐츠 목록 간 연동해서 출력하는 기능
-  1. 컨텐츠리스트 호출(지연 효과) 트랜지션 
-  2. 카테고리 선택에 따른 컨텐츠리스트 전환 
-
-H 카테고리 목록 데이터 양방향 바인딩이 아니라 동적 엘리먼트 생성으로 변경하기
-퇴장 : 전부 op:0 ease 다음 d:n
-입장 : 전부 즉시 호출 d:b op:0 트랜지션 none
-등장 : 순차 표시 op:1   
-
-M 카테고리 전환시 컨텐츠아이템의 active상태가 index순서대로 적용
-M 모바일 기기 및 익스에서 스크롤바 디자인 미적용
 M gnb에서 불러올 컨텐츠 날짜 순서대로 소팅하기 
+
+
+M 모바일 기기 및 익스에서 스크롤바 디자인 미적용
 M 신규(new) 컨텐츠 데이터 날짜 구분작업 
 
 L gnb 컴포넌트 쪼개기, 최적화
 L 최초 앱 로딩시 미작동 문제
 L 최초 앱 로딩 전-중-후 사이클 조정
+
+.gnb-contents-item{
+  transition: opacity 1s ease !important;
+  opacity: 0;
+}
+.gnb-contents-item.active{
+  opacity: 1;
+}
+.hidden{
+  height: none !important;
+  margin: none !important;
+  opacity: 0;
+  font-size: 0;
+  display: none !important;
+}
+
 
 
 

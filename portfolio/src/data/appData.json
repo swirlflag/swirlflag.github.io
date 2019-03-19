@@ -23,11 +23,7 @@
         "name" : "post"
       }
     ],
-    "update-date" : {
-      "y" : 2019,
-      "m" : 3,
-      "d" : 15
-    }
+    "update-date" : 190315
   },
 
   "contents-data" : {
@@ -36,7 +32,7 @@
       "content-category" : "markup",
       "website-link" : "https://google.co.kr",
       "client" : ["axios clienet"],
-      "update-date" : [2019,3,15],
+      "update-date" : 190315,
       "content-maintext" : "here are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin words, combined with a handful of model sentence structures, to generate Lorem Ipsum which loo",
       "content-image" : [
         {"src" : "https://swirlflag.github.io/portfolio/src/assets/image/img01.jpg"},
@@ -51,7 +47,7 @@
       "website-link" : "https://google.co.kr",
       "client" : ["axios clienet"],
       "content-maintext" : "AXIOS TEST TEXT",
-      "update-date" : [2019,1,15],
+      "update-date" : 190115,
       "content-image" : [
         {"src" : "https://swirlflag.github.io/portfolio/src/assets/image/img01.jpg"},
         {"src" : "https://swirlflag.github.io/portfolio/src/assets/image/img02.jpg"},
@@ -65,7 +61,7 @@
       "website-link" : "https://google.co.kr",
       "client" : ["axios clienet"],
       "content-maintext" : "AXIOS TEST TEXT",
-      "update-date" : [2019,2,15],
+      "update-date" : 190215,
       "content-image" : [
         {"src" : "https://swirlflag.github.io/portfolio/src/assets/image/img01.jpg"},
         {"src" : "https://swirlflag.github.io/portfolio/src/assets/image/img02.jpg"},
@@ -79,7 +75,7 @@
       "website-link" : "https://google.co.kr",
       "client" : ["axios clienet"],
       "content-maintext" : "AXIOS TEST TEXT",
-      "update-date" : [2019,3,15],
+      "update-date" : 190315,
       "content-image" : [
         {"src" : "https://swirlflag.github.io/portfolio/src/assets/image/img01.jpg"},
         {"src" : "https://swirlflag.github.io/portfolio/src/assets/image/img02.jpg"},
@@ -93,7 +89,7 @@
       "website-link" : "https://google.co.kr",
       "client" : ["axios clienet"],
       "content-maintext" : "AXIOS TEST TEXT",
-      "update-date" : [2019,1,15],
+      "update-date" : 190115,
       "content-image" : [
         {"src" : "https://swirlflag.github.io/portfolio/src/assets/image/img01.jpg"},
         {"src" : "https://swirlflag.github.io/portfolio/src/assets/image/img02.jpg"},
@@ -106,7 +102,7 @@
       "website-link" : "https://google.co.kr",
       "client" : ["axios clienet"],
       "content-maintext" : "AXIOS TEST TEXT",
-      "update-date" : [2019,2,15],
+      "update-date" : 190215,
       "content-image" : [
         {"src" : "https://swirlflag.github.io/portfolio/src/assets/image/img01.jpg"},
         {"src" : "https://swirlflag.github.io/portfolio/src/assets/image/img02.jpg"},
@@ -119,7 +115,7 @@
       "website-link" : "https://google.co.kr",
       "client" : ["axios clienet"],
       "content-maintext" : "AXIOS TEST TEXT",
-      "update-date" : [2019,3,15],
+      "update-date" : 190315,
       "content-image" : [
         {"src" : "https://swirlflag.github.io/portfolio/src/assets/image/img01.jpg"},
         {"src" : "https://swirlflag.github.io/portfolio/src/assets/image/img02.jpg"},
@@ -132,7 +128,7 @@
       "website-link" : "https://google.co.kr",
       "client" : ["axios clienet"],
       "content-maintext" : "AXIOS TEST TEXT",
-      "update-date" : [2019,1,15],
+      "update-date" : 190115,
       "content-image" : [
         {"src" : "https://swirlflag.github.io/portfolio/src/assets/image/img01.jpg"},
         {"src" : "https://swirlflag.github.io/portfolio/src/assets/image/img02.jpg"},
@@ -145,7 +141,7 @@
       "website-link" : "https://google.co.kr",
       "client" : ["axios clienet"],
       "content-maintext" : "AXIOS TEST TEXT",
-      "update-date" : [2019,2,15],
+      "update-date" : 190215,
       "content-image" : [
         {"src" : "https://swirlflag.github.io/portfolio/src/assets/image/img01.jpg"},
         {"src" : "https://swirlflag.github.io/portfolio/src/assets/image/img02.jpg"},
@@ -159,7 +155,7 @@
       "website-link" : "https://google.co.kr",
       "client" : ["axios clienet"],
       "content-maintext" : "AXIOS TEST TEXT",
-      "update-date" : [2019,3,15],
+      "update-date" : 190315,
       "content-image" : [
         {"src" : "https://swirlflag.github.io/portfolio/src/assets/image/img01.jpg"},
         {"src" : "https://swirlflag.github.io/portfolio/src/assets/image/img02.jpg"},
@@ -172,7 +168,7 @@
       "website-link" : "https://google.co.kr",
       "client" : ["axios clienet"],
       "content-maintext" : "AXIOS TEST TEXT",
-      "update-date" : [2019,1,15],
+      "update-date" : 190115,
       "content-image" : [
         {"src" : "https://swirlflag.github.io/portfolio/src/assets/image/img01.jpg"},
         {"src" : "https://swirlflag.github.io/portfolio/src/assets/image/img02.jpg"},
@@ -185,7 +181,7 @@
       "website-link" : "https://google.co.kr",
       "client" : ["axios clienet"],
       "content-maintext" : "AXIOS TEST TEXT",
-      "update-date" : [2019,2,15],
+      "update-date" : 190215,
       "content-image" : [
         {"src" : "https://swirlflag.github.io/portfolio/src/assets/image/img01.jpg"},
         {"src" : "https://swirlflag.github.io/portfolio/src/assets/image/img02.jpg"},
@@ -198,7 +194,7 @@
       "website-link" : "https://google.co.kr",
       "client" : ["axios clienet"],
       "content-maintext" : "AXIOS TEST TEXT",
-      "update-date" : [2019,3,15],
+      "update-date" : 190315,
       "content-image" : [
         {"src" : "https://swirlflag.github.io/portfolio/src/assets/image/img01.jpg"},
         {"src" : "https://swirlflag.github.io/portfolio/src/assets/image/img02.jpg"},
@@ -211,7 +207,7 @@
       "website-link" : "https://google.co.kr",
       "client" : ["axios clienet"],
       "content-maintext" : "AXIOS TEST TEXT",
-      "update-date" : [2019,1,15],
+      "update-date" : 190115,
       "content-image" : [
         {"src" : "https://swirlflag.github.io/portfolio/src/assets/image/img01.jpg"},
         {"src" : "https://swirlflag.github.io/portfolio/src/assets/image/img02.jpg"},
@@ -224,7 +220,7 @@
       "website-link" : "https://google.co.kr",
       "client" : ["axios clienet"],
       "content-maintext" : "AXIOS TEST TEXT",
-      "update-date" : [2019,2,15],
+      "update-date" : 190215,
       "content-image" : [
         {"src" : "https://swirlflag.github.io/portfolio/src/assets/image/img01.jpg"},
         {"src" : "https://swirlflag.github.io/portfolio/src/assets/image/img02.jpg"},
@@ -237,7 +233,7 @@
       "website-link" : "https://google.co.kr",
       "client" : ["axios clienet"],
       "content-maintext" : "AXIOS TEST TEXT",
-      "update-date" : [2019,3,15],
+      "update-date" : 190315,
       "content-image" : [
         {"src" : "https://swirlflag.github.io/portfolio/src/assets/image/img01.jpg"},
         {"src" : "https://swirlflag.github.io/portfolio/src/assets/image/img02.jpg"},
