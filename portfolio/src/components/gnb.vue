@@ -38,7 +38,7 @@
     <div id="gnb-contents">
       <ul id="gnb-contents-list">
         <transition name="fade" v-for="item in activeCategoryContents" :key="item.id" leave-active-class="contentstest">
-          <li class="gnb-contents-item active" @click="contentsItemClick" v-if="test2" v-bind:data-content="JSON.stringify({date : item['update-date']})">
+          <li class="gnb-contents-item active" @click="contentsItemClick" v-bind:data-content-item="JSON.stringify({category : item['content-category'], update : item['update-date']})">
             <a href="#">
               <span>
                 {{ item['content-name'] }}
@@ -126,10 +126,11 @@ export default {
       this.categoryFullHeight = this.categoryItemHeight * (this.categoryData.length + 1);
     },
     setAdminData(data){
+      const date = data['update-date'].toString(10);
       this.categoryData = data['category'];
-      for(let key in data['update-date']){
-        this.updateDate[key] = u.zs(data['update-date'][key]);
-      };     
+      this.updateDate.y = '20' + date.substring(0,2);
+      this.updateDate.m = date.substring(2,4);
+      this.updateDate.d = date.substring(4,6);
     },
     setTargetContentList(data){
       this.targetContentList = data;
@@ -141,6 +142,8 @@ export default {
       this.activeCategory = {...data};
     },
     setActiveCategoryContent(data){
+      // date = data.sort((a,b) => a['update-date']-b['update-date']);
+      console.log(data);
       this.activeCategoryContents = {...data};
     },
     showHideContentList(data){
