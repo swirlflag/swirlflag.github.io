@@ -1,7 +1,34 @@
+
+const curry = (f) => (a,..._) => {
+  return _.length ? f(a,..._) : (..._) => f(a,..._);
+}
+
 export default{
   utest(){
     console.log(u)
   },
+
+  map : curry((f,iter)=>{
+    let res = [];
+    iter = iter[Symbol.iterator]();
+    let cur;
+    while(!(cur = iter.next()).done){
+      const a = cur.value;
+      res.push(f(a));
+    }
+    return res;
+  }),
+
+  filter : curry((f, iter)=>{
+    let res = [];
+    iter = iter[Symbol.iterator]();
+    let cur;
+    while(!(cur = iter.next()).done){
+      const a = cur.value;
+      if(f(a)){res.push(a)};
+    }
+    return res;
+  }),
   
   pxDel(npx){
     return parseInt(npx.split('px')[0]);
@@ -24,5 +51,6 @@ export default{
     },duration * 1000);
     return false;
   },
+
 
 };

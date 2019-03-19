@@ -37,8 +37,8 @@
   
     <div id="gnb-contents">
       <ul id="gnb-contents-list">
-        <transition name="fade" v-for="item in activeCategoryContents" :key="item.id">
-          <li class="gnb-contents-item" @click="contentsItemClick" v-if="test2">
+        <transition name="fade" v-for="item in activeCategoryContents" :key="item.id" leave-active-class="contentstest">
+          <li class="gnb-contents-item active" @click="contentsItemClick" v-if="test2" v-bind:data-category="item['content-category']">
             <a href="#">
               <span>
                 {{ item['content-name'] }}
@@ -47,7 +47,6 @@
             </a>
           </li>
         </transition>
-        <!-- <span v-for="item in activeCategoryContents" :key="item">{{item}}</span> -->
       </ul>
     </div>
   </div>
@@ -80,6 +79,7 @@ export default {
 
       adminData : [],
       categoryData : [],
+      targetContentList : [],
       test : false,
       test2 : true,
     }
@@ -97,6 +97,7 @@ export default {
     categoryNow : () => document.getElementById('gnb-category-now'),
     categoryNowName : () => document.getElementById('gnb-category-now-name'),
     categoryItem : () => document.getElementsByClassName('gnb-category-item'),
+    contentsList : () => document.getElementById('gnb-contents-list'),
     contentsItem : () => document.getElementsByClassName('gnb-contents-item'),
   },
   
@@ -122,30 +123,47 @@ export default {
     setNavCategoryHeight(){
       this.categoryItemHeight = this.categoryNow.offsetHeight;
       this.categoryFullHeight = this.categoryItemHeight * (this.categoryData.length + 1);
-      console.log('set category height!' ,'item : ' +this.categoryItemHeight, 'full : ' + this.categoryFullHeight);
+      // console.log('set category height!' ,'item : ' +this.categoryItemHeight, 'full : ' + this.categoryFullHeight);
     },
     setCategoryData(data){
       this.categoryData = data;
     },
+    setTargetContentList(data){
+      this.targetContentList = data;
+    },
     getActiveCategory(){
-      
+      console.log(this.contentsItem);
     },
     setActiveCategory(data){
       this.activeCategory = {...data};
     },
-    setActiveCategoryContents(data){
-      this.activeCategoryContents = {};
-      if(this.activeCategory.id == 0){
-        console.log('all');
-        this.activeCategoryContents = {...data};
-      }else{
-        console.log('not all');
-        for(var key in data){
-          if(data[key]['content-category'] == this.activeCategory.name){
-            this.activeCategoryContents[key] = data[key];
-          }
-        }
+    setActiveCategoryContent(data){
+      this.activeCategoryContents = {...data};
+    },
+    showHideContentList(data){
+      console.log(1);
+      for(let i = 0; i < this.contentsItem.length; ++i){
+        this.contentsItem[i].classList.remove('active');
+        console.log('active');
+        setTimeout(()=>{
+          console.log('hidden');
+          this.contentsItem[i].classList.add('hidden');
+        },1000);
       };
+
+      setTimeout(()=>{
+        if(this.activeCategory.id == 0){
+          this.setTargetContentList(u.map(n => n ,this.contentsItem))
+        }else{
+          this.setTargetContentList(u.filter(n => n.getAttribute('data-category') == this.activeCategory.name, this.contentsItem));
+        };
+        for(let i = 0; i < this.targetContentList.length; ++i){
+          this.targetContentList[i].classList.remove('hidden');
+          setTimeout(()=>{
+            this.targetContentList[i].classList.add('active');  
+          },(i+1)*100);
+        };
+      },1000);
     },
     setCategoryHeight(num){
       this.category.style.height = parseInt(num) + 'px';
@@ -155,13 +173,13 @@ export default {
     },
 
     openNavCategoryHeight(){
-      if(u.preventDuplicationAnimation(this.category,1)){return};
+      // if(u.preventDuplicationAnimation(this.category,1)){return};
       this.category.classList.add('open');
       this.setCategoryHeight(this.categoryFullHeight);
     },
 
     closeNavCategoryHeight(){
-      if(u.preventDuplicationAnimation(this.category,1)){return};
+      // if(u.preventDuplicationAnimation(this.category,1)){return};
       this.category.classList.remove('open');
       this.setCategoryHeight(this.categoryItemHeight);
     },
@@ -199,7 +217,7 @@ export default {
         msg : this.activeCategory.name,
       });
 
-      this.setActiveCategoryContents(this.GET_contentsData);
+      this.showHideContentList(this.GET_contentsData);
 
     },
 
@@ -210,7 +228,7 @@ export default {
 
     dataAwaitGnb(response){
       this.setCategoryData(this.GET_adminData.category)
-      this.setActiveCategoryContents(this.GET_contentsData);
+      this.setActiveCategoryContent(this.GET_contentsData);
       this.setNavCategoryHeight();
       this.closeNavCategoryHeight();
       setTimeout(()=>{
@@ -220,11 +238,15 @@ export default {
       this.OPR_gnbOpen();
     },
 
+    contentstest(){
+      console.log('leave end');
+    },
+
     testtoggle(){this.gnb.classList.toggle('close')},
     testclose(){this.gnb.classList.add('close')},
     testopen(){this.gnb.classList.remove('close')},
     testaction(){
-      this.setActiveCategoryContents(this.GET_contentsData);
+      this.showHideContentList(this.GET_contentsData);
     },
     testfunction(){
       window.testtoggle = this.testtoggle;
@@ -263,6 +285,29 @@ export default {
 
 }
 </script>
+
+<style>
+
+.gnb-contents-item{
+  transition: opacity 1s ease !important;
+  opacity: 0;
+}
+.gnb-contents-item.active{
+  opacity: 1;
+}
+.hidden{
+  height: none !important;
+  margin: none !important;
+  opacity: 0;
+  font-size: 0;
+  display: none !important;
+}
+
+
+
+
+
+</style>
 
 <style scoped>
 #gnb{
@@ -392,7 +437,7 @@ export default {
   margin-bottom: 70px !important;
 }
 .gnb-contents-item{
-  margin: 20px 0;
+  margin-bottom: 20px;
   font-size: 15px;
   display: flex;
   align-items: center;
@@ -471,7 +516,11 @@ export default {
 .gnb-category-item span,
 .gnb-contents-item,
 .gnb-contents-item a{
-  transition: all 0.2s ease;}
+  transition: all 0.25s ease;}
+
+/* .gnb-contents-item{
+  transition: opacity 1s ease;
+} */
 
 .arrow-triangle,
 .gnb-contents-item .icon-arrow-right,
@@ -609,7 +658,7 @@ export default {
     margin-bottom: 5.5vw !important;
   }
   #gnb-contents-list .gnb-contents-item{
-    margin: 1.5vw 0;
+    margin-bottom: 1.5vw;
     font-size: 1.05vw;
   }
   #gnb-contents-list .gnb-contents-item a{padding: 0.3vw 0 0.4vw 1.5vw;}
@@ -648,11 +697,19 @@ export default {
 }
 
 .fade-enter-active, .fade-leave-active {
-  transition: opacity 1s;
+  opacity: 1;
+  transition: all 3s ease;
+  left: 0;
 }
-.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+.fade-enter, .fade-leave-to {
+  transition: all 3s ease;
   opacity: 0;
+  position: relative;
+  background: #d3d;
+  background-color: #fff;
+  z-index: 999;
 }
+
 
 
 </style>

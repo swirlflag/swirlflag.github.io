@@ -23,55 +23,12 @@
   
 
 <script>
-
-const el = document.getElementById('el');
-
-const txtSlide = (el,msg,d) =>{
-  if(el.classList.contains('is-sl-an')){return};
-  if(!d){d = 1};
-  const pxDel = npx => parseInt(npx.split('px')[0]);
-  const style = getComputedStyle(el);
-  el.classList.add('is-sl-an');
-  let wrap = document.createElement('span'),
-      beforespan = document.createElement('span'),
-      afterspan = document.createElement('span');
-  wrap.style.display = 'inline-block';
-  beforespan.style.display = 'inline-block';
-  afterspan.style.display = 'inline-block';
-  wrap.style.position = 'relative';
-  wrap.style.transition = `all ${d}s ease`;
-  beforespan.innerText = el.innerText;
-  afterspan.innerText = msg;
-  let decrease = {
-    w : pxDel(style['padding-right']) + 
-        pxDel(style['border-right']) + 
-        pxDel(style['padding-left']) + 
-        pxDel(style['border-left']),
-    h : pxDel(style['padding-top']) + 
-        pxDel(style['border-top']) + 
-        pxDel(style['padding-bottom']) + 
-        pxDel(style['border-bottom']),
-  };
-  afterspan.style.marginTop = decrease.h + 'px';
-  if(style['box-sizing'] == 'border-box'){w += 2; h += 2};
-  if(style['display'] == 'inline'){el.style.display = 'inline-block';};
-  el.style.width = el.offsetWidth - decrease.w + 'px';
-  el.style.height = el.offsetHeight - decrease.h + 'px';
-  el.innerHTML = '';
-  wrap.append(beforespan);
-  wrap.append(document.createElement('br'));
-  wrap.append(afterspan);
-  el.append(wrap);
-  setTimeout(()=>{wrap.style.marginTop = '-' + el.offsetHeight + 'px'},10);
-  setTimeout(()=>{
-    el.innerHTML = msg;
-    el.classList.remove('is-sl-an');
-  },d * 1000 + 10);
+function solution(a,c) {
+  return c.map((i)=>a.slice(i[0]-1,i[0]+i[1]-i[0]).sort((a,b)=>a-b)[i[2]-1]);
 };
-
-el.addEventListener('click', ()=>{
-  txtSlide(el,new Date());
-});
+// arry[1, 5, 2, 6, 3, 7, 4]	commands[[2, 5, 3], [4, 4, 1], [1, 7, 3]]	=> [5, 6, 3]
+solution([1, 5, 2, 6, 3, 7, 4],[[2, 5, 3],[4,4,1],[1,7,3]]);
+// solution([1, 5, 2, 6, 3, 7, 4],[[2, 5, 3]]);
 
 </script>
 </body>
