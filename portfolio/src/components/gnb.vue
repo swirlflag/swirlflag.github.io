@@ -37,8 +37,8 @@
   
     <div id="gnb-contents">
       <ul id="gnb-contents-list">
-        <transition name="fade" v-for="item in activeCategoryContents" :key="item.id" leave-active-class="contentstest">
-          <li class="gnb-contents-item active" @click="contentsItemClick" v-bind:data-content-item="JSON.stringify({category : item['content-category'], update : item['update-date']})">
+        <transition name="fade" v-for="item in contentItemData" :key="item.id" leave-active-class="contentstest">
+          <li class="gnb-contents-item active" v-bind:class="{'new-dot' : item['is-new']}"@click="contentsItemClick" v-bind:data-content-item="JSON.stringify({category : item['content-category'], update : item['update-date']})">
             <a href="#">
               <span>
                 {{ item['content-name'] }}
@@ -64,7 +64,7 @@
 
 <script>
 
-import u from '../utils/u.js'
+import u from '../utils/utilMethod.js'
 import { mapGetters, mapMutations , mapActions} from 'vuex';
 import { getAppData } from '../api/index.js';
 
@@ -72,17 +72,13 @@ export default {
 
   data(){
     return {
-      activeCategory : {id:0,name:'all'},
-      activeCategoryContents : {},
-      categoryItemHeight : 0,
-      categoryFullHeight : 0,
-
-      adminData : [],
+      activeCategoryData : {id:0,name:'all'},
+      contentItemData : {},
       categoryData : [],
       updateDate : {},
       targetContentList : [],
-      test : false,
-      test2 : true,
+      categoryItemHeight : 0,
+      categoryFullHeight : 0,
     }
   },
 
@@ -90,7 +86,6 @@ export default {
     ...mapGetters([
       'GET_contentsData',
       'GET_adminData',
-      'GET_isMobile',
     ]),
     gnb: () => document.getElementById('gnb'),
     gnbInner: () => document.getElementById('gnb-inner'),
@@ -98,55 +93,64 @@ export default {
     categoryNow : () => document.getElementById('gnb-category-now'),
     categoryNowName : () => document.getElementById('gnb-category-now-name'),
     categoryItem : () => document.getElementsByClassName('gnb-category-item'),
-    contentsList : () => document.getElementById('gnb-contents-list'),
     contentsItem : () => document.getElementsByClassName('gnb-contents-item'),
   },
   
   methods : {
     ...mapMutations([
-      'OPR_scrollCorrection',
       'OPR_gnbOpen',
       'OPR_gnbClose',
       'OPR_textSlide',
       'OPR_mobileActiveTouchStart',
       'OPR_mobileActiveTouchEnd',
       
-      'LOAD_finshedDataLoad',
-      'LOAD_isMobile',
       'SET_gnbSelect',
       'SET_spySubscribe',
     ]),
-
-    ...mapActions([
-
-    ]),
-    
+    dateNumberToObject(datenum){
+      datenum = datenum.toString(10);
+      return {
+        y : "20" + datenum.substring(0,2),
+        m : datenum.substring(2,4),
+        d : datenum.substring(4,6),
+      }
+    },
+    utc(dateobj){
+      return Date.UTC(dateobj.y, dateobj.m,dateobj.d);
+    },
     setNavCategoryHeight(){
       this.categoryItemHeight = this.categoryNow.offsetHeight;
       this.categoryFullHeight = this.categoryItemHeight * (this.categoryData.length + 1);
     },
     setAdminData(data){
-      const date = data['update-date'].toString(10);
       this.categoryData = data['category'];
-      this.updateDate.y = '20' + date.substring(0,2);
-      this.updateDate.m = date.substring(2,4);
-      this.updateDate.d = date.substring(4,6);
+      this.updateDate = this.dateNumberToObject(data['update-date']);
     },
     setTargetContentList(data){
       this.targetContentList = data;
     },
-    getActiveCategory(){
-      console.log(this.contentsItem);
-    },
     setActiveCategory(data){
-      this.activeCategory = {...data};
+      this.activeCategoryData = {...data};
+    },
+    setCategoryHeight(num){
+      this.category.style.height = parseInt(num) + 'px';
+    },
+    pushCategoryData(data){
+      this.categoryData.push(data);
     },
     setActiveCategoryContent(data){
-      // date = data.sort((a,b) => a['update-date']-b['update-date']);
-      console.log(data);
-      this.activeCategoryContents = {...data};
+      data = data.sort((a,b) => b['update-date']-a['update-date']);
+      this.contentItemData = data;
+      let updateUTC = this.utc(this.updateDate)
+      for(let i = 0 ; i < data.length; ++i){
+        let obj = this.dateNumberToObject(data[i]['update-date']);
+        data[i]['is-new'] = 
+          updateUTC < this.utc(obj) + 2591999999 || updateUTC == this.utc(obj) ?
+          true : false;
+      };
     },
     showHideContentList(data){
+      
       for(let i = 0; i < this.contentsItem.length; ++i){
         this.contentsItem[i].classList.remove('active');
         setTimeout(()=>{
@@ -155,24 +159,23 @@ export default {
       };
 
       setTimeout(()=>{
-        if(this.activeCategory.id == 0){
-          this.setTargetContentList(u.map(n => n ,this.contentsItem))
+        let condition;
+        if(this.activeCategoryData.id == 0){
+          condition = u.map(n => n ,this.contentsItem)
         }else{
-          this.setTargetContentList(u.filter(n => n.getAttribute('data-category') == this.activeCategory.name, this.contentsItem));
+          condition = u.filter(n => JSON.parse(n.getAttribute('data-content-item'))['category'] == this.activeCategoryData.name, this.contentsItem);
         };
-        for(let i = 0; i < this.targetContentList.length; ++i){
+
+        this.setTargetContentList(condition);
+
+        for(let i = 0, l = this.targetContentList.length; i < l; ++i){
           this.targetContentList[i].classList.remove('hidden');
           setTimeout(()=>{
             this.targetContentList[i].classList.add('active');  
           },(i+1)*100);
         };
       },1000);
-    },
-    setCategoryHeight(num){
-      this.category.style.height = parseInt(num) + 'px';
-    },
-    pushCategoryData(data){
-      this.categoryData.push(data);
+
     },
 
     openNavCategoryHeight(){
@@ -180,19 +183,14 @@ export default {
       this.category.classList.add('open');
       this.setCategoryHeight(this.categoryFullHeight);
     },
-
     closeNavCategoryHeight(){
       // if(u.preventDuplicationAnimation(this.category,1)){return};
       this.category.classList.remove('open');
       this.setCategoryHeight(this.categoryItemHeight);
     },
-
     resetSelectContentsItem(){
-      for(let i = 0; i< this.contentsItem.length; ++i){
-        this.contentsItem[i].classList.remove('select');
-      };
+      u.map((item)=>{item.classList.remove('select')},this.contentsItem);
     },
-
     categoryCheck(){
       this.category.classList.contains('open')? 
         this.closeNavCategoryHeight() :
@@ -203,25 +201,21 @@ export default {
       const t = e.target;
       const targetdata = JSON.parse(t.getAttribute('data-item'));
       const index = u.getThisIndex(this.categoryItem, t.parentElement);
-      const before = this.activeCategory;
+      const before = this.activeCategoryData;
       this.setActiveCategory(targetdata);
       setTimeout(()=>{
         this.categoryData.splice(index,1);
         this.categoryData.push(before);  
         this.categoryData.sort((a,b)=>a.id - b.id);
       },1000)
-
       setTimeout(()=>{
         this.closeNavCategoryHeight();
       },100);
-
       this.OPR_textSlide({
         el : this.categoryNowName,
-        msg : this.activeCategory.name,
+        msg : this.activeCategoryData.name,
       });
-
       this.showHideContentList(this.GET_contentsData);
-
     },
 
     contentsItemClick(e){
@@ -235,10 +229,6 @@ export default {
       this.setNavCategoryHeight();
       this.closeNavCategoryHeight();
       this.OPR_gnbOpen();
-    },
-
-    contentstest(){
-      console.log('leave end');
     },
 
     testtoggle(){this.gnb.classList.toggle('close')},
@@ -270,7 +260,7 @@ export default {
   },
 
   mounted(){
-    this.OPR_scrollCorrection(this.gnbInner);
+    u.scrollCorrection(this.gnbInner);
     this.SET_gnbSelect();
     this.SET_spySubscribe(this.dataAwaitGnb);
     
@@ -280,6 +270,7 @@ export default {
     });
 
     this.testfunction();
+
   },
 
 }
@@ -413,8 +404,6 @@ export default {
   padding-left: 12px;
   box-sizing: border-box;
 }
-
-
 
 #gnb-contents{
   padding-top: 30px;

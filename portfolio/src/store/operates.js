@@ -1,10 +1,5 @@
-import u from '../utils/u.js'
-
+import u from '../utils/utilMethod.js'
 export default{
-  TEST(state, payload){
-    console.log(state, payload);
-  },
-
   OPR_scrollCorrection(state,el){
     el.addEventListener('scroll', function(){
       if(el.offsetHeight + el.scrollTop != el.scrollHeight){return};
