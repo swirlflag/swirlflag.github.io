@@ -3,6 +3,9 @@ export default{
   GET_isMobile(state){
     return state.isMobile;
   }, 
+  GET_isIOS(state){
+    return state.isIOS;
+  }, 
 
   GET_adminData(state){
     return state.adminData;

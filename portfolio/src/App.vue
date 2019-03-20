@@ -25,13 +25,17 @@ export default {
 
   computed : {
     allWrap : () => document.getElementById('all-wrap'),
-    ...mapGetters(['GET_isMobile']),
+    ...mapGetters([
+      'GET_isMobile',
+      'GET_isIOS',
+    ]),
   },
 
   methods : {
     ...mapMutations(['SET_spySubscribe']),
     setIsMobile(){
       this.allWrap.classList.add(this.GET_isMobile ? 'mobile-app' : 'pc-app');
+      if(this.GET_isIOS){this.allWrap.classList.add('ios-app')};
     },
   },
   

@@ -39,12 +39,12 @@
       <ul id="gnb-contents-list">
         <transition name="fade" v-for="item in contentItemData" :key="item.id" leave-active-class="contentstest">
           <li class="gnb-contents-item active" v-bind:class="{'new-dot' : item['is-new']}"@click="contentsItemClick" v-bind:data-content-item="JSON.stringify({category : item['content-category'], update : item['update-date']})">
-            <a href="#">
+            <router-link to="/test">
               <span>
                 {{ item['content-name'] }}
               </span>
               <span class="icon-arrow-right"></span>
-            </a>
+            </router-link>
           </li>
         </transition>
       </ul>
@@ -172,7 +172,7 @@ export default {
           this.targetContentList[i].classList.remove('hidden');
           setTimeout(()=>{
             this.targetContentList[i].classList.add('active');  
-          },(i+1)*100);
+          },(i+1)*130);
         };
       },1000);
 
@@ -284,7 +284,10 @@ export default {
 </style>
 
 <style scoped>
-
+.ios-app #gnb{
+  box-sizing :content-box;
+  border-right: 2px solid #000;
+}
 
 #gnb{
   width: 50%;
@@ -502,11 +505,10 @@ export default {
 .gnb-category-item span,
 .gnb-contents-item,
 .gnb-contents-item a{
-  transition: all 0.25s ease;}
+  transition: all 0.3s ease;}
 
-.gnb-contents-item{
-  transition: opacity 0.8s ease;
-}
+
+
 
 .arrow-triangle,
 .gnb-contents-item .icon-arrow-right,
@@ -548,6 +550,7 @@ export default {
 .mobile-app #gnb-category-now-name,
 .mobile-app .gnb-category-item span{
   padding:20px;
+  font-size: 16px;
   display: block;
   width: 100%;
 }
@@ -571,11 +574,7 @@ export default {
     margin: 0;
     font-size: 16px; 
   }
-  #gnb-contents-list .gnb-contents-item a{
-    padding: 20px 0 20px 20px;
-    font-size: 14px;
-    box-sizing: border-box;
-  }
+
   #gnb-category-now{position: relative;}
   #gnb-category-now .arrow-triangle{
     position: absolute;
@@ -586,6 +585,17 @@ export default {
     top: calc(50% - 2px);
     border-radius: 2000px;
     left: 5px;
+  }
+  .pc-app #gnb-contents-list .gnb-contents-item{
+    margin: 10px 0;
+  }
+  .pc-app #gnb-contents-list .gnb-contents-item a{
+    padding: 12px 0 12px 18px;
+  }
+  .mobile-app #gnb-contents-list .gnb-contents-item a{
+    padding: 20px 0 20px 20px;
+    font-size: 16px;
+    box-sizing: border-box;
   }
 }/*  */
 
@@ -647,7 +657,9 @@ export default {
     margin-bottom: 1.5vw;
     font-size: 1.05vw;
   }
-  #gnb-contents-list .gnb-contents-item a{padding: 0.3vw 0 0.4vw 1.5vw;}
+  #gnb-contents-list .gnb-contents-item a{
+    padding: 0.3vw 0 0.4vw 1.5vw;
+  }
   #gnb-bottom{
     width: calc(100% - 0.25vw);
     font-size: 0.8vw;
