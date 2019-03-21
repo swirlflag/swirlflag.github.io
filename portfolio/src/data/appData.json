@@ -29,7 +29,7 @@
 
   "contents-data" : [
     {
-      "content-name" : "Content Name Axios",
+      "content-name" : "Content_Name_Axios",
       "content-category" : "markup",
       "website-link" : "https://google.co.kr",
       "client" : ["axios clienet"],

@@ -53,4 +53,9 @@ export default {
     state.spy.action();
   },
 
+  NOT_isPaging(state){
+    state.isPaging = !state.isPaging;
+  },
+  
+
 }

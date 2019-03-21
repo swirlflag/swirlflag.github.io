@@ -4,16 +4,16 @@
     <div class="arrow-icon-right"></div>
     <div id="gnb-top">
       <h1 id="gnb-logo" @touchstart="OPR_mobileActiveTouchStart" @touchend="OPR_mobileActiveTouchEnd">
-        <a href="#" class="">swirlflag.</a>
+        <router-link to="/">swirlflag</router-link>
       </h1>
       <div id="gnb-top-menu">
         <div id="gnb-top-about" @touchstart="OPR_mobileActiveTouchStart" @touchend="OPR_mobileActiveTouchEnd">
-          <router-link to="/logo">
+          <router-link to="/about">
             about
           </router-link>
         </div>
         <div id="gnb-top-contact" @touchstart="OPR_mobileActiveTouchStart" @touchend="OPR_mobileActiveTouchEnd">
-          <router-link to="/work">contact</router-link>
+          <router-link to="/contact">contact</router-link>
         </div>
       </div>
     </div>
@@ -36,17 +36,15 @@
 
   
     <div id="gnb-contents">
-      <ul id="gnb-contents-list">
-        <transition name="fade" v-for="item in contentItemData" :key="item.id" leave-active-class="contentstest">
-          <li class="gnb-contents-item active" v-bind:class="{'new-dot' : item['is-new']}"@click="contentsItemClick" v-bind:data-content-item="JSON.stringify({category : item['content-category'], update : item['update-date']})">
-            <router-link to="/test">
-              <span>
-                {{ item['content-name'] }}
-              </span>
-              <span class="icon-arrow-right"></span>
-            </router-link>
-          </li>
-        </transition>
+      <ul id="gnb-contents-list"></ul>
+        <li v-for="item in contentItemData" :key="item.id" class="gnb-contents-item active" v-bind:class="{'new-dot' : item['is-new']}" @click="contentsItemClick" v-bind:data-content-item="JSON.stringify({category : item['content-category'], update : item['update-date']})">
+          <router-link v-bind:to="`/work/${item['content-name']}`">
+            <span>
+              {{ underbarToBlank(item['content-name'])}}
+            </span>
+            <span class="icon-arrow-right"></span>
+          </router-link>
+        </li>
       </ul>
     </div>
   </div>
@@ -118,6 +116,9 @@ export default {
     utc(dateobj){
       return Date.UTC(dateobj.y, dateobj.m,dateobj.d);
     },
+    underbarToBlank(string){
+      return string.replace(/_/gi, ' ');
+    },
     setNavCategoryHeight(){
       this.categoryItemHeight = this.categoryNow.offsetHeight;
       this.categoryFullHeight = this.categoryItemHeight * (this.categoryData.length + 1);
@@ -172,7 +173,7 @@ export default {
           this.targetContentList[i].classList.remove('hidden');
           setTimeout(()=>{
             this.targetContentList[i].classList.add('active');  
-          },(i+1)*130);
+          },(i+1)*100);
         };
       },1000);
 
@@ -276,12 +277,6 @@ export default {
 }
 </script>
 
-<style>
-
-
-
-
-</style>
 
 <style scoped>
 .ios-app #gnb{
@@ -378,23 +373,16 @@ export default {
 }
 #gnb-category.open #gnb-category-now .arrow-triangle{background-position: 0 -6px;}
 #gnb-category-now{
-  /* border: 1px solid #d3d; */
   box-sizing: border-box;
 }
 #gnb-category-now-name{
-  /* border: 1px solid #3d3;  */
-  /* position: relative; */
-  /* width: 100%; */
-  /* box-sizing: border-box; */
   padding-left: 4px;
   padding: 4px 5px;
   overflow: hidden;
   width: 100%;
-  /* height: 50%; */
 }
 #gnb-category-now-name-item{
-  /* display: block; */
-  /* border: 1px solid #000; */
+
 }
 .gnb-category-item span{
   display: inline-block;
@@ -692,41 +680,25 @@ export default {
     right: 0.5vw;
   }
 
-}
-
-.fade-enter-active, .fade-leave-active {
-  opacity: 1;
-  transition: all 3s ease;
-  left: 0;
-}
-.fade-enter, .fade-leave-to {
-  transition: all 3s ease;
-  opacity: 0;
-  position: relative;
-  background: #d3d;
-  background-color: #fff;
-  z-index: 999;
-}
-
+}/*  */
 
 
 </style>
 
+
 <style>
 
-/* .gnb-contents-item{
-  transition: opacity 1s ease !important;
-  opacity: 0;
-}
-.gnb-contents-item.active{
-  opacity: 1;
-}
-.hidden{
-  height: none !important;
-  margin: none !important;
-  opacity: 0;
-  font-size: 0;
-  display: none !important;
-} */
+/* .fade-enter-active, .fade-leave-active { */
+  /* opacity: 1; */
+  /* transition: all 3s ease; */
+  /* left: 0; */
+/* } */
+/* .fade-enter, .fade-leave-to { */
+  /* transition: all 3s ease; */
+  /* opacity: 0; */
+  /* position: relative; */
+  /* background-color: #fff; */
+  /* z-index: 999; */
+/* } */
 
 </style>

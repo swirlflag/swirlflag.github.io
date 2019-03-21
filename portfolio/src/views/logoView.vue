@@ -1,6 +1,7 @@
 <template>
-  <section class="section">
+  <section class="router-section">
     <img src="../assets/logo.png" alt="">
+    <img src="../assets/logo.png" alt=""><img src="../assets/logo.png" alt=""><img src="../assets/logo.png" alt=""><img src="../assets/logo.png" alt=""><img src="../assets/logo.png" alt=""><img src="../assets/logo.png" alt=""><img src="../assets/logo.png" alt=""><img src="../assets/logo.png" alt=""><img src="../assets/logo.png" alt=""><img src="../assets/logo.png" alt="">
   </section>
 </template>
 
@@ -16,8 +17,6 @@ export default {
   display: block;
   max-width : 100%;
   background-color: #fff;
-  flex : 1;
-  display: flex;
 }
 
 img{

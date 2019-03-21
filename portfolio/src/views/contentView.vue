@@ -1,5 +1,5 @@
 <template>
-  <section id="content-page">
+  <section id="content-page" class="router-section">
     <div id="content-goto-gnb" class="page-controls">
       <span class="icon-arrow-left"></span>
       <span>BACK TO LIST</span>
@@ -87,8 +87,9 @@ export default {
     imageContainer : () => document.getElementById('content-image-container'),
     imageItem : () => document.getElementsByClassName('content-image-item'),
     
-    // ...mapState([]),
-    ...mapGetters(['adminData'])
+    ...mapGetters([
+      'adminData',
+    ]),
     
   },
 
@@ -112,8 +113,6 @@ export default {
     window.addEventListener('resize',this.resizeImageView );
 
 
-
-  
     // const loop = (cd,fn) => {
     //   const vf = typeof cd == 'function' ? cd() : cd;
     //   vf ? fn() : setTimeout(()=>{loop(cd,fn)},100);
@@ -138,13 +137,7 @@ export default {
 <style>
 [class^="icon-arrow"]{cursor: pointer;}
 #content-page{
-  width: auto;
-  display: block;
-  max-width : 100%;
   background-color: #fff;
-  flex : 1;
-  overflow-y: scroll;
-  overflow-x: hidden;
   box-sizing: border-box;
 }
 .page-controls,

@@ -5,7 +5,8 @@ const curry = (f) => (a,..._) => {
 
 export default{
   utest(){
-    console.log(u)
+    console.log(u);
+    console.log(this);
   },
 
   map : curry((f,iter)=>{
@@ -62,6 +63,10 @@ export default{
       if(el.offsetHeight + el.scrollTop != el.scrollHeight){return};
       el.scrollTop = (el.scrollHeight - (el.scrollHeight - el.scrollTop)) - 0.1;
     });
+  },
+
+  blankToUnderbar(string){
+    return string.replace(' ', '_');
   },
 
 };

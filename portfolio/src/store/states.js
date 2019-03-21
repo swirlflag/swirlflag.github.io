@@ -1,4 +1,6 @@
 export default {
+  test : 'test',
+
   spy : null,
   isMobile : null,
   isIOS : null,
@@ -7,4 +9,7 @@ export default {
   gnb : null,
   gnbItems : null,
   mobileActiveElements : [],
+
+  isPaging : false,
+  
 }

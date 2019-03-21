@@ -3,7 +3,7 @@
   <div id="all-wrap">
     <data-render></data-render>
     <gnb></gnb>
-    <router-view></router-view>
+    <router-area></router-area>
   </div>
 </div>
 </template>
@@ -16,11 +16,14 @@ import './assets/font/font.css';
 import dataRender from './components/dataRender.vue'
 import gnb from './components/gnb.vue';
 
+import routerArea from './components/routerArea.vue';
+
 export default {
 
   components : {
     'data-render': dataRender,
     'gnb': gnb,
+    'router-area' : routerArea,
   },
 
   computed : {
@@ -54,7 +57,6 @@ export default {
 </script>
 
 <style>
-
 a{text-decoration: none; color: #444;}
 li{list-style: none;}
 html,body{height: 100%; }
@@ -99,5 +101,7 @@ html,body{height: 100%; }
     top: 0.32vw; left: 0.2vw; 
   }
 }
+
+
 
 </style>

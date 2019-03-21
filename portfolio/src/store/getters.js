@@ -6,6 +6,9 @@ export default{
   GET_isIOS(state){
     return state.isIOS;
   }, 
+  GET_isPaging(state){
+    return state.isPaging;
+  },
 
   GET_adminData(state){
     return state.adminData;
