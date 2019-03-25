@@ -26,7 +26,7 @@
         <span class="arrow-triangle"></span>
       </p>
       <ul id="gnb-category-list" >
-        <li class="gnb-category-item" v-for="item in categoryData" v-bind:key="item.id">
+        <li class="gnb-category-item" v-for="item in this.GET_categoryData" v-bind:key="item.id">
           <span @click="categoryItemClick" v-bind:data-item="JSON.stringify(item)" @touchstart="OPR_mobileActiveTouchStart" @touchend="OPR_mobileActiveTouchEnd">
             {{ item.name }}
           </span>
@@ -34,13 +34,13 @@
       </ul>
     </div>
 
-  
+
     <div id="gnb-contents">
-      <ul id="gnb-contents-list"></ul>
-        <li v-for="item in contentItemData" :key="item.id" class="gnb-contents-item active" v-bind:class="{'new-dot' : item['is-new']}" @click="contentsItemClick" v-bind:data-content-item="JSON.stringify({category : item['content-category'], update : item['update-date']})">
+      <ul id="gnb-contents-list">
+        <li v-for="item in this.GET_contentsData" :key="item.id" class="gnb-contents-item active" v-bind:class="{'new-dot' : item['is-new']}" @click="contentsItemClick" v-bind:data-content-item="JSON.stringify({name : item['content-name'],category : item['content-category'], update : item['update-date']})">
           <router-link v-bind:to="`/work/${item['content-name']}`">
             <span>
-              {{ underbarToBlank(item['content-name'])}}
+              {{ removeUnderbar(item['content-name'])}}
             </span>
             <span class="icon-arrow-right"></span>
           </router-link>
@@ -63,6 +63,7 @@
 <script>
 
 import u from '../utils/utilMethod.js'
+import bus from '../utils/bus.js';
 import { mapGetters, mapMutations , mapActions} from 'vuex';
 import { getAppData } from '../api/index.js';
 
@@ -73,7 +74,7 @@ export default {
       activeCategoryData : {id:0,name:'all'},
       contentItemData : {},
       categoryData : [],
-      updateDate : {},
+      updateDate : {}, 
       targetContentList : [],
       categoryItemHeight : 0,
       categoryFullHeight : 0,
@@ -84,9 +85,16 @@ export default {
     ...mapGetters([
       'GET_contentsData',
       'GET_adminData',
+      'GET_updateDate',
+      'GET_categoryData',
+      'GET_isPaging'
     ]),
     gnb: () => document.getElementById('gnb'),
     gnbInner: () => document.getElementById('gnb-inner'),
+    topMenuItems : () => document.querySelectorAll('#gnb-top-menu > div'),
+    about : () => document.getElementById('gnb-top-about'),
+    contact : () => document.getElementById('gnb-top-contact'),
+
     category : () => document.getElementById('gnb-category'),
     categoryNow : () => document.getElementById('gnb-category-now'),
     categoryNowName : () => document.getElementById('gnb-category-now-name'),
@@ -104,6 +112,9 @@ export default {
       
       'SET_gnbSelect',
       'SET_spySubscribe',
+      'SET_contentsData',
+      'SET_nowGnbContentItem',
+      'SET_contentsItem',
     ]),
     dateNumberToObject(datenum){
       datenum = datenum.toString(10);
@@ -113,20 +124,19 @@ export default {
         d : datenum.substring(4,6),
       }
     },
-    utc(dateobj){
-      return Date.UTC(dateobj.y, dateobj.m,dateobj.d);
-    },
-    underbarToBlank(string){
+
+    removeUnderbar(string){
       return string.replace(/_/gi, ' ');
     },
     setNavCategoryHeight(){
       this.categoryItemHeight = this.categoryNow.offsetHeight;
-      this.categoryFullHeight = this.categoryItemHeight * (this.categoryData.length + 1);
+      this.categoryFullHeight = this.categoryItemHeight * (this.GET_categoryData.length + 1);
     },
-    setAdminData(data){
-      this.categoryData = data['category'];
-      this.updateDate = this.dateNumberToObject(data['update-date']);
-    },
+    setUpdateDate(data){
+      this.updateDate.y = this.GET_updateDate.y;
+      this.updateDate.m = this.GET_updateDate.m;
+    }, 
+    // =>  mutations
     setTargetContentList(data){
       this.targetContentList = data;
     },
@@ -136,20 +146,17 @@ export default {
     setCategoryHeight(num){
       this.category.style.height = parseInt(num) + 'px';
     },
-    pushCategoryData(data){
-      this.categoryData.push(data);
-    },
-    setActiveCategoryContent(data){
-      data = data.sort((a,b) => b['update-date']-a['update-date']);
-      this.contentItemData = data;
-      let updateUTC = this.utc(this.updateDate)
-      for(let i = 0 ; i < data.length; ++i){
-        let obj = this.dateNumberToObject(data[i]['update-date']);
-        data[i]['is-new'] = 
-          updateUTC < this.utc(obj) + 2591999999 || updateUTC == this.utc(obj) ?
-          true : false;
-      };
-    },
+    // setActiveCategoryContent(data){
+      // data = data.sort((a,b) => b['update-date']-a['update-date']);
+      // this.SET_contentsData(data);
+      // let updateUTC = u.utc(this.GET_updateDate);
+      // for(let i = 0 ; i < data.length; ++i){
+      //   let obj = u.dateNumberToObject(data[i]['update-date']);
+      //   data[i]['is-new'] = 
+      //     updateUTC < u.utc(obj) + 2591999999 || updateUTC == u.utc(obj) ?
+      //     true : false;
+      // };
+    // },
     showHideContentList(data){
       
       for(let i = 0; i < this.contentsItem.length; ++i){
@@ -189,15 +196,17 @@ export default {
       this.category.classList.remove('open');
       this.setCategoryHeight(this.categoryItemHeight);
     },
-    resetSelectContentsItem(){
+    resetSelectGnbItem(){
+      u.map((item)=>{item.classList.remove('select')},this.topMenuItems);
       u.map((item)=>{item.classList.remove('select')},this.contentsItem);
     },
+    
     categoryCheck(){
-      this.category.classList.contains('open')? 
+      this.category.classList.contains('open') ? 
         this.closeNavCategoryHeight() :
         this.openNavCategoryHeight();
     },
-
+    
     categoryItemClick(e){
       const t = e.target;
       const targetdata = JSON.parse(t.getAttribute('data-item'));
@@ -205,9 +214,12 @@ export default {
       const before = this.activeCategoryData;
       this.setActiveCategory(targetdata);
       setTimeout(()=>{
-        this.categoryData.splice(index,1);
-        this.categoryData.push(before);  
-        this.categoryData.sort((a,b)=>a.id - b.id);
+        // this.categoryData.splice(index,1);
+        // this.categoryData.push(before);  
+        // this.categoryData.sort((a,b)=>a.id - b.id);
+        this.GET_categoryData.splice(index,1);
+        this.GET_categoryData.push(before);  
+        this.GET_categoryData.sort((a,b)=>a.id - b.id);
       },1000)
       setTimeout(()=>{
         this.closeNavCategoryHeight();
@@ -219,24 +231,62 @@ export default {
       this.showHideContentList(this.GET_contentsData);
     },
 
-    contentsItemClick(e){
-      this.resetSelectContentsItem();
-      e.target.parentElement.classList.add('select');
+    contentsItemActive(e){      
+      
     },
 
+    contentsItemClick(e){     
+
+    },
+
+    gnbPathCheck(path){
+      this.resetSelectGnbItem();
+      if(path.search('/work') != -1){  
+        //work일시
+        path = path.replace('/work/', '');
+        for(let i = 0; i < this.$store.getters.GET_contentsItem.length; ++i){
+          if(JSON.parse(this.$store.getters.GET_contentsItem[i].getAttribute('data-content-item')).name == path){            
+            this.$store.getters.GET_contentsItem[i].classList.add('select');
+          }
+        }
+
+      }else if(path.search('/post') != -1){
+        //post일시
+      }else{  
+        let target;
+        if(path == '/about'){
+          target = 'about';
+        }else if(path == '/contact'){
+          target = 'contact'
+        };
+        this[target].classList.add('select');
+        
+      }
+
+    },
+
+    busSendEvent(){
+      this.SET_contentsItem();
+      bus.$on('gnbPathCheck', this.gnbPathCheck);
+    },
+  
     dataAwaitGnb(response){
-      this.setAdminData(this.GET_adminData);
-      this.setActiveCategoryContent(this.GET_contentsData);
+      this.setUpdateDate();
       this.setNavCategoryHeight();
       this.closeNavCategoryHeight();
+      this.busSendEvent();
       this.OPR_gnbOpen();
+      
     },
 
     testtoggle(){this.gnb.classList.toggle('close')},
     testclose(){this.gnb.classList.add('close')},
     testopen(){this.gnb.classList.remove('close')},
     testaction(){
-      this.showHideContentList(this.GET_contentsData);
+      // this.ifIsPaging();
+    },
+    test2(){
+      console.log('gnbtest');
     },
     testfunction(){
       window.testtoggle = this.testtoggle;
@@ -250,6 +300,9 @@ export default {
       window.t2 = () =>{
         console.log(this.GET_contentsData);
       }
+      // setInterval(()=>{
+      //   console.log('now paging??? : '+ this.GET_isPaging);        
+      // },500)
 
       // this.testaction();
     },
@@ -262,6 +315,7 @@ export default {
 
   mounted(){
     u.scrollCorrection(this.gnbInner);
+    
     this.SET_gnbSelect();
     this.SET_spySubscribe(this.dataAwaitGnb);
     
@@ -272,7 +326,11 @@ export default {
 
     this.testfunction();
 
+    
+    
   },
+
+  
 
 }
 </script>
@@ -300,6 +358,8 @@ export default {
   -webkit-overflow-scrolling: touch;
   -webkit-tap-highlight-color: transparent;
 }
+
+
 #gnb.close{margin-left: -50%;}
 #gnb-inner{
   height: 100%;
@@ -323,12 +383,14 @@ export default {
   text-shadow: 0 0 8px #000;
   color: #fff;
 }
+
 #gnb-top-menu{
   display: flex;
   margin-left: auto;
   margin-right: -6px;
   align-items: flex-end;
 }
+
 #gnb-top-menu > div[id^="gnb-top"]{
   position: relative;
   margin:  0 15px;
@@ -336,7 +398,28 @@ export default {
 #gnb-top-menu > div[id^="gnb-top"] a{
   line-height: 0; 
   padding: 2px 5px;
+  box-sizing: border-box;
+  position: relative;  
+  color: #000;
 }
+#gnb-top-menu > div[id^="gnb-top"] > a::before{ 
+  content:  '';
+  display: inline-block;
+  position: absolute;
+  width: 0; height: 2px;
+  left: 0; 
+  bottom: 45%;
+  bottom: calc(50% - 2px);
+  background: #333;
+}
+#gnb-top-menu > div[id^="gnb-top"].select > a::before{ 
+  width: 80%;
+}
+#gnb-top-menu > div[id^="gnb-top"]:hover.select > a::before{ 
+  background: #fff;
+  opacity: 1 !important;
+}
+
 #gnb-top-menu > div[id^="gnb-top"]::before{
   content : '';
   position: absolute;
@@ -381,9 +464,7 @@ export default {
   overflow: hidden;
   width: 100%;
 }
-#gnb-category-now-name-item{
 
-}
 .gnb-category-item span{
   display: inline-block;
   padding: 4px 5px;
@@ -489,7 +570,6 @@ export default {
 #gnb-logo a,
 #gnb-top-menu > div[id^="gnb-top"],
 #gnb-top-menu > div[id^="gnb-top"] a,
-#gnb-category-now-name,
 .gnb-category-item span,
 .gnb-contents-item,
 .gnb-contents-item a{
@@ -501,7 +581,8 @@ export default {
 .arrow-triangle,
 .gnb-contents-item .icon-arrow-right,
 .gnb-contents-item .icon-arrow-right::before,
-.gnb-contents-item .icon-arrow-right::after{
+.gnb-contents-item .icon-arrow-right::after,
+#gnb-top-menu > div[id^="gnb-top"] > a::before{
   transition: all 0.5s ease;}
 
 #gnb-category{
@@ -529,6 +610,9 @@ export default {
 .mobile-app .gnb-category-item span.mobile-active{ 
   background: #000;
   color: #fff;
+}
+.pc-app #gnb-top-menu > div[id^="gnb-top"] a:hover::before{
+  opacity: 0;
 }
 
 .mobile-app #gnb-category-now,
@@ -620,6 +704,12 @@ export default {
     width: 0.1vw; height: 100%;
     right: -1vw;
   } 
+  #gnb-top-menu > div[id^="gnb-top"] > a::before{ 
+    height: 0.15vw;
+    bottom: 45%;
+    bottom: calc(50% - 0.15vw);
+  }
+
   #gnb-category-now .arrow-triangle{
     width: 1vw; height: 0.6vw;
     background-size: 1vw 1.2vw;
@@ -631,6 +721,7 @@ export default {
     padding: 1.05vw;
     padding-left: 1.05vw;
   }
+  
   #gnb-category-now-name,
   .gnb-category-item span{
     padding: 0.3vw 0.4vw;
@@ -682,23 +773,5 @@ export default {
 
 }/*  */
 
-
-</style>
-
-
-<style>
-
-/* .fade-enter-active, .fade-leave-active { */
-  /* opacity: 1; */
-  /* transition: all 3s ease; */
-  /* left: 0; */
-/* } */
-/* .fade-enter, .fade-leave-to { */
-  /* transition: all 3s ease; */
-  /* opacity: 0; */
-  /* position: relative; */
-  /* background-color: #fff; */
-  /* z-index: 999; */
-/* } */
 
 </style>

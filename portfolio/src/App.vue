@@ -51,6 +51,8 @@ export default {
       // console.log(2, response);
     });
     this.setIsMobile();  
+
+
   },
 
 }
@@ -60,9 +62,9 @@ export default {
 a{text-decoration: none; color: #444;}
 li{list-style: none;}
 html,body{height: 100%; }
-::-webkit-scrollbar {width: 3px !important; height: 3px !important;}
-::-webkit-scrollbar-track {background: #f1f1f1 !important; }
-::-webkit-scrollbar-thumb {background: #444 !important; }
+::-webkit-scrollbar {width: 3px !important; height: 3px;}
+::-webkit-scrollbar-track {background: #f1f1f1 ; }
+::-webkit-scrollbar-thumb {background: #444; }
 #app {
   font-family:'Helvetica' , 'Noto Sans KR' , sans-serif;
   font-size: 14px;

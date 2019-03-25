@@ -14,8 +14,16 @@ export default{
     return state.adminData;
   },
 
+  GET_categoryData(state){
+    return state.categoryData;
+  },
+
   GET_contentsData(state){
     return state.contentsData;
+  },
+
+  GET_updateDate(state){
+    return state.updateDate;
   },
 
   GET_gnb(state){
@@ -30,6 +38,14 @@ export default{
       state.gnb = document.getElementsByClassName('gnb-contents-item');
     }
     return state.gnbItems;
+  },
+
+  GET_nowGnbContentItem(state){
+    return state.nowGnbContentItem;
+  },
+
+  GET_contentsItem(state){
+    return state.contentsItem;
   },
 
 }

@@ -11,6 +11,5 @@ export default {
 <style scoped>
 .testpage{
   width: 100%;
-  background: #d3d;
 }
 </style>

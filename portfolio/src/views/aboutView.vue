@@ -142,6 +142,5 @@ export default {
 <style scoped>
 .testpage{
   width: 100%;
-  background: #111;
 }
 </style>

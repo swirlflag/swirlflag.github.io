@@ -1,3 +1,5 @@
+import u from '../utils/utilMethod.js';
+
 export default {
 
   LOAD_isMobile(state) {
@@ -12,6 +14,20 @@ export default {
   SET_appData(state,data){
     state.contentsData = data['contents-data'];
     state.adminData = data['admin-data'];
+    state.categoryData = data['admin-data']['category'];
+    state.updateDate = u.dateNumberToObject(data['admin-data']['update-date']);
+  },
+
+  SET_putIdContentData(state){
+    // console.log(state.contentsData.length);
+
+    // for(let i = state.contentsData.length-1; i > 0; --i){
+    //   console.log(state.contentsData[i]['content-name']);
+    // };
+    
+    for(let i = 0; i < state.contentsData.length; ++i){
+      // console.log(state.contentsData[i]['content-name']);
+    }
   },
 
   SET_gnbSelect(state){
@@ -53,9 +69,24 @@ export default {
     state.spy.action();
   },
 
-  NOT_isPaging(state){
-    state.isPaging = !state.isPaging;
+  SET_isPaging(state,bool){
+    state.isPaging = bool;
   },
-  
+
+  SET_nowURLString(state){
+    state.nowUrlString = u.getNowURL();
+  },
+
+  SET_contentsData(state,data){
+    state.contentsData = data;
+  },
+
+  SET_nowGnbContentItem(state,data){
+    state.nowGnbContentItem = data;
+  },
+
+  SET_contentsItem(state){
+    state.contentsItem = document.getElementsByClassName('gnb-contents-item ');
+  },
 
 }

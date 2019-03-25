@@ -1,5 +1,5 @@
 <template>
-  <section id="content-page" class="router-section">
+  <section id="content-page" class="router-section" >
     <div id="content-goto-gnb" class="page-controls">
       <span class="icon-arrow-left"></span>
       <span>BACK TO LIST</span>
@@ -26,7 +26,9 @@
     <div id="content-main">
       <div id="content-header">
         <span id="content-category">category</span>
-        <h2 id="content-name">Content Name</h2>
+        <h2 id="content-name">
+          {{this.$route.params.name}}
+        </h2>
       </div>
 
       <div id="content-link" class="page-controls">
@@ -69,63 +71,61 @@
 </template>
 
 <script>
+import workMixin from '../mixins/workMixin.js';
 import { mapState , mapGetters , mapMutations} from 'vuex';
 import logoViewVue from './logoView.vue';
+// import axios from 'axios';
 
 export default {
 
   data(){
     return {
-      contentName : null,
-      contentsData : null,
+      contentData : null,
       contentsMainText : null,
+      imageView : null,
     }
   },
+  mixins : [workMixin],
 
   computed: {
-    imageView : () => document.getElementById('content-image-view'),
+    
     imageContainer : () => document.getElementById('content-image-container'),
     imageItem : () => document.getElementsByClassName('content-image-item'),
     
     ...mapGetters([
-      'adminData',
+      'GET_contentsData',
+
+      'GET_isPaging',
     ]),
     
   },
 
   methods : {
+    setThisImageView(){
+      this.imageView = document.getElementById('content-image-view');
+    },
     resizeImageView(){
+      this.setThisImageView();
       const h = this.imageView.offsetWidth * (10/15) + 'px';
       for(let i = 0; i < this.imageItem.length; ++i){
         this.imageItem[i].style.height = h;
-      }
+      };
     },
   },
 
   created(){
-    // axios.get('https://swirlflag.github.io/portfolio/src/data/contentsData.json')
-    //   .then(res => console.log(res))
-    //   .catch(err => console.log(err));  
+    // for(let i = 0; i < this.GET_contentsData.length; ++i){
+    //   if(this.GET_contentsData[i]['content-name'] == this.$route.params.name){
+    //     console.log(this.GET_contentsData[i]['content-name']);
+    //   }
+    // }
   },
+
 
   mounted(){
     this.resizeImageView();
     window.addEventListener('resize',this.resizeImageView );
-
-
-    // const loop = (cd,fn) => {
-    //   const vf = typeof cd == 'function' ? cd() : cd;
-    //   vf ? fn() : setTimeout(()=>{loop(cd,fn)},100);
-    // };
-    
-    // const test = () => {return this.axiosData.hasOwnProperty('data')};
-    
-    // const contentsDataParse = () =>{
-    //   this.contentsMainText = this.axiosData.data[this.contentName]['content-maintext'];
-    // };
-
-    // loop(test,contentsDataParse);
-
+    // console.log(this.$route.params);
 
   },
 
@@ -135,6 +135,8 @@ export default {
 </script>
 
 <style>
+
+
 [class^="icon-arrow"]{cursor: pointer;}
 #content-page{
   background-color: #fff;

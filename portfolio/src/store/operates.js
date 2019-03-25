@@ -8,9 +8,9 @@ export default{
   },
 
   OPR_gnbOpen(state){
-    console.log('gnb open check before');
+    // console.log('gnb open check before');
     state.gnb.classList.remove('close');
-    console.log('gnb open check after');
+    // console.log('gnb open check after');
   },  
   
   OPR_gnbClose(state){

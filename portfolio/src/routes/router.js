@@ -2,14 +2,16 @@ import Vue from 'vue';
 import VueRouter from 'vue-router';
 
 import logoView from '../views/logoView.vue';
-import contentView from '../views/contentView.vue';
+import workView from '../views/workView.vue';
+// import createWorkView from '../views/createWorkView.js';
 
 import aboutView from '../views/aboutView.vue';
 import contactView from '../views/contactView.vue';
 
-import u from '../utils/utilMethod.js';
+// import { store } from '../store/store.js';
 
-import { checkIsPaging } from './moveView.js';
+
+// import u from '../utils/utilMethod.js';
 
 Vue.use(VueRouter);
 
@@ -23,22 +25,19 @@ export const router = new VueRouter({
     {
       path: '/',
       component: logoView,
-      beforeEnter(to,from,next){checkIsPaging(to,from,next)},
     },
     {
       path: '/about',
       component: aboutView,
-      beforeEnter(to,from,next){checkIsPaging(to,from,next)},
     },
     {
       path: '/contact',
       component: contactView,
-      beforeEnter(to,from,next){checkIsPaging(to,from,next)},
     },
     {
       path: '/work/:name',
-      component: contentView,
-      beforeEnter(to,from,next){checkIsPaging(to,from,next)},
+      component: workView,
+
     },
 
     // {

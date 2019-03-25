@@ -1,18 +1,63 @@
 <template>
   <div id="router-area">
-    <transition name="page" v-on:before-enter="delayPaging" v-on:after-enter="delayPaging">
-      <router-view></router-view>
+    <transition name="page" v-on:before-enter="delayPagingStart" v-on:after-enter="delayPagingEnd">
+      <router-view :key="$route.params.name"></router-view>
     </transition>
   </div>
 </template>
 
 <script>
+
+import { mapGetters, mapMutations } from 'vuex';
+import bus from '../utils/bus.js';
+import u from '../utils/utilMethod.js';
 export default {
+
+  data(){
+    return {
+      nowURL : '',
+    }
+  },
+
+  computed : {
+    ...mapGetters([
+      'GET_isPaging',
+    ]),
+  },
+
   methods : {
-    delayPaging(){
-      this.$store.commit('NOT_isPaging');
+    ...mapMutations([
+      'SET_isPaging',
+    ]),
+    delayPagingStart(){
+      this.SET_isPaging(true);
+      // console.log(this.$store.state.nowGnbContentItem)
+      // this.$store.state.nowGnbContentItem.classList.add('active');
     },
-  }
+    delayPagingEnd(){
+      this.SET_isPaging(false);
+      // console.log(this.$store.state.nowGnbContentItem)
+      // this.$store.state.nowGnbContentItem.classList.add('select');
+    },
+
+    
+    gnbPathCheck(to,from,next){
+      bus.$emit('gnbPathCheck', to.path);
+    },
+
+  },
+    
+  
+  created(){
+    this.$router.push('/');
+    this.$router.beforeEach((to,from,next)=>{
+      if(!this.GET_isPaging){
+        this.gnbPathCheck(to,from,next);
+        next();
+      };      
+    });
+  },
+
 }
 </script>
 
@@ -25,6 +70,9 @@ export default {
   overflow-y: scroll;
   overflow-x: hidden; 
 }
+#router-area.hidden::-webkit-scrollbar {width: 3px !important; height: 3px !important;}
+#router-area.hidden::-webkit-scrollbar-track {background: #fff !important; opacity: 0 !important; }
+#router-area.hidden::-webkit-scrollbar-thumb {background: #fff !important; opacity: 0 !important; }
 
 .router-section{
   position: absolute;

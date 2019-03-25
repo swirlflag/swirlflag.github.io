@@ -69,4 +69,37 @@ export default{
     return string.replace(' ', '_');
   },
 
+  getNowURL(){
+    return '/' + window.location.href.replace('https://' && 'http://', '').split('/').slice(1).join('/');
+  },
+  utc(dateobj){
+    return Date.UTC(dateobj.y, dateobj.m,dateobj.d);
+  },
+  removeUnderbar(string){
+    return string.replace(/_/gi, ' ');
+  },
+  blankToUnderbar(string){
+    // return string.replace(/_/gi, ' ');
+  },
+
+  dateNumberToObject(datenum){
+    datenum = datenum.toString(10);
+    return {
+      y : "20" + datenum.substring(0,2),
+      m : datenum.substring(2,4),
+      d : datenum.substring(4,6),
+    }
+  },
+  
+
+  
+
+
+
+
+      // const loop = (cd,fn) => {
+    //   const vf = typeof cd == 'function' ? cd() : cd;
+    //   vf ? fn() : setTimeout(()=>{loop(cd,fn)},100);
+    // };
+
 };
