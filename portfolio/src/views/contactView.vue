@@ -1,5 +1,7 @@
 <template>
-  <section class="testpage router-section">Contact</section>
+  <section class="router-section">
+    <div>contact</div>
+  </section>
 </template>
 
 <script>

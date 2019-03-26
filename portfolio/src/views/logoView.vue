@@ -1,5 +1,5 @@
 <template>
-  <section class="router-section">
+  <section class="router-section logo-section">
     <img src="../assets/logo.png" alt="">
     <img src="../assets/logo.png" alt=""><img src="../assets/logo.png" alt=""><img src="../assets/logo.png" alt=""><img src="../assets/logo.png" alt=""><img src="../assets/logo.png" alt=""><img src="../assets/logo.png" alt=""><img src="../assets/logo.png" alt=""><img src="../assets/logo.png" alt=""><img src="../assets/logo.png" alt=""><img src="../assets/logo.png" alt="">
   </section>
@@ -11,15 +11,18 @@ export default {
 }
 </script>
 
-<style scoped>
-.section{
-  width: auto;
-  display: block;
-  max-width : 100%;
+<style>
+
+
+@media screen and (max-width: 768px) {
+  
+}
+.logo-section{
+  margin-top: 0 !important;
   background-color: #fff;
 }
-
 img{
   margin:  auto;
 }
+
 </style>

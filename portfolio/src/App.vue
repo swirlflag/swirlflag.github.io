@@ -50,6 +50,7 @@ export default {
     this.SET_spySubscribe(function(response){
       // console.log(2, response);
     });
+    
     this.setIsMobile();  
 
 

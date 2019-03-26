@@ -48,10 +48,18 @@ export default {
       'SET_spySubscribe',
       'SET_contentsData',
       'SET_appData',
+      'SET_isMini'
     ]),
     ...mapActions([
       'settingAllData',
     ]),
+    
+    setIsMiniAndResizeHandle(){
+      this.SET_isMini(window.innerWidth <= 768 ? true : false);
+      window.addEventListener('resize', ()=>{
+        this.SET_isMini(window.innerWidth <= 768 ? true : false);
+      });
+    },
 
     dataAwaitDataRender(response){
       this.SET_appData(response.data);
@@ -65,6 +73,7 @@ export default {
     this.LOAD_isMobile();
     this.settingAllData(this.finishFetchDataFunction);
     this.SET_spySubscribe(this.dataAwaitDataRender);
+    this.setIsMiniAndResizeHandle();
   },
 
 }

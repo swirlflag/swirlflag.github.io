@@ -3,6 +3,7 @@ export default {
 
   spy : null,
   isMobile : null,
+  isMini : null,
   isIOS : null,
   
   adminData : {},

@@ -48,4 +48,8 @@ export default{
     return state.contentsItem;
   },
 
+  GET_isMini(state){
+    return state.isMini;
+  },
+
 }

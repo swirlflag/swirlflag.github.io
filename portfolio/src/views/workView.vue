@@ -1,18 +1,14 @@
 <template>
   <section id="content-page" class="router-section" >
-    <div id="content-goto-gnb" class="page-controls">
-      <span class="icon-arrow-left"></span>
-      <span>BACK TO LIST</span>
-    </div>
     
     <div id="content-image-view">
-      <ul id="content-image-container">
+      <ul id="content-image-container" class="spread-el">
         <li class="content-image-item"><img src="../assets/image/img01.jpg" alt="#"></li>
         <li class="content-image-item"><img src="../assets/image/img02.jpg" alt="#"></li>
         <li class="content-image-item"><img src="../assets/image/img03.jpg" alt="#"></li>
       </ul>  
 
-      <div id="content-image-controls" class="page-controls">
+      <div id="content-image-controls" class="page-controls spread-el">
         <span class="icon-arrow-left button-prev"></span>
         <div id="content-image-number">
           <span id="content-now-number">0</span>
@@ -25,20 +21,20 @@
 
     <div id="content-main">
       <div id="content-header">
-        <span id="content-category">category</span>
-        <h2 id="content-name">
+        <span id="content-category" class="spread-el">category</span>
+        <h2 id="content-name" class="spread-el">
           {{this.$route.params.name}}
         </h2>
       </div>
 
-      <div id="content-link" class="page-controls">
+      <div id="content-link" class="page-controls spread-el">
         <a href="#" class="button-link">
           <span>website</span>
           <span class="icon-arrow-right"></span>
         </a>
       </div>
 
-      <div id="content-maintext">
+      <div id="content-maintext" class="spread-el">
         There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin words, combined with a handful of model sentence structures, to generate Lorem Ipsum which looks reasonable. The generated Lorem Ipsum is therefore always free from repetition, injected humour, or non-characteristic words etc.
         
         <!-- {{ this.contentsMainText }} -->
@@ -46,18 +42,18 @@
 
       <div id="content-info">
         <ul id="content-info-list">
-          <li class="content-info-item">
+          <li class="content-info-item spread-el">
             <span class="content-info-property">client</span> 
             <span class="content-info-value">randomised</span> 
           </li>
-          <li class="content-info-item">
+          <li class="content-info-item spread-el">
             <span class="content-info-property">client</span> 
             <span class="content-info-value">randomised</span> 
           </li>
         </ul>
       </div>
 
-      <div id="content-page-controls" class="page-controls">
+      <div id="content-page-controls" class="page-controls spread-el">
         <a href="#" class="icon-arrow-left button-prev"></a>
         <div id="content-image-number">
           <span id="content-now-number">0</span>
@@ -94,7 +90,6 @@ export default {
     
     ...mapGetters([
       'GET_contentsData',
-
       'GET_isPaging',
     ]),
     
@@ -127,6 +122,7 @@ export default {
     window.addEventListener('resize',this.resizeImageView );
     // console.log(this.$route.params);
 
+
   },
 
   
@@ -147,15 +143,6 @@ export default {
   display: flex;
   align-items: center;
 }
-#content-goto-gnb{
-  justify-content: center;
-  border-bottom: 1px solid #000;
-  padding: 20px 0;
-  cursor: pointer;
-  display: none;
-  letter-spacing: 0.3em;
-}
-#content-goto-gnb .icon-arrow-left{margin-right: 15px;}
 #content-image-view{
   display: block;
   width: 100%; 
@@ -238,9 +225,7 @@ export default {
   justify-content: space-between;
 }
 
-@media screen and (max-width: 768px) {
-  #content-goto-gnb{display: flex;}
-}/*  */
+
 
 @media screen and (max-width: 1280px){
   #content-main{padding: 0 23px;}

@@ -89,4 +89,8 @@ export default {
     state.contentsItem = document.getElementsByClassName('gnb-contents-item ');
   },
 
+  SET_isMini(state,data){
+    state.isMini = data;
+  },
+
 }

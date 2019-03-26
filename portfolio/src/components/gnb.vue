@@ -87,7 +87,8 @@ export default {
       'GET_adminData',
       'GET_updateDate',
       'GET_categoryData',
-      'GET_isPaging'
+      'GET_isPaging',
+      'GET_isMini',
     ]),
     gnb: () => document.getElementById('gnb'),
     gnbInner: () => document.getElementById('gnb-inner'),
@@ -236,7 +237,11 @@ export default {
     },
 
     contentsItemClick(e){     
+      this.isMiniCloseGnb();
+    },
 
+    isMiniCloseGnb(){
+      if(this.GET_isMini){this.OPR_gnbClose();}
     },
 
     gnbPathCheck(path){
@@ -266,6 +271,10 @@ export default {
         
         
       }
+      
+    
+      this.isMiniCloseGnb();
+      
 
     },
 
@@ -319,9 +328,7 @@ export default {
 
   mounted(){
     u.scrollCorrection(this.gnbInner);
-    
     this.SET_gnbSelect();
-    console.log(1);
     this.SET_spySubscribe(this.dataAwaitGnb);
     
     window.addEventListener('resize', ()=>{
@@ -330,8 +337,6 @@ export default {
     });
 
     this.testfunction();
-
-    
     
   },
 
@@ -356,7 +361,7 @@ export default {
   position: relative;
   overflow-x : hidden;
   flex-direction: column;
-  transition: all 2s cubic-bezier(0.645, 0.045, 0.355, 1);
+  transition: all 1.4s cubic-bezier(0.645, 0.045, 0.355, 1);
   background: #fff;
   font-weight: lighter;
   z-index: 10;
@@ -420,7 +425,7 @@ export default {
 #gnb-top-menu > div[id^="gnb-top"].select > a::before{ 
   width: 80%;
 }
-#gnb-top-menu > div[id^="gnb-top"]:hover.select > a::before{ 
+.pc-app #gnb-top-menu > div[id^="gnb-top"]:hover.select > a::before{ 
   background: #fff;
   opacity: 1 !important;
 }

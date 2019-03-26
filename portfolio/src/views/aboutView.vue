@@ -1,5 +1,5 @@
 <template>
-  <section class="testpage router-section">
+  <section class="router-section">
     about   <br>
     about   <br>
     about   <br>
