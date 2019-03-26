@@ -259,7 +259,11 @@ export default {
         }else if(path == '/contact'){
           target = 'contact'
         };
-        this[target].classList.add('select');
+
+        if(path != '/'){
+          this[target].classList.add('select');
+        }
+        
         
       }
 
@@ -317,6 +321,7 @@ export default {
     u.scrollCorrection(this.gnbInner);
     
     this.SET_gnbSelect();
+    console.log(1);
     this.SET_spySubscribe(this.dataAwaitGnb);
     
     window.addEventListener('resize', ()=>{
