@@ -1,6 +1,8 @@
+
 <template></template>
 
 <script>
+
 import u from '../utils/utilMethod.js';
 import { mapMutations , mapGetters, mapActions} from 'vuex';
 

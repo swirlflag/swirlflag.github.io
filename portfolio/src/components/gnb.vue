@@ -4,7 +4,8 @@
     <div class="arrow-icon-right"></div>
     <div id="gnb-top">
       <h1 id="gnb-logo" @touchstart="OPR_mobileActiveTouchStart" @touchend="OPR_mobileActiveTouchEnd">
-        <router-link to="/">swirlflag</router-link>
+        <router-link v-if="!this.GET_isMini" v-bind:to="'/'">swirlflag</router-link>
+        <a v-else href="#">swirlflag</a>
       </h1>
       <div id="gnb-top-menu">
         <div id="gnb-top-about" @touchstart="OPR_mobileActiveTouchStart" @touchend="OPR_mobileActiveTouchEnd">
@@ -126,9 +127,8 @@ export default {
       }
     },
 
-    removeUnderbar(string){
-      return string.replace(/_/gi, ' ');
-    },
+    removeUnderbar : u.removeUnderbar,
+
     setNavCategoryHeight(){
       this.categoryItemHeight = this.categoryNow.offsetHeight;
       this.categoryFullHeight = this.categoryItemHeight * (this.GET_categoryData.length + 1);
@@ -228,6 +228,7 @@ export default {
       this.OPR_textSlide({
         el : this.categoryNowName,
         msg : this.activeCategoryData.name,
+        type : 'bottom-top',
       });
       this.showHideContentList(this.GET_contentsData);
     },
@@ -323,7 +324,6 @@ export default {
   }, // method
 
   created(){
-    
   },
 
   mounted(){
@@ -334,6 +334,9 @@ export default {
     window.addEventListener('resize', ()=>{
       this.setNavCategoryHeight();
       this.closeNavCategoryHeight();
+      if(window.innerWidth > 768){
+        this.OPR_gnbOpen();
+      }
     });
 
     this.testfunction();
@@ -721,14 +724,15 @@ export default {
   }
 
   #gnb-category-now .arrow-triangle{
-    width: 1vw; height: 0.6vw;
+    width: 0.8vw; height: 0.48vw;
     background-size: 1vw 1.2vw;
+    background-size: cover;
   }
 
   #gnb-category.open #gnb-category-now .arrow-triangle{background-position: 0 -0.6vw;}
   #gnb-category-now,
   .gnb-category-item{
-    padding: 1.05vw;
+    padding: 1vw;
     padding-left: 1.05vw;
   }
   

@@ -48,12 +48,13 @@ export default{
     };
   },
   
-  preventDuplicationAnimation(element,duration){
-    if(element.classList.contains('is-animating')){return true};
+  preventDuplicationAnimation(element,className,duration){
+    if(!className){className = 'is-animating'}
+    if(element.classList.contains(className)){return true};
     if(!duration){duration = 1};
-    element.classList.add('is-animating');
+    element.classList.add(className);
     setTimeout(()=>{
-      element.classList.remove('is-animating');
+      element.classList.remove(className);
     },duration * 1000);
     return false;
   },
@@ -91,7 +92,34 @@ export default{
     }
   },
   
+  Slider(){
+    let container = document.getElementById('content-image-container');
+    let itemList = document.getElementsByClassName('content-image-item') ;
+  
+    let leng = itemList.length;
+    // console.log(leng);
 
+    let index = 0;
+
+    return {
+      prev(){
+        --index;
+        if(index == -1){
+          index = leng -1;
+        };
+        container.style.marginLeft = - container.offsetWidth / leng * index + 'px';
+
+      },
+      next(){
+        ++index;
+        if(index == leng){
+          index = 0
+        };
+        container.style.marginLeft = - container.offsetWidth / leng * index + 'px';
+
+      },
+    }
+  },
   
 
 

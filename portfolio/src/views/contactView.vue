@@ -1,6 +1,6 @@
 <template>
   <section class="router-section">
-    <div>contact</div>
+    <div class="spread spread-wait">contact</div>
   </section>
 </template>
 

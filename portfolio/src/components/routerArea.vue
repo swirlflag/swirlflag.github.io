@@ -19,7 +19,7 @@ export default {
   data(){
     return {
       nowURL : '',
-      spreadElements : null,
+      spreadElements : null,      
     }
   },
 
@@ -40,45 +40,46 @@ export default {
       'SET_isPaging',
       'OPR_gnbOpen',
     ]),
-    delayPagingStart(){
-      this.SET_isPaging(true);
 
-      // console.log(this.$store.state.nowGnbContentItem)
-      // this.$store.state.nowGnbContentItem.classList.add('active');
-    },
-    delayPagingEnd(){
-      this.SET_isPaging(false);
-      // console.log(this.spreadElements);
-      // console.log(this.$store.state.nowGnbContentItem)
-      // this.$store.state.nowGnbContentItem.classList.add('select');
-    },
 
-    setSpreadElements(){
-      this.spreadElements = document.getElementsByClassName('spread-el');
-
-      for(let i = 0, l = this.spreadElements.length; i < l; ++i){
-        setTimeout(()=>{
-          if(this.spreadElements[i]){
-            this.spreadElements[i].style.opacity = 1;
-          }
-        },i*100);
-      }
+    setSpreadElements(callback){
+      this.spreadElements = document.getElementsByClassName('spread');
+      setTimeout(()=>{
+        for(let i = 0, l = this.spreadElements.length; i < l; ++i){
+          setTimeout(()=>{
+            if(this.spreadElements[i]){
+              this.spreadElements[i].classList.remove('spread-wait');
+            }
+            if(i+1 == l){callback()}
+          },i*100);
+        }
+      })
+      
     },
     
     gnbPathCheck(to,from,next){
       bus.$emit('gnbPathCheck', to.path);
     },
 
-  },
+    delayPagingStart(){
+      this.SET_isPaging(true);
+      this.setSpreadElements(()=>{
+        // this.SET_isPaging(false);
+      });
+    },
+    delayPagingEnd(){
+
+      this.SET_isPaging(false);
+    },
+
+  }, //method
     
 
   created(){
-    // console.log(window.location.href);
-    
     this.$router.push('/');
     this.$router.beforeEach((to,from,next)=>{
       if(!this.GET_isPaging){
-        let delay = this.GET_isMini ? 800 : 0;
+        let delay = this.GET_isMini ? 600 : 0;
         this.gnbPathCheck(to,from,next);
         setTimeout(()=>{ 
           next();
@@ -91,12 +92,19 @@ export default {
 </script>
 
 <style>
-.spread-el{
+.spread{
+  transition: all 0.4s ease;
+}
+.spread.spread-wait{
   opacity: 0;
-  transition: all 0.5s ease;
+  /* background-color: #ddd; */
+  /* border-radius: 10px; */
+  margin-left: -2vw;
 }
 
+
 #router-area{
+
   display: flex;
   flex : 1;
   position: relative;
@@ -113,6 +121,7 @@ export default {
   top: 0; left: 0;
   width: 100% !important;
   min-height : 100%;
+
 }
 .page-enter{
   transition: all 1.5s ease;
@@ -131,7 +140,8 @@ export default {
 .page-leave-to{
   transition: all 1.5s ease;  
   position: absolute;
-  left: -100% !important;
+  left: -99%;
+  left: calc(-100% + 1px) !important;
   overflow: hidden;
 }
 

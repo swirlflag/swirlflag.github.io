@@ -1,5 +1,5 @@
 <template>
-  <section class="router-section">
+  <section class="router-section spread spread-wait" >
     about   <br>
     about   <br>
     about   <br>

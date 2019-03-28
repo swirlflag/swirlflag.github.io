@@ -17,21 +17,24 @@ C 데이터 가공중 카테고리 컨텐츠 클릭 미작동하는 현상
 C gnb에서 click으로 줬던 이벤트  router 이동시 이벤트 발생하는것으로 일괄 변경
 C 기존에 contentdata 가공하는 역할 gnb에서 datarender로 수정하기
 C appdata- contentdata 가공해서 각각 시간 순서대로 id 부여하기 + 부여한 id로 routerview ~gnb간 사용
-C 뒤로가기, 앞으로가기 등 일반사용자 bom location조작에 최적화 => 
+C 뒤로가기, 앞으로가기 등 일반사용자 bom location조작에 최적화
 C contact,active메뉴 active상태 디자인
 C 모바일 기기에서 router 이동+ gnb toggle 연결
+C 라우팅 전환시 from은 위치값 퇴장 ,to는 op:0포함한 위치값 등장 후 elements들 op:1로 전개 노출 
+C gnb 콘텐츠 리스트의 조작으로 라우터 뷰에서의 실제 데이터 출력
 
 memo 데이터 먼저 로딩하는 옵저버 패턴 오류나는 현상 => vue 개발자 도구와의 충돌로 예상
 
+### workview slider뭉치 컴포넌트화 수술하기.. 오늘내로만 하자
 
-M gnb 콘텐츠 리스트의 조작으로 라우터 뷰에서의 실제 데이터 출력
-
-M 라우팅 전환시 from은 위치값 퇴장 ,to는 op:0포함한 위치값 등장 후 elements들 op:1로 전개 노출 
-=> 진행중 ..스프레드 대상들이 to, from모두에서 잡히기떄문에 일어나는 문제
+M workview에 들어간 슬라이더 동작하도록 제작 : 모바일, PC => 임시로 간단하게 만들고 나중에 수정하기
 
 K gnb 모바일화 된 화면에서의 디자인 디테일 수정
 K ios 기기 및 익스에서 스크롤바 디자인 미적용 확인 수정 => ios수정
 
+
+L 이미지 로딩 느린현상
+L vw사이즈 디자인 조정
 L about 라우터 디자인
 L contact 컴포넌트 디자인
 L music 컴포넌트, visualizer 디자인
