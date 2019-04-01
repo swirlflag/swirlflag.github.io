@@ -12,11 +12,12 @@ export default{
     // console.log('gnbopen')
     state.gnb.classList.remove('close');
     // console.log('gnb open check after');
+    this.commit('SET_isGnbOpen', true);
   },  
   
   OPR_gnbClose(state){
-    
     state.gnb.classList.add('close');
+    this.commit('SET_isGnbOpen', false);
   },
 
 

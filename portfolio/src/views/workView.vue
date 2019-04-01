@@ -1,27 +1,9 @@
 <template>
-  <section id="content-page" class="router-section" >
-    <!-- <div id="content-image-view">
-      <ul id="content-image-container" class="spread spread-wait"> 
-        <li class="content-image-item" v-for="item in thisRouteData['content-image']" :key="item.id">
-          <img class="image-hide" v-bind:src="item['src']" alt="#" draggable="false">
-        </li>
-      </ul>  
-
-      <div id="content-image-controls" class="page-controls spread spread-wait">
-        <span class="icon-arrow-left button-prev"></span>
-        <div id="content-image-number">
-          <span id="content-now-number">0</span>
-          <span id="content-max-number">0</span>
-        </div> 
-        <span class="icon-arrow-right button-next"></span>
-      </div>
-    </div> -->
-
+  <section id="content-page" class="router-section target-section" >
     <image-slider v-bind:propsdata="thisRouteData['content-image']"></image-slider>
-
     <div id="content-main">
       <div id="content-header">
-        <span id="content-category" class="spread spread-wait">
+        <span id="content-category" class="spread">
           {{ thisRouteData['content-category'] }}
         </span>
         <h2 id="content-name" class="spread spread-wait">
@@ -29,7 +11,7 @@
         </h2>
       </div>
 
-      <div v-if="thisRouteData['website-link']" id="content-link" class="page-controls spread spread-wait">
+      <div v-if="thisRouteData['website-link']" id="content-link" class="page-controls spread">
         <a v-bind:href="thisRouteData['website-link']" class="button-link" target="_blank">
           <span>website</span>
           <span class="icon-arrow-right"></span>
@@ -52,12 +34,18 @@
       </div>
 
       <div id="content-page-controls" class="page-controls spread spread-wait">
-        <a href="#" class="icon-arrow-left button-prev"></a>
+        <router-link 
+          :to="prevRoutePath"
+          class="icon-arrow-left button-prev">
+        </router-link>
         <div id="slider-image-number">
-          <span id="slider-now-number">0</span>
-          <span id="slider-max-number">0</span>
+          <span id="slider-now-number">{{ thisRouteNum }}</span>
+          <span id="slider-max-number">{{ contentData.length }}</span>
         </div> 
-        <a href="#" class="icon-arrow-right button-next"></a>
+        <router-link 
+          :to="nextRoutePath" 
+          class="icon-arrow-right button-next">
+        </router-link>
       </div>
     </div>
 
@@ -81,67 +69,79 @@ export default {
 
   data(){
     return {
-      slider : null,
       contentData : null,
-      contentsMainText : null,
-      imageView : null,
       thisRouteData : null,
+      thisRouteNum : null,
+      contentDataleng : null,
+      prevRoutePath : null,
+      nextRoutePath : null,
     }
   },
-  // mixins : [workMixin],
 
   computed: {
-    
-    imageContainer : () => document.getElementById('content-image-container'),
-    imageItem : () => document.getElementsByClassName('content-image-item'),
-    
+
     ...mapGetters([
       'GET_contentsData',
-      'GET_isPaging',
     ]),
     
   },
 
   methods : {
+
     removeUnderbar : u.removeUnderbar,
 
-    // setThisImageView(){
-    //   this.imageView = document.getElementById('content-image-view');
-    // },
-    
+    setContentsData(){
+      this.contentData = this.GET_contentsData;
+      this.contentDataleng = this.GET_contentsData.length;
+    },
+
     setThisRouteData(){
       for(let i = 0, l = this.GET_contentsData.length; i < l; ++i){
         if(this.GET_contentsData[i]['content-name'] == this.$route.params.name){
           this.thisRouteData = this.GET_contentsData[i];
+          this.thisRouteNum = this.thisRouteData['content-number'] + 1;
+          if(this.thisRouteNum <= 1){
+            this.prevRoutePath = `/work/${this.contentData[this.contentDataleng-1]['content-name']}` ;
+          }else{
+            this.prevRoutePath = `/work/${this.contentData[this.thisRouteNum - 2]['content-name']}` ;
+          }
+          if(this.thisRouteNum >= this.contentDataleng){
+            this.nextRoutePath = `/work/${this.contentData[0]['content-name']}` ;
+          }else{
+            this.nextRoutePath = `/work/${this.contentData[this.thisRouteNum]['content-name']}` ;
+          }
           break;
         };
       };
+    },
+
+    setSpreadWaitElements(){
+      let t = document.querySelectorAll('.target-section .spread')
+      for(let i = 0; i < t.length; ++i){
+        t[i].classList.add('spread-wait');
+      }
     },
 
     // resizeImageView(){
     //   this.setThisImageView();
     //   if(!this.imageView){console.log('return') ; return}
     //   setTimeout(()=>{
-    //     const h = this.imageView.offsetWidth * (10/15) + 'px';
-    //     for(let i = 0; i < this.imageItem.length; ++i){
-    //       this.imageItem[i].style.height = h;
+    //     const h = this.imageView.offsetWidth * (10/15) + 'p
     //     };
     //   },100)
-    // },
 
-    
+
   },
 
   created(){
+    this.setContentsData();
     this.setThisRouteData();
   },
 
   mounted(){
-
+    this.setSpreadWaitElements();
     
-  
   },
-
 
 }
 </script>
@@ -169,6 +169,7 @@ export default {
 #content-name{
   margin-top: 10px;
   font-size: 24px;
+  font-weight: normal;
 }
 #content-link{
   font-size: 14px;

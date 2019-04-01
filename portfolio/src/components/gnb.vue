@@ -55,7 +55,6 @@
       <div class="gnb-bottom-update new-dot">{{this.updateDate.y}}.{{this.updateDate.m}} update</div>
       <div class="gnb-bottom-copyright">2019 swirlflag</div>
     </div>
-    
   </footer>
 
 </nav>
@@ -147,19 +146,7 @@ export default {
     setCategoryHeight(num){
       this.category.style.height = parseInt(num) + 'px';
     },
-    // setActiveCategoryContent(data){
-      // data = data.sort((a,b) => b['update-date']-a['update-date']);
-      // this.SET_contentsData(data);
-      // let updateUTC = u.utc(this.GET_updateDate);
-      // for(let i = 0 ; i < data.length; ++i){
-      //   let obj = u.dateNumberToObject(data[i]['update-date']);
-      //   data[i]['is-new'] = 
-      //     updateUTC < u.utc(obj) + 2591999999 || updateUTC == u.utc(obj) ?
-      //     true : false;
-      // };
-    // },
     showHideContentList(data){
-      
       for(let i = 0; i < this.contentsItem.length; ++i){
         this.contentsItem[i].classList.remove('active');
         setTimeout(()=>{
@@ -215,9 +202,6 @@ export default {
       const before = this.activeCategoryData;
       this.setActiveCategory(targetdata);
       setTimeout(()=>{
-        // this.categoryData.splice(index,1);
-        // this.categoryData.push(before);  
-        // this.categoryData.sort((a,b)=>a.id - b.id);
         this.GET_categoryData.splice(index,1);
         this.GET_categoryData.push(before);  
         this.GET_categoryData.sort((a,b)=>a.id - b.id);
@@ -284,13 +268,15 @@ export default {
       bus.$on('gnbPathCheck', this.gnbPathCheck);
     },
   
-    dataAwaitGnb(response){
-      this.setUpdateDate();
-      this.setNavCategoryHeight();
-      this.closeNavCategoryHeight();
-      this.busSendEvent();
-      this.OPR_gnbOpen();
-      
+    async dataAwaitGnb(response){
+      await this.setUpdateDate();
+      await this.setNavCategoryHeight();
+      await this.closeNavCategoryHeight();
+      await this.busSendEvent();
+      await setTimeout(()=>{
+        this.OPR_gnbOpen();
+      },1000);
+      // duration을 나중에 로고동작 끝나고 실행하게끔 변경
     },
 
     testtoggle(){this.gnb.classList.toggle('close')},

@@ -2,6 +2,7 @@
 <div id="app">
   <div id="all-wrap">
     <data-render></data-render>
+    <!-- <span id="cursor"></span> -->
     <gnb></gnb>
     <router-area></router-area>
   </div>
@@ -53,7 +54,6 @@ export default {
     
     this.setIsMobile();  
 
-
   },
 
 }
@@ -68,6 +68,7 @@ html,body{height: 100%; }
 ::-webkit-scrollbar-thumb {background: #444; }
 #app {
   font-family:'Helvetica' , 'Noto Sans KR' , sans-serif;
+  /* font-family:'Futura' , 'Noto Sans KR' , sans-serif; */
   font-size: 14px;
   font-weight: 100;
   color: #444;
@@ -75,11 +76,29 @@ html,body{height: 100%; }
   overflow: hidden;
   letter-spacing: 0.1em;
   word-wrap: keep-all;
+  /* cursor : none; */
+  /* cursor: url(/favicon.ico) , auto; */
 }
 #all-wrap{
   display: flex;
   width: 100%; height: 100%;
 }
+a, button, input[type=submit], input[type=reset], span, div {
+  /* cursor : none !important; */
+}
+span#cursor{
+  /* width: 10px; height: 10px;
+  margin-left: -5px;
+  margin: -5px;
+  background-color: #d3d;
+  
+  border-radius: 1000px;
+  display: inline-block;
+  position: fixed;
+  top: 0; left: 0;
+  z-index: 1; */
+}
+
 [class^="icon-arrow"]{ 
   display: inline-block;
   position: relative;

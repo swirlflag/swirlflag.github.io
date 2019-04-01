@@ -22,6 +22,7 @@ export default {
       let updateUTC = u.utc(this.GET_updateDate);
 
       for(let i = 0 ; i < data.length; ++i){
+        data[i]['content-number'] = i;
         let obj = u.dateNumberToObject(data[i]['update-date']);
         data[i]['is-new'] = 
           updateUTC < u.utc(obj) + 2591999999 || updateUTC == u.utc(obj) ?

@@ -52,4 +52,13 @@ export default{
     return state.isMini;
   },
 
+  GET_routeDirectionLeft(state){
+    return state.routeDirectionLeft;
+  },
+
+  GET_isGnbOpen(state){
+    return state.isGnbOpen;
+  },
+
+
 }

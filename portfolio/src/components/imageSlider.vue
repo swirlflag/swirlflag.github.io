@@ -1,8 +1,8 @@
 <template>
   <div id="slider-image-container">
     <ul id="slider-image-view" class="spread spread-wait"> 
-      <li class="slider-image-item" v-for="item in propsdata" :key="item.id">
-        <img class="image-hide" v-bind:src="item['src']" alt="#" draggable="false">
+      <li v-bind:class="{'image-hide' : isResize}" class="slider-image-item image-hide" v-for="item in propsdata" :key="item.id">
+        <img v-bind:src="item['src']" alt="#" draggable="false">
       </li>
     </ul>  
 
@@ -29,15 +29,22 @@ export default {
   data(){
     return {
       now  : 1,  
-      imageView : null,
+      // imageView : null,
+      test : null,
+
+      isResize : false,
+      resizeTimeout : false,
     }
   },
 
   computed : {
-    container : () => document.getElementById('slider-image-container'),
-    
-    imageList : () => document.getElementsByClassName('slider-image-item'),
-    nowNumber : () => document.getElementById('slider-now-number'),
+    container : () => document.querySelector('.target-section #slider-image-container'),
+    imageView : () => document.querySelector('.target-section #slider-image-view'),
+    imageList : () => document.querySelectorAll('.target-section .slider-image-item'),
+    nowNumber : () => document.querySelector('.target-section #slider-now-number'),
+    revIsResize(){
+      return !this.isResize;
+    },
   },
   
   methods : {
@@ -45,28 +52,33 @@ export default {
       'OPR_textSlide'
     ]),
 
-    resizeImageView(){      
+    setSliderSize(){
+      this.imageView.style.width = this.container.offsetWidth * this.imageList.length + 'px';
+    },
+    // reszietest(){
+      // this.isResize = false;
+    // },  
+    resizeImageView(){  
+      // this.isResize = true; 
       if(!this.container){console.log('return') ; return}
-
       const h = this.container.offsetWidth * (10/15) + 'px';
-      setTimeout(()=>{
-        for(let i = 0; i < this.imageList.length; ++i){
-          this.imageList[i].style.height = h;
-        };
-      },10);
+      this.imageView.style.height = h;
+      for(let i = 0; i < this.imageList.length; ++i){
+        this.imageList[i].style.height = h;
+        this.imageList[i].style.width = this.container.offsetWidth + 'px';
+      };
 
+      
+
+      // window.addEventListener('resize', ()=>{
+      //   clearTimeout(this.resizeTimeout);
+      //   this.resizeTimeout = setTimeout(this.reszietest, 1000);
+      // });
+    
     },
 
-  
-
     go(){
-      
-      this.imageView = document.getElementById('slider-image-view');
-      console.log(this.now, this.imageView.offsetWidth / this.imageList.length);
-      
       this.imageView.style.marginLeft = - (this.now - 1)  *  (this.imageView.offsetWidth / this.imageList.length)+ 'px';
-
-      console.log(this.imageView);
     },
     
     prev(){
@@ -104,7 +116,7 @@ export default {
         type : 'right-left',
       });       
       
-    }
+    },
 
   },
 
@@ -112,21 +124,29 @@ export default {
 
   },
   mounted(){
-    // bus.$on('resizeImageSet', ()=>{
-      this.resizeImageView();
-      window.addEventListener('resize',this.resizeImageView );
-    // });
-    
+    this.setSliderSize();
+    this.resizeImageView();
+    window.addEventListener('resize',() => {
+      this.setSliderSize();
+      this.resizeImageView();  
+      this.go();
+    });
+
     // 임시코드: 이미지 로드 된다음에  표시하는거 ..... 잘되는거맞나
-    let a = document.querySelectorAll('.slider-image-item img');
-    console.log(a);
+    let a = document.querySelectorAll('.target-section .image-hide');
+    
     for(let i = 0; i < a.length; ++i){
-      a[i].addEventListener('load', function(){
-        // setTimeout(()=>{
-          a[i].classList.remove('image-hide');
-        // },1500)
+      a[i].children[0].addEventListener('load', function(){
+        a[i].classList.remove('image-hide');
       })
-    }
+    };
+
+    this.OPR_textSlide({
+      el : this.nowNumber,
+      msg : 1,
+      type : 'right-left',
+    });       
+
 
   },
 
@@ -144,27 +164,28 @@ export default {
   display: block;
   width: 100%; 
   box-sizing: border-box;
+  transition: opacity 1s ease;
 }
 #slider-image-view{
-  width: 300%; height: 100%;
-  display: flex;
+  height: 100%;
+  display: block;
   background-color: #f0f0f0;
-  transition: all 1s ease;
+  transition: margin 1s ease, opacity 1s ease;
 }
 
 .slider-image-item{
-  width: 33.333%; 
+  display: inline-block;
   height: auto;
   box-sizing: border-box;
   object-fit: cover;
-  transition: all 1.5s ease;
+  transition: opacity 1s ease;
 }
 .slider-image-item img{
   display: inline-block;
   width: 100%; height: 100%;
   vertical-align: middle;
   object-fit: cover;
-  /* transition: all 0.3s ease; */
+  transition: opacity 1s ease;
 }
 #slider-image-controls{
   margin: 40px;
@@ -192,10 +213,7 @@ export default {
   background: #444;
   transform: rotate(30deg);
 }
-.slider-image-item img{
-  transition: opacity 1s ease;
-}
-.image-hide{ 
+.image-hide img{ 
   /* 이미지 로드 되고 나오게하는 로직에 추가 */
   opacity: 0;
 }

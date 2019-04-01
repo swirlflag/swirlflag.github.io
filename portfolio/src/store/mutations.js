@@ -93,4 +93,14 @@ export default {
     state.isMini = data;
   },
 
+  SET_routeDirectionLeft(state,bool){
+    state.routeDirectionLeft = bool;
+  },
+
+  SET_isGnbOpen(state,bool){
+    state.isGnbOpen = bool
+  },
+
+
+
 }

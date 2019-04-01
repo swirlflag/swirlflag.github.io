@@ -28,7 +28,8 @@ font-family: 'Futura', sans-serif;
   font-family: 'Helvetica';
   font-style: normal;
   font-weight: normal;
-  src: url('Helvetica.woff') format('woff');
+  src: url('/fonts/Helvetica.woff') format('woff');
+  /* src: url('https://swirlflag.github.io/test/05/fonts/Helvetica.b4f029d9.woff') format('woff'); */
 }
 
 
@@ -36,7 +37,7 @@ font-family: 'Futura', sans-serif;
   font-family: 'Helvetica';
   font-style: italic;
   font-weight: normal;
-  src: local('Helvetica Oblique'), url('Helvetica-Oblique.woff') format('woff');
+  src:url('./Helvetica-Oblique.woff') format('woff');
 }
 
 
@@ -52,7 +53,7 @@ font-family: 'Futura', sans-serif;
   font-family: 'Helvetica Bold Oblique';
   font-style: italic;
   font-weight: bold;
-  src:  url('Helvetica-BoldOblique.woff') format('woff');
+  src: url('Helvetica-BoldOblique.woff') format('woff');
 }
 
 @font-face {
@@ -80,19 +81,19 @@ font-family: 'Futura', sans-serif;
   font-family: 'Futura';
   font-style: normal;
   font-weight: thin;
-  src: url('futura_thin.ttf') format('ttf');
+  src: url('./futura_thin.ttf') format('ttf');
 }
 @font-face {
   font-family: 'Futura';
   font-style: normal;
   font-weight: 300;
-  src: url('futura_light.ttf') format('ttf');
+  src: url('./futura_light.ttf') format('ttf');
 }
 @font-face {
   font-family: 'Futura';
   font-style: normal;
   font-weight: normal;
-  src: url('futura_medium.ttf') format('ttf');
+  src: url('./futura_medium.ttf') format('ttf');
 }
 
 

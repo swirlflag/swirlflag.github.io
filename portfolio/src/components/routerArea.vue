@@ -1,7 +1,10 @@
 <template>
   <div id="router-area">
     <contnet-goto-gnb></contnet-goto-gnb>
-    <transition name="page" v-on:before-enter="delayPagingStart" v-on:after-enter="delayPagingEnd">
+    <transition 
+    v-bind:name="transitionName" 
+    v-on:before-enter="delayPagingStart" 
+    v-on:after-enter="delayPagingEnd">
       <router-view :key="$route.params.name"></router-view>
     </transition>
   </div>
@@ -20,6 +23,8 @@ export default {
     return {
       nowURL : '',
       spreadElements : null,      
+      transitionName : 'left-right',
+      beforePath : [],
     }
   },
 
@@ -32,18 +37,24 @@ export default {
       'GET_isPaging',
       'GET_isMobile',
       'GET_isMini',
+      'GET_routeDirectionLeft',
+      'GET_isGnbOpen',
     ]),
+
+    routerArea : () => document.getElementById('router-area'),
   },
 
   methods : {
     ...mapMutations([
       'SET_isPaging',
+      'SET_routeDirectionLeft',
       'OPR_gnbOpen',
     ]),
 
 
     setSpreadElements(callback){
       this.spreadElements = document.getElementsByClassName('spread');
+
       setTimeout(()=>{
         for(let i = 0, l = this.spreadElements.length; i < l; ++i){
           setTimeout(()=>{
@@ -54,11 +65,14 @@ export default {
           },i*100);
         }
       })
-      
     },
     
     gnbPathCheck(to,from,next){
       bus.$emit('gnbPathCheck', to.path);
+    },
+
+    pushBeforePath(path){
+      this.beforePath.push(path);
     },
 
     delayPagingStart(){
@@ -68,25 +82,65 @@ export default {
       });
     },
     delayPagingEnd(){
-
       this.SET_isPaging(false);
+    },
+
+    changeTargetSection(){
+      let target = document.getElementsByClassName('target-section');
+      if(!target[0]){
+        return;
+      }else{
+        target[0].classList.remove('target-section');  
+      }
+    },
+
+    setTransitionName(){
+      this.transitionName = this.GET_routeDirectionLeft ? 'left-right' : 'right-left';
+      // console.log(this.transitionName);
+    },
+
+    setRouterAreaScrollTop(){
+      this.routerArea.scroll({ 
+        top: 0,
+        left: 0, 
+        behavior: 'smooth',  
+      });
     },
 
   }, //method
     
 
   created(){
+
     this.$router.push('/');
     this.$router.beforeEach((to,from,next)=>{
+      
       if(!this.GET_isPaging){
-        let delay = this.GET_isMini ? 600 : 0;
+
+        if(to.path == this.beforePath[this.beforePath.length-1]){
+          this.SET_routeDirectionLeft(false)
+          this.beforePath.pop();
+        }else{
+          this.SET_routeDirectionLeft(true);
+          this.pushBeforePath(from.path);
+        }
+        this.setTransitionName();
+        let delay = this.GET_isMini && this.GET_isGnbOpen ? 600 : 0;
         this.gnbPathCheck(to,from,next);
-        setTimeout(()=>{ 
+        this.changeTargetSection();
+        setTimeout(()=>{
+          // this.setRouterAreaScrollTop();
           next();
         },delay)
       };      
     });
   },
+
+  mounted(){
+    console.log(this.routerArea.scrollTop);
+  }
+
+  
 
 }
 </script>
@@ -121,23 +175,24 @@ export default {
   top: 0; left: 0;
   width: 100% !important;
   min-height : 100%;
-
 }
-.page-enter{
+
+
+.left-right-enter{
   transition: all 1.5s ease;
   left: 100%;
 }
-.page-enter-to{
+.left-right-enter-to{
   transition: all 1.5s ease;
   position: absolute;
   left: 0 !important;
   overflow: hidden;
 }
-.page-leave{
+.left-right-leave{
   transition: all 1.5s ease;  
   position: absolute; 
 }
-.page-leave-to{
+.left-right-leave-to{
   transition: all 1.5s ease;  
   position: absolute;
   left: -99%;
@@ -145,9 +200,29 @@ export default {
   overflow: hidden;
 }
 
-/* .router-section > div > *{
-  opacity: 0;
-  transition: opacity 1s ease;
-} */
+
+.right-left-enter{
+  transition: all 1.5s ease;
+  left: -100%;
+}
+.right-left-enter-to{
+  transition: all 1.5s ease;
+  position: absolute;
+  left: 0 !important;
+  overflow: hidden;
+}
+.right-left-leave{
+  transition: all 1.5s ease;  
+  position: absolute; 
+}
+.right-left-leave-to{
+  transition: all 1.5s ease;  
+  position: absolute;
+  left: 101%;
+  left: calc(100% + 1px) !important;
+  overflow: hidden;
+}
+
+
 
 </style>
