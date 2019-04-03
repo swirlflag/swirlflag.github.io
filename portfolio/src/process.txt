@@ -27,12 +27,13 @@ C workview 컨텐츠 하단에서 조작가능한 라우터링크 추가
 
 K 앞으로 가기, 뒤로가기 동적 트랜지션 라우팅 =>  history.back만 구분한상태
 K 마우스 커서 이미지 변경
-
+K 라우터 전환시 현재 스크롤 상태 조정 => native smooth로 해둔상태
 memo 데이터 먼저 로딩하는 옵저버 패턴 오류나는 현상 => vue 개발자 도구와의 충돌로 예상
 
-M 라우터 전환시 현재 스크롤 상태 조정 
 M 첫 로딩시 딜레이 조절하기
 M workview hover event
+M Contact view 디자인
+M Contact view 폼 제작
 
 
 L 각종 임시코드 정리

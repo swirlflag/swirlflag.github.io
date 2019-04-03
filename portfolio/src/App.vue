@@ -67,8 +67,8 @@ html,body{height: 100%; }
 ::-webkit-scrollbar-track {background: #f1f1f1 ; }
 ::-webkit-scrollbar-thumb {background: #444; }
 #app {
-  font-family:'Helvetica' , 'Noto Sans KR' , sans-serif;
-  /* font-family:'Futura' , 'Noto Sans KR' , sans-serif; */
+  font-family: 'Noto Sans KR' , sans-serif;
+
   font-size: 14px;
   font-weight: 100;
   color: #444;
@@ -76,8 +76,14 @@ html,body{height: 100%; }
   overflow: hidden;
   letter-spacing: 0.1em;
   word-wrap: keep-all;
-  /* cursor : none; */
-  /* cursor: url(/favicon.ico) , auto; */
+
+}
+textarea, input{
+  font-size: 14px;
+  font-family: 'Noto Sans KR' , sans-serif;
+  letter-spacing: 0.1em;
+  font-weight: 100;
+  color: #444;
 }
 #all-wrap{
   display: flex;

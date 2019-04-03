@@ -120,8 +120,20 @@ export default{
       },
     }
   },
-
   
+  scrollToTop(el) {
+    let timeOut;
+    function loop(el){
+      console.log(el);
+      if (el.scrollTop!=0){
+        el.scrollBy(0,-50);
+        timeOut = setTimeout('loop()',10);
+      }else{
+        clearTimeout(timeOut);
+      } 
+    }
+    loop();
+  }
 
 
 

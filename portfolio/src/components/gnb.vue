@@ -273,9 +273,9 @@ export default {
       await this.setNavCategoryHeight();
       await this.closeNavCategoryHeight();
       await this.busSendEvent();
-      await setTimeout(()=>{
+      // await setTimeout(()=>{
         this.OPR_gnbOpen();
-      },1000);
+      // },1000);
       // duration을 나중에 로고동작 끝나고 실행하게끔 변경
     },
 
@@ -376,7 +376,7 @@ export default {
   font-size: 24px;
   font-weight: lighter;
   letter-spacing: 0.2em;
-  font-family: 'Shadows Into Light', 'Ubuntu' , sans-serif;  
+  font-family:  'Ubuntu' , sans-serif;  
 }
 .pc-app #gnb-logo:hover a{
   text-shadow: 0 0 8px #000;
@@ -688,7 +688,7 @@ export default {
     max-width: none;
   }
   #gnb.close{margin-left: -36.6%;}
-  #gnb-inner{padding: 0 3vw;}
+  #gnb-inner{padding: 0 2.8vw;}
   #gnb-inner > div[id^="gnb"]{margin-bottom: 2.8vw;}
   #gnb-logo{font-size: 1.8vw;}
   .pc-app #gnb-logo:hover a{text-shadow: 0 0 0.7vw #000;}

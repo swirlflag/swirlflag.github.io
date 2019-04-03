@@ -1,5 +1,6 @@
 <template>
   <section class="router-section logo-section">
+    제작중입니다 ㅎㅎ~~~~~~
     <img src="../assets/logo.png" alt="">
     <img src="../assets/logo.png" alt=""><img src="../assets/logo.png" alt=""><img src="../assets/logo.png" alt=""><img src="../assets/logo.png" alt=""><img src="../assets/logo.png" alt=""><img src="../assets/logo.png" alt=""><img src="../assets/logo.png" alt=""><img src="../assets/logo.png" alt=""><img src="../assets/logo.png" alt=""><img src="../assets/logo.png" alt="">
   </section>
