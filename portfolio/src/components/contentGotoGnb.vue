@@ -1,5 +1,5 @@
 <template>
-  <div  v-if="GET_isMini" id="content-goto-gnb" class="page-controls" @click="this.OPR_gnbOpen">
+  <div v-if="GET_isMini" id="content-goto-gnb" class="page-controls" @click="this.OPR_gnbOpen">
     <span class="icon-arrow-left"></span>
     <span class="goto-text">BACK TO LIST</span>
   </div>
@@ -10,7 +10,6 @@
 import { mapGetters, mapMutations } from 'vuex';
 export default {
 
-  
   computed : {
     ...mapGetters([
       'GET_isMini',

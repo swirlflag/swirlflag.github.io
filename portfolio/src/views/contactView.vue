@@ -1,411 +1,359 @@
 <template>
-  <section id="contact-page" class="router-section target-section">
-    <div id="content-main">
-      <div id="contact-header" class="spread spread-wait">
-        <h2 id="content-name">Contact</h2>
-      </div>      
-      <form id="contact-form" action="get">
-        <div class="inputbox spread spread-wait">
-          <div class="input-inner">
-            <input type="text" id="name" class="contact-input" placeholder="name">
-            <span class="input-icon triangle"></span>
+<section id="content-page" class="router-section target-section" >
+  <div id="content-main">
+    <div id="contact-form" class="sendcheckd">
+      <form action="get">
+
+        <div class="input-text">
+          <div class="input-icon">
+            <span class="triangle"></span>
           </div>
-          <div class="input-display">
-            <span class="input-category">name</span>
-            <span class="input-value">{{ nameValue || 'your name' }}</span>
-          </div>  
-        </div>
-
-        <div class="inputbox spread spread-wait">
-          
-          <div class="input-inner">
-            <input type="email" id="email" class="contact-input" placeholder="email">
-            <span class="input-icon square"></span>
+          <div v-bind:class="{'placehold' : !nameValue}" class="input-display">
+            {{ nameValue || 'your name'}}
           </div>
-          <div class="input-display">
-            <span class="input-category">email</span>
-            <span class="input-value">{{ emailValue || 'your email' }}</span>
-          </div>  
+          <input id="name" type="text" placeholder="name">
+        </div>  
+
+        <div class="input-email">
+          <div class="input-icon">
+            <span class="square"></span>
+          </div>
+          <div v-bind:class="{'placehold' : !emailValue}" class="input-display">
+            {{ emailValue || 'your@email.com'}}
+          </div>
+          <input id="email" type="email" placeholder="email">
+        </div>  
+
+        <div class="input-textarea">
+          <div class="input-icon">
+            <span class="pentagon"></span>
+          </div>
+          <textarea name="contact-text" id="letter" placeholder="In the letter" v-bind:disabled="textareaState"></textarea>
         </div>
 
-        <div class="textareabox spread spread-wait">
-          <span class="textarea-icon pentagon"></span>
-          <div class="textarea-wrap">
-            <textarea name="textarea" id="textarea" placeholder="Contents of the letter"></textarea> 
-          </div>	         
+        <div class="page-controls spread spread-wait input-submit">
+          <span class="beforebtn" @touchstart="OPR_mobileActiveTouchStart" @touchend="OPR_mobileActiveTouchEnd">next</span>
+          <span class="checkbtn" stouchstart="OPR_mobileActiveTouchStart" @touchend="OPR_mobileActiveTouchEnd">cancle</span>
+          <span class="checkbtn" @touchstart="OPR_mobileActiveTouchStart" @touchend="OPR_mobileActiveTouchEnd">send</span>
         </div>
-      </form>
-
-      <div class="page-controls spread spread-wait">
-        <div id="contact-next">
-          <span>next</span>
-        </div>
-      </div>
-      
-
-      <!-- <div id="confirm-area" class="close">
-        slide confirm 만들자
-      </div> -->
-
+      </form>  
     </div>
-  </section>
+  </div>
+</section>
 </template>
-
-<style>
-
-
-/* #confirm-area{
-  position: fixed;
-  top: 50%; left: 0;
-  width: 100%; height: 50%;
-  background: #ddd;
-  border: 1px solid #000;
-  display: flex;
-} */
-</style>
-
 
 <script>
 
+import { mapMutations , mapGetters } from 'vuex';
 export default {
   data(){
     return {
-      iconPos : ['v','h'],
-      nameValue : '',
-      emailValue : '',
+      textareaState : false,  
+
+      nameValue : null,
+      emailValue : null,
+      letterValue : null,
     }
   },
 
   computed : {
-    sizeTarget :() => document.getElementById('gnb-category'),
-
-    inputBoxs : () => document.querySelectorAll('.inputbox'),
-    inputBoxsInput : () => document.querySelectorAll('.inputbox input'),
-    inputBoxsInner : () => document.querySelectorAll('.inputbox .input-inner'),
-    inputBoxsDisplay : () => document.querySelectorAll('.inputbox .input-display'), 
-    inputIcon : () => document.getElementsByClassName('input-icon'),
-    textareabox : () => document.querySelectorAll('.textareabox'),
-
-    inputName : () => document.querySelector('input#name'),
-    inputEmail : () => document.querySelector('input#email'),
-    inputText : () => document.querySelector('textarea#textarea'),
-
-
+    nameInput : () => document.getElementsByClassName('input-text'),
+    mailInput : () => document.getElementsByClassName('input-email'),
+    textarea : () => document.querySelector('.input-textarea'),
   },
 
   methods : {
-    setInputsSize(){
 
-      let height = document.getElementById('gnb-category-now').offsetHeight,
-          size01 = parseInt(getComputedStyle(document.getElementById('content-main'))['padding-left'].split('px')[0]);
-    
-      for(let i = 0, l = this.inputBoxs.length; i < l; ++i){
-        this.inputBoxs[i].style.height = height + 'px';
-        this.inputBoxsInner[i].style.width = height + 'px'
-        this.inputBoxsDisplay[i].style.left = height + 'px'
-        this.inputBoxsDisplay[i].style.marginLeft = size01 + 'px'
-        this.inputIcon[i].style.left = getComputedStyle(this.inputIcon[i])['top'];
-      }
+    ...mapMutations([
+      'OPR_mobileActiveTouchStart',
+      'OPR_mobileActiveTouchEnd',
+    ]),
 
-      this.iconPos = [
-        getComputedStyle(this.inputIcon[0])['top'], 
-        getComputedStyle(this.inputIcon[0])['left']
-      ];
-      
-      for(let i = 0, l = this.textareabox.length; i < l; ++i){
-        let text = this.textareabox[i].getElementsByTagName('textarea')[0],
-            icon = this.textareabox[i].getElementsByClassName('textarea-icon')[0],
-            wrap = this.textareabox[i].getElementsByClassName('textarea-wrap')[0];
+    settingInputs(){
 
-        icon.style.top = this.iconPos[0];
-        icon.style.left = this.iconPos[1];
-        text.style.paddingLeft = (height + size01)  + 'px';
-        text.style.paddingRight = size01 + 'px';
-      };
-    
-    },
-    
-    setInputFocus(){
-      for(let i = 0, l = this.inputBoxsInput.length; i < l; ++i){
-        let input = this.inputBoxsInput[i],
-            inner = input.parentElement,
-            box = inner.parentElement;
+      // for(let i = 0; i < this.inputs.length; ++i){
+        // let target = this.inputs[i];
+        // let input = this.inputs[i].getElementsByTagName('input')[0];
+        target.addEventListener('click', function(){
+          input.focus();
+        });
 
-        input.addEventListener('focus', () => {inner.classList.add('focus')});
-        input.addEventListener('blur', () => {inner.classList.remove('focus')});
-        box.addEventListener('click', () => {input.focus()});
-      };
+        input.addEventListener('focus', function(){
+          target.classList.add('focus');
+        });
 
-      for(let i = 0, l = this.textareabox.length; i < l; ++i){
-        let box = this.textareabox[i],
-            text = box.getElementsByTagName('textarea')[0];
+        input.addEventListener('blur', function(){
+          target.classList.remove('focus');
+        });
 
-        text.addEventListener('focus', ()=>{box.classList.add('focus')});
-        text.addEventListener('blur', ()=>{box.classList.remove('focus')});
-        box.addEventListener('click', ()=>{text.focus()});
-            
-      }
-
+      // };
     },
 
-    setInputModel(){
-      this.inputName.addEventListener('focus', ()=>{
-        this.inputName.value = this.nameValue;
+    settingTextarea(){
+      let input = this.textarea.getElementsByTagName('textarea')[0];
+      this.textarea.addEventListener('click', function(){
+        input.focus();
+      })
+      input.addEventListener('focus', () =>{
+        this.textarea.classList.add('focus');
       });
-      this.inputName.addEventListener('blur', ()=>{
-        this.nameValue = this.inputName.value;
-        this.inputName.value = '';
+      input.addEventListener('blur', () =>{
+        this.textarea.classList.remove('focus');
       });
-      this.inputEmail.addEventListener('focus', ()=>{
-        this.inputEmail.value = this.emailValue;
-      });
-      this.inputEmail.addEventListener('blur', ()=>{
-        this.emailValue = this.inputEmail.value;
-        this.inputEmail.value = '';
-      });
-      
-    }
+    },
+
+    
+ 
   },
-  
 
   mounted(){
-    this.setInputFocus();
-    this.setInputsSize();
-    this.setInputModel();
-
-    window.addEventListener('resize', ()=>{
-      setTimeout(()=>{
-        this.setInputsSize();
-      },1500);
-      
-    });
+    this.settingInputs();
+    this.settingTextarea();
   }
-
-
-  
-
 }
 </script>
-
-<style scoped>
-
-
-#contact-header{
-  margin-top: 40px;
-  margin-bottom: 30px !important;
-}
+<style>
 
 
-.inputbox{
-  cursor: pointer;
-  width: 100%;
-  position: relative;
-  overflow: hidden;
-  margin-bottom: 30px;
-}
-.inputbox input{
+
+.triangle{background: url(../assets/icons/figure-03.png) no-repeat;background-size: cover; }
+.square{background: url(../assets/icons/figure-04.png) no-repeat;background-size: cover;}
+.pentagon{background: url(../assets/icons/figure-05.png) no-repeat;background-size: cover;}
+.focus .pentagon{background: url(../assets/icons/figure-05-white.png) no-repeat  !important;background-size: cover;}
+.heptagon{background: url(../assets/icons/figure-07.png) no-repeat;background-size: cover;}
+
+input,textarea{
   outline: none;
-  border: 1px solid #000;
+  border-radius: 0;
+  padding: 0; margin: 0;
+  border: none;
+  box-shadow: none;
   box-sizing: border-box;
-  width: 100%; height: 100%;
-  padding: 0 20px;
+  resize:none;
   font-size: 14px;
-  font-weight: normal;
-  cursor: pointer;
+}
+input::placeholder,
+textarea::placeholder{
+  color: #ccc;
+}
+
+
+
+#contact-form{
+  margin-top: 40px;
+}
+#contact-form form > div{
+  margin-bottom: 20px;
   transition: all 0.5s ease;
 }
 
-.inputbox input:focus{
-  cursor: auto;
-  background-color: #000;
-  color: #fff;
-}
-
-.input-inner{
-  height: 100%;
-  transition: all 0.6s ease;
-  position: relative;
-}
-
-
-.input-inner.focus{
-  width: 100% !important;
-}
-
-.input-display{
-  position: absolute;
-  left: 0; top: 0;
-  margin-left: 20px;
-  height: 100%;
-  width: 100%;
+.input-text,
+.input-email{
+  width: 100%; height: 46px;
   box-sizing: border-box;
-  z-index: -1;
-  transition: all 0.8s ease;
-  border-bottom: 1px solid #000;
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
 }
 
-.input-display span{
-  display: block;
+.input-icon{
+  width: 46px; height: 46px;
+  box-sizing: border-box;
+  display: flex;
+  z-index: 1;
+  position: absolute;
+  align-items: center;
+  justify-content: center;
 }
-.input-inner.focus + .input-display{
-  opacity: 0;
-  left: 0 !important;
-}
-
-.input-category{
-  font-size: 12px;
-  color: #999;
-  font-family:  'Ubuntu' , sans-serif;  
-}
-.input-value{
-  font-size: 16px;
-  line-height: 2.2em;
-}
-
-
 @keyframes rotate {
   from {transform: rotate(0deg);}
   to {transform: rotate(360deg);}
 }
-
-.input-inner .input-icon,
-.textarea-icon{
-  display: inline-block;
-  box-sizing: border-box;
-  position: absolute;
-  z-index: 1;
+.input-icon span{
   width: 10px; height: 10px;
-  top: calc(50% - 5px);
   animation-duration: 2.8s;
   animation-name: rotate;
   animation-timing-function:linear;
   animation-iteration-count: infinite;
 }
-
-.input-inner.focus .input-icon{
-  opacity: 0;
-}
-
-
-.triangle{background: url(../assets/icons/figure-03.png) no-repeat;background-size: cover; }
-
-.square{background: url(../assets/icons/figure-04.png) no-repeat;background-size: cover;}
-.pentagon{background: url(../assets/icons/figure-05.png) no-repeat;background-size: cover;}
-.focus .pentagon{background: url(../assets/icons/figure-05-white.png) no-repeat ;background-size: cover;}
-.heptagon{background: url(../assets/icons/figure-07.png) no-repeat;background-size: cover;}
-
-
-.textareabox{
-  position: relative;
-  display: flex;
-  border: 1px solid #000;
-  cursor: pointer;
-  margin-bottom: 30px;
-  box-sizing: border-box;
-}
-.textareabox.focus{
-  cursor: auto;
-}
-
-.textarea-wrap{
-  width: 100%;
-}
-.textarea-wrap textarea{
+.focus .input-icon{display: none;}
+.input-display{
+  width: 100px; height: 100%;
+  border-bottom: 1px solid #000;
+  position: absolute; top: 0; left: 66px;
   width: 100%;
   box-sizing: border-box;
-  padding: 0 ;margin: 0;
-  display: flex;
-  resize: none;border: none;outline: none;
-  min-height: 30vh;
-  padding-top: 10px;
-  padding-bottom: 30px;
-  font-size: 14px;
-  line-height: 2em;
+  line-height: 46px;
   transition: all 0.5s ease;
-  cursor: pointer;
 }
-.textareabox.focus textarea{
-  background-color: #000;
-  color: #fff;
-  cursor: auto;
+.input-display.placehold{
+  color: #ccc;
 }
-
-.inputbox input::placeholder{opacity: 0;}
-.inputbox input:focus::placeholder{opacity: 1;}
-.inputbox input::placeholder,
-.textareabox textarea::placeholder{
-  font-family: 'Ubuntu';
-  color: #999;
-  font-size: 12px;
-  font-weight : lighter;
-  letter-spacing: 0.1em;
-}
-
-#contact-next{ 
+.focus .input-display{left: 0; opacity: 0;}
+.input-text input,
+.input-email input{
+  position: absolute;
+  top: 0; left: 0;
   display: inline-block;
-  text-align: right;
-  cursor: pointer;
-  margin-left: auto;
+  width: 46px; height: 100%;
   border: 1px solid #000;
-  padding: 10px 20px;
-  font-family: 'Ubuntu';
-  transition: all 0.3s ease;
+  cursor: pointer;
+  padding: 0 20px;
 }
-.pc-app #contact-next:hover{
+.focus input{
+  cursor: auto;
+  width: 100% !important;
+}
+.focus input,
+.focus textarea{
   background-color: #000;
   color: #fff;
 }
+input::placeholder{opacity: 0;}
+.focus input::placeholder{opacity: 1;}
 
 
-@media screen and (max-width: 1280px ){
-  #contact-header{
-    margin-top: 30px !important;
-  }
+.input-textarea{
+  border: 1px solid #000;
+  position: relative;
+  height: 50vh;
 }
+
+.input-textarea textarea{
+  box-sizing: border-box;
+  width: 100%; height: 100%;
+  padding: 20px 0 30px 66px;
+}
+
+.input-submit{
+  /* border: 1px solid #000; */
+  display: flex;
+  justify-content: flex-end;
+  overflow-x: hidden;
+}
+.input-submit span{
+  transition:  all 0.5s ease;
+  overflow: hidden;
+}
+.input-submit .beforebtn,
+.sendcheck .input-submit .checkbtn{
+  width: auto;
+  padding: 10px 20px;
+  border: 1px solid #000;
+  cursor: pointer;
+  margin-left: 20px;
+  opacity: 1;
+}
+
+.input-submit .checkbtn,
+.sendcheck .beforebtn{
+  opacity: 0; width: 0; 
+  padding-left: 0; 
+  padding-right: 0;
+}
+
+
+
+
+.pc-app .input-next:hover{background-color: #d3d;}
+
+#contact-form input,
+#contact-form textarea,
+.input-icon,
+.input-display{
+  transition : all 0.8s ease;
+}
+
+
+
+
+
+
+@media screen and (max-width: 1280px){
+
+
+}
+
 @media screen and (min-width : 1640px){
-  #contact-header{
-    margin-top: 3.5vw !important;
-    margin-bottom: 2.8vw !important;
+
+  #contact-form{
+    margin-top: 2.8vw;
+    font-size: 1vw;
   }
-  .inputbox,
-  .textareabox{
+  #contact-form form > div{
     margin-bottom: 2.8vw;
   }
-  .inputbox input{
-    padding: 0 1.4vw;
+
+  .input-text,
+  .input-email{
+    height: 3.5vw;
+  }
+
+  .input-icon{
+    width: 3.5vw; height: 3.5vw;
+  }
+  .input-display{
+    left: 6vw;
+    line-height: 3.5vw;
+  }
+  .input-text input,
+  .input-email input{
+    width: 3.5vw; height: 100%;
+  }
+  
+  .focus  input{
+    padding: 0 3vw;
+  }
+
+  .input-textarea textarea{
+    padding: 2vw 0 2vw 6vw;
+  }
+
+  .input-next{
+    padding: 1vw 2vw;
+  }
+  input,textarea{
     font-size: 1vw;
   }
 
-  .input-display{
-    margin-left: 3.2vw;
-  }
 
-  .input-value{
-    font-size: 1.1vw;
-    line-height: 2.2em;
-  }
-  .input-inner .input-icon,
-  .textarea-icon{
-    width: 1vw; height: 1vw;
-    top: calc(50% - 0.5vw);
-  }
-  .textarea-wrap textarea{
-
-    padding-top: 1vw;
-    padding-bottom: 3vw;
-    font-size: 1.1vw;
-    line-height: 2.2em;
-  }
-  .inputbox input::placeholder,
-  .textareabox textarea::placeholder{
-    font-size: 0.8vw !important; 
-    letter-spacing: 0.1em;
-  }
-  #contact-next{
-    padding: 1vw 2vw;
-  }
 }
 
 
+
+
+
+
+
+
+
+#contact-form.sendcheck form > div{
+  margin-bottom: 0 !important;
+}
+.sendcheck input{
+  width: 0;
+  border: none;
+  cursor: default !important;
+}
+.sendcheck .input-icon{
+  opacity: 0;
+  cursor: default;
+}
+.sendcheck .input-display{
+  left: 0;
+  border-color: #fff;
+  line-height: 1em;
+  cursor: default;
+  
+}
+.sendcheck textarea{
+  left: 0;
+  padding-left: 0;
+  padding-right: 0;
+  cursor: default;
+}
+.sendcheck .input-textarea{
+  border-color: #fff;
+}
 
 </style>

@@ -30,10 +30,9 @@ K 마우스 커서 이미지 변경
 K 라우터 전환시 현재 스크롤 상태 조정 => native smooth로 해둔상태
 memo 데이터 먼저 로딩하는 옵저버 패턴 오류나는 현상 => vue 개발자 도구와의 충돌로 예상
 
+M 침착하게... contact view 재 디자인까지만
+M workview hover event =>  opacity로 등록만 해두자
 M 첫 로딩시 딜레이 조절하기
-M workview hover event
-M Contact view 디자인
-M Contact view 폼 제작
 
 
 L 각종 임시코드 정리

@@ -352,7 +352,7 @@ export default {
   flex-direction: column;
   transition: all 1.4s cubic-bezier(0.645, 0.045, 0.355, 1);
   background: #fff;
-  font-weight: lighter;
+  /* font-weight: lighter; */
   z-index: 10;
   -webkit-overflow-scrolling: touch;
   -webkit-tap-highlight-color: transparent;
@@ -374,7 +374,7 @@ export default {
 }
 #gnb-logo{
   font-size: 24px;
-  font-weight: lighter;
+  /* font-weight: lighter; */
   letter-spacing: 0.2em;
   font-family:  'Ubuntu' , sans-serif;  
 }
@@ -434,7 +434,7 @@ export default {
   box-sizing: border-box;
   cursor: pointer;
   overflow-x: hidden;
-  font-weight: lighter;
+  /* font-weight: lighter; */
 }
 #gnb-category,
 #gnb-top-menu{font-family: 'Ubuntu';}
@@ -467,7 +467,6 @@ export default {
 .gnb-category-item span{
   display: inline-block;
   padding: 4px 5px;
-  font-weight: 100;
 }
 #gnb-category-now,
 .gnb-category-item{
@@ -487,7 +486,7 @@ export default {
   display: flex;
   align-items: center;
   overflow-x: hidden;
-  font-weight: lighter;
+  /* font-weight: lighter; */
   box-sizing:border-box;
   opacity: 0;
 }
@@ -543,6 +542,7 @@ export default {
   margin-bottom: 0 !important;
   font-size: 10px;
   padding: 15px 0;
+  font-family: 'Ubuntu';
 }
 
 #gnb-bottom-wrap{  
@@ -562,7 +562,8 @@ export default {
   position: absolute;
   left: 5px; top: calc(50% - 2px);
   background: url(../assets/icons/dot-red.png) no-repeat;
-  background-size: cover;
+  /* background-size: cover; */
+  background-size: contain;
 }
 /* transition */
 #gnb-inner,
@@ -603,10 +604,7 @@ export default {
   transition: none !important; }
 
 .pc-app #gnb-top-menu > div[id^="gnb-top"] a:hover,
-.pc-app .gnb-category-item span:hover,
-.mobile-app #gnb-top-menu > div[id^="gnb-top"] a.mobile-active,
-.mobile-app #gnb-logo a.mobile-active,
-.mobile-app .gnb-category-item span.mobile-active{ 
+.pc-app .gnb-category-item span:hover{ 
   background: #000;
   color: #fff;
 }

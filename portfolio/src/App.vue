@@ -68,23 +68,23 @@ html,body{height: 100%; }
 ::-webkit-scrollbar-thumb {background: #444; }
 #app {
   font-family: 'Noto Sans KR' , sans-serif;
-
   font-size: 14px;
-  font-weight: 100;
+  font-weight: normal;
   color: #444;
   width: 100%; height: 100%;
   overflow: hidden;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.07em;
   word-wrap: keep-all;
-
+}
+.pc-app #app{
+  /* font-size: 1vw !important; */
 }
 textarea, input{
-  font-size: 14px;
   font-family: 'Noto Sans KR' , sans-serif;
-  letter-spacing: 0.1em;
-  font-weight: 100;
+  letter-spacing: 0.07em;
   color: #444;
 }
+
 #all-wrap{
   display: flex;
   width: 100%; height: 100%;
@@ -128,6 +128,12 @@ span#cursor{
     width: 1.6vw; height: 0.64vw; 
     top: 0.32vw; left: 0.2vw; 
   }
+}
+
+.mobile-app a.mobile-active,
+.mobile-app span.mobile-active{ 
+  background: #000;
+  color: #fff;
 }
 
 

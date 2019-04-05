@@ -224,7 +224,7 @@ export default {
 }
 
 @media screen and (min-width : 1640px){
-  #slider-image-controls{margin: 3.2vw;}
+  #slider-image-controls{margin: 2.8vw;}
   #slider-image-number span[id$="number"]{
     padding: 0 0.75vw;
     margin: 0 0.75vw;

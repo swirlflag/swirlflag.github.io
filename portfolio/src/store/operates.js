@@ -105,7 +105,9 @@ export default{
   
 
   OPR_mobileActiveTouchStart(state,e){
+    console.log(11);
     if(!this.getters.GET_isMobile){return};
+    console.log(e);
     e.target.classList.add('mobile-active');
   },
   

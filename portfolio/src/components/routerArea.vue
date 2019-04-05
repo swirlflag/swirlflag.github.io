@@ -156,6 +156,9 @@ export default {
   margin-left: -2vw;
 }
 
+.page-controls{
+  position: relative;
+}
 
 #router-area{
   scroll-behavior: smooth;
@@ -165,6 +168,8 @@ export default {
   width: 100%; height: 100%;
   overflow-y: scroll;
   overflow-x: hidden; 
+  -webkit-overflow-scrolling: touch;
+  -webkit-tap-highlight-color: transparent;
 }
 #router-area.hidden::-webkit-scrollbar {width: 3px !important; height: 3px !important;}
 #router-area.hidden::-webkit-scrollbar-track {background: #fff !important; opacity: 0 !important; }
@@ -186,8 +191,9 @@ export default {
   box-sizing: border-box;
 }
 
-
-
+#content-header{
+  margin-top: 40px;
+}
 
 
 #content-category,
@@ -236,13 +242,13 @@ export default {
 
 @media screen and (max-width: 1280px){
   #content-main{padding: 0 22px;}
-  #content-header{padding-top : 20px;}
+  #content-header{padding-top : 0px; }
   #content-maintext{padding-left: 0;}
 }/*  */
 
 @media screen and (min-width : 1640px){
   #content-main{
-    padding: 0 2.9vw;
+    padding: 0 3vw;
     font-size: 1.05vw !important;
   }
   #content-main > div{margin-bottom: 3.4vw;}
@@ -251,12 +257,15 @@ export default {
     margin-top: 1vw;
     font-size: 1.8vw;
   }
+  #content-header{
+    margin: 2.8vw 0;
+  }
   #content-link{font-size: 1.05vw;}
   #content-link span{margin-right: 1.5vw;}
   #content-maintext{
     border-top: 1px solid #000;
     border-bottom: 1px solid #000;
-    padding: 3.2vw 0;
+    padding: 2.8vw 0;
     line-height: 1.8em;
     padding-left: 25%;
   }
