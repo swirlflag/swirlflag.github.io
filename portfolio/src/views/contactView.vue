@@ -1,40 +1,40 @@
 <template>
 <section id="content-page" class="router-section target-section" >
   <div id="content-main">
-    <div id="contact-form" class="sendcheckd">
+    <div id="contact-form" class="">
       <form action="get">
 
-        <div class="input-text">
+        <div class="input-text" id="name">
           <div class="input-icon">
             <span class="triangle"></span>
           </div>
-          <div v-bind:class="{'placehold' : !nameValue}" class="input-display">
-            {{ nameValue || 'your name'}}
+          <div class="input-display placehold" data-placeholder="your name"> 
+            your name
           </div>
-          <input id="name" type="text" placeholder="name">
+          <input type="text" placeholder="name" v-bind:disabled="sendCheck">
         </div>  
 
-        <div class="input-email">
+        <div class="input-email" id="email">
           <div class="input-icon">
             <span class="square"></span>
           </div>
-          <div v-bind:class="{'placehold' : !emailValue}" class="input-display">
-            {{ emailValue || 'your@email.com'}}
+          <div class="input-display placehold" data-placeholder="your@email.com">
+            your@email.com
           </div>
-          <input id="email" type="email" placeholder="email">
+          <input type="email" placeholder="email" v-bind:disabled="sendCheck">
         </div>  
 
-        <div class="input-textarea">
+        <div class="input-textarea" id="letter">
           <div class="input-icon">
             <span class="pentagon"></span>
           </div>
-          <textarea name="contact-text" id="letter" placeholder="In the letter" v-bind:disabled="textareaState"></textarea>
+          <textarea name="contact-text" placeholder="In the letter" v-bind:disabled="sendCheck"></textarea>
         </div>
 
         <div class="page-controls spread spread-wait input-submit">
-          <span class="beforebtn" @touchstart="OPR_mobileActiveTouchStart" @touchend="OPR_mobileActiveTouchEnd">next</span>
-          <span class="checkbtn" stouchstart="OPR_mobileActiveTouchStart" @touchend="OPR_mobileActiveTouchEnd">cancle</span>
-          <span class="checkbtn" @touchstart="OPR_mobileActiveTouchStart" @touchend="OPR_mobileActiveTouchEnd">send</span>
+          <span id="contact-nextbtn" class="beforebtn" @touchstart="OPR_mobileActiveTouchStart" @touchend="OPR_mobileActiveTouchEnd">next</span>
+          <span id="contact-canclebtn" class="checkbtn" stouchstart="OPR_mobileActiveTouchStart" @touchend="OPR_mobileActiveTouchEnd">cancle</span>
+          <span id="contact-sendbtn" class="checkbtn" @touchstart="OPR_mobileActiveTouchStart" @touchend="OPR_mobileActiveTouchEnd">send</span>
         </div>
       </form>  
     </div>
@@ -53,13 +53,21 @@ export default {
       nameValue : null,
       emailValue : null,
       letterValue : null,
+
+      sendCheck : false,
     }
   },
 
   computed : {
-    nameInput : () => document.getElementsByClassName('input-text'),
-    mailInput : () => document.getElementsByClassName('input-email'),
-    textarea : () => document.querySelector('.input-textarea'),
+    form : () => document.getElementById('contact-form'),
+    name : () => document.getElementById('name'),
+    email : () => document.getElementById('email'),
+    letter : () => document.querySelector('#letter textarea'),
+    inputs : () => document.querySelectorAll('.input-text , .input-email , .input-textarea'),
+
+    nextbtn : () => document.getElementById('contact-nextbtn'),
+    canclebtn : () => document.getElementById('contact-canclebtn'),
+    sendbtn : () => document.getElementById('contact-sendbtn'),
   },
 
   methods : {
@@ -69,46 +77,114 @@ export default {
       'OPR_mobileActiveTouchEnd',
     ]),
 
-    settingInputs(){
+    inputFoucsFunc(el){
 
-      // for(let i = 0; i < this.inputs.length; ++i){
-        // let target = this.inputs[i];
-        // let input = this.inputs[i].getElementsByTagName('input')[0];
+      let getInputType = function(target){
+        if(target.contains(target.getElementsByTagName('input')[0])){
+          return target.getElementsByTagName('input')[0];
+        }else if(target.contains(target.getElementsByTagName('textarea')[0])){
+          return target.getElementsByTagName('textarea')[0];
+        }; 
+      };  
+
+      let setFoucsBlur = (target,input,display) => {
+
         target.addEventListener('click', function(){
           input.focus();
         });
 
         input.addEventListener('focus', function(){
           target.classList.add('focus');
-        });
+          if(display){
+            if(display.classList.contains('placehold')){
+              input.value = '';
+            }else{
+              input.value = display.innerText;
+            };
+          };
+        }); 
 
         input.addEventListener('blur', function(){
           target.classList.remove('focus');
+          if(display){
+            if(input.value){
+              display.classList.remove('placehold');
+              display.innerText = input.value;
+            }else{
+              display.classList.add('placehold');
+              display.innerText = display.getAttribute('data-placeholder');
+            };
+            input.value = '';
+          };
         });
+        
+      };
 
-      // };
+      for(let i = 0; i < el.length; ++i){
+        const target = el[i];
+        let input = getInputType(target);
+        let display = target.getElementsByClassName('input-display')[0];
+        setFoucsBlur(target,input,display);
+      };
     },
 
-    settingTextarea(){
-      let input = this.textarea.getElementsByTagName('textarea')[0];
-      this.textarea.addEventListener('click', function(){
-        input.focus();
-      })
-      input.addEventListener('focus', () =>{
-        this.textarea.classList.add('focus');
-      });
-      input.addEventListener('blur', () =>{
-        this.textarea.classList.remove('focus');
+
+    nextbtnSetting(){
+      let func = (target) => {
+
+      }
+      this.nextbtn.addEventListener('click', () => {
+
+        if(!this.name.innerText || this.name.innerText == 'your name'){
+          console.log('no name!');
+
+          return;
+        }else if(!this.email.innerText || this.email.innerText == 'your@email.com'){
+          console.log('no email!');
+
+          return;
+        }else if(!this.letter.value){
+          console.log('no text!');
+          return;
+        }
+
+        this.form.classList.add('sendcheck');
+        this.sendCheck = true;
       });
     },
 
+    canclebtnSetting(){
+      this.canclebtn.addEventListener('click', () => {
+        this.form.classList.remove('sendcheck');
+        this.sendCheck = false;
+      });
+    },
+
+    sendbtnSetting(){
+      this.sendbtn.addEventListener('click', () => {
+        this.nameValue = this.name.innerText;
+        this.emailValue = this.email.innerText;
+        this.letterValue = this.letter.value;
+      });
+    },
     
- 
+
+    inputSetting(){
+      this.inputFoucsFunc(this.inputs);
+    },
+
+    buttonSetting(){
+      this.nextbtnSetting();
+      this.canclebtnSetting();
+      this.sendbtnSetting();
+    },
+  
   },
 
   mounted(){
-    this.settingInputs();
-    this.settingTextarea();
+    this.inputSetting();
+    this.buttonSetting();
+
   }
 }
 </script>
@@ -164,6 +240,11 @@ textarea::placeholder{
   position: absolute;
   align-items: center;
   justify-content: center;
+  cursor: pointer;
+}
+
+.input-icon.alert{
+  background: red;
 }
 @keyframes rotate {
   from {transform: rotate(0deg);}
@@ -232,30 +313,41 @@ input::placeholder{opacity: 0;}
   overflow-x: hidden;
 }
 .input-submit span{
-  transition:  all 0.5s ease;
+  transition: all 0.5s ease;
   overflow: hidden;
-}
-.input-submit .beforebtn,
-.sendcheck .input-submit .checkbtn{
-  width: auto;
-  padding: 10px 20px;
+  width: 80px;
+  text-align: center;
+  padding: 10px;
   border: 1px solid #000;
-  cursor: pointer;
+  box-sizing: border-box;
   margin-left: 20px;
-  opacity: 1;
+  cursor: pointer;
 }
 
 .input-submit .checkbtn,
-.sendcheck .beforebtn{
-  opacity: 0; width: 0; 
-  padding-left: 0; 
-  padding-right: 0;
+.sendcheck .input-submit .beforebtn{
+  width: 0;
+  padding: 5px 0;
+  border: none;
+  margin-left: 0;
+}
+
+
+.sendcheck .input-submit .checkbtn{
+  width: 80px;
+  padding: 10px 10px;
+  border: 1px solid #000;
+  margin-left: 20px;
 }
 
 
 
 
-.pc-app .input-next:hover{background-color: #d3d;}
+
+.pc-app .input-submit span:hover{
+  background-color: #000; 
+  color: #fff;
+}
 
 #contact-form input,
 #contact-form textarea,
@@ -332,8 +424,9 @@ input::placeholder{opacity: 0;}
 }
 .sendcheck input{
   width: 0;
+  padding: 0;
   border: none;
-  cursor: default !important;
+  cursor: auto !important;
 }
 .sendcheck .input-icon{
   opacity: 0;
@@ -344,7 +437,7 @@ input::placeholder{opacity: 0;}
   border-color: #fff;
   line-height: 1em;
   cursor: default;
-  
+
 }
 .sendcheck textarea{
   left: 0;

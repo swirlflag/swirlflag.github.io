@@ -115,4 +115,11 @@ export default{
     e.target.classList.remove('mobile-active');
   },
 
+  OPR_scrollTop(){
+    let scTarget = u.$('#router-area');
+    scTarget.stop().animate({
+      'scrollTop' : 0,
+    })
+  },
+
 }

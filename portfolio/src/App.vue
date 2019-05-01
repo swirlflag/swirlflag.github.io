@@ -36,7 +36,7 @@ export default {
   },
 
   methods : {
-    ...mapMutations(['SET_spySubscribe']),
+    ...mapMutations(['SET_spySubscribe',]),
     setIsMobile(){
       this.allWrap.classList.add(this.GET_isMobile ? 'mobile-app' : 'pc-app');
       if(this.GET_isIOS){this.allWrap.classList.add('ios-app')};
@@ -53,7 +53,6 @@ export default {
     });
     
     this.setIsMobile();  
-
   },
 
 }
@@ -109,6 +108,13 @@ span#cursor{
   display: inline-block;
   position: relative;
   width: 26px; height: 16px;
+
+}
+.pc-app #router-area [class^="icon-arrow"]{ 
+  transition : all 0.3s ease;
+}
+.pc-app #router-area [class^="icon-arrow"]:hover{ 
+  opacity: 0.4;
 }
 [class^="icon-arrow"]::before{
   content: '';

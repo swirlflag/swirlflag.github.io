@@ -1,6 +1,7 @@
 <template>
   <div id="router-area">
     <contnet-goto-gnb></contnet-goto-gnb>
+    <modal></modal>
     <transition 
     v-bind:name="transitionName" 
     v-on:before-enter="delayPagingStart" 
@@ -17,6 +18,7 @@ import bus from '../utils/bus.js';
 import u from '../utils/utilMethod.js';
 
 import contentGotoGnb from '../components/contentGotoGnb.vue';
+import modal from '../components/modalPopup.vue';
 export default {
 
   data(){
@@ -30,6 +32,7 @@ export default {
 
   components : {
     'contnet-goto-gnb' : contentGotoGnb,
+    'modal' : modal,
   },
 
   computed : {
@@ -49,6 +52,7 @@ export default {
       'SET_isPaging',
       'SET_routeDirectionLeft',
       'OPR_gnbOpen',
+      'OPR_scrollTop',
     ]),
 
 
@@ -77,14 +81,13 @@ export default {
 
     delayPagingStart(){
       this.SET_isPaging(true);
-      this.setRouterAreaScrollTop();
+      // this.setRouterAreaScrollTop();
+      this.OPR_scrollTop(0);
       this.setSpreadElements(()=>{
         // this.SET_isPaging(false);
-        
       });
     },
     delayPagingEnd(){
-      
       this.SET_isPaging(false);
     },
 
@@ -113,6 +116,7 @@ export default {
   }, //method
     
   created(){
+    let path = window.location.pathname;
     this.$router.push('/');
     this.$router.beforeEach((to,from,next)=>{
       

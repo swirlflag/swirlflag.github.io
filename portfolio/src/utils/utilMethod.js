@@ -1,7 +1,9 @@
-
 const curry = (f) => (a,..._) => {
   return _.length ? f(a,..._) : (..._) => f(a,..._);
 }
+
+import TweenMax from 'gsap';
+import $ from 'jquery';
 
 export default{
   utest(){
@@ -133,7 +135,9 @@ export default{
       } 
     }
     loop();
-  }
+  },
+
+  $ : $,
 
 
 

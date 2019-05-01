@@ -140,7 +140,6 @@ export default {
 
   mounted(){
     this.setSpreadWaitElements();
-    
   },
 
 }
