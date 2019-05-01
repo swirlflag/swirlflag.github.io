@@ -45,6 +45,7 @@
 <script>
 
 import { mapMutations , mapGetters } from 'vuex';
+import bus from '../utils/bus.js';
 export default {
   data(){
     return {
@@ -75,6 +76,7 @@ export default {
     ...mapMutations([
       'OPR_mobileActiveTouchStart',
       'OPR_mobileActiveTouchEnd',
+      'OPR_bottomAlert',
     ]),
 
     inputFoucsFunc(el){
@@ -136,15 +138,13 @@ export default {
       this.nextbtn.addEventListener('click', () => {
 
         if(!this.name.innerText || this.name.innerText == 'your name'){
-          console.log('no name!');
-
+          bus.$emit('bottomAlertRed', '이름을 입력해주세요')
           return;
         }else if(!this.email.innerText || this.email.innerText == 'your@email.com'){
-          console.log('no email!');
-
+          bus.$emit('bottomAlertRed', '이메일을 입력해주세요')
           return;
         }else if(!this.letter.value){
-          console.log('no text!');
+          bus.$emit('bottomAlertRed', '내용을 입력해주세요')
           return;
         }
 
@@ -199,11 +199,12 @@ export default {
 .heptagon{background: url(../assets/icons/figure-07.png) no-repeat;background-size: cover;}
 
 input,textarea{
+  -webkit-appearance: none;
   outline: none;
   border-radius: 0;
   padding: 0; margin: 0;
   border: none;
-  box-shadow: none;
+  box-shadow: none !important;
   box-sizing: border-box;
   resize:none;
   font-size: 14px;

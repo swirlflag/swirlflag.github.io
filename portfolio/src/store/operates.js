@@ -1,4 +1,6 @@
-import u from '../utils/utilMethod.js'
+import u from '../utils/utilMethod.js';
+import { stat } from 'fs';
+
 export default{
   OPR_scrollCorrection(state,el){
     el.addEventListener('scroll', function(){
@@ -24,7 +26,7 @@ export default{
   // 존나대충 만들고 나중에 고치자..
   OPR_textSlide(state,{el,msg,type,d}){
     if(el.classList.contains('is-text-sliding')){return};
-    if(!d){d = 1};
+    d = d ? d : 1;
     const style = getComputedStyle(el);
     el.classList.add('is-text-sliding');
     let wrap = document.createElement('span'),
@@ -91,10 +93,6 @@ export default{
             afterspan.style.left = 0;
           },10);
         }
-
-
-
-
     };
 
     setTimeout(()=>{
@@ -105,9 +103,9 @@ export default{
   
 
   OPR_mobileActiveTouchStart(state,e){
-    console.log(11);
+    // console.log('2');
     if(!this.getters.GET_isMobile){return};
-    console.log(e);
+    // console.log('33');
     e.target.classList.add('mobile-active');
   },
   
@@ -120,6 +118,10 @@ export default{
     scTarget.stop().animate({
       'scrollTop' : 0,
     })
+  },
+
+  OPR_bottomAlert(state, message){
+
   },
 
 }

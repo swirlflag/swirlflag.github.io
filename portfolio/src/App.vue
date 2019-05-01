@@ -4,6 +4,7 @@
     <data-render></data-render>
     <!-- <span id="cursor"></span> -->
     <gnb></gnb>
+    <bottom-alert></bottom-alert>
     <router-area></router-area>
   </div>
 </div>
@@ -16,6 +17,7 @@ import './assets/font/font.css';
 
 import dataRender from './components/dataRender.vue'
 import gnb from './components/gnb.vue';
+import bottomAlert from './components/bottomAlert.vue';
 
 import routerArea from './components/routerArea.vue';
 
@@ -24,6 +26,7 @@ export default {
   components : {
     'data-render': dataRender,
     'gnb': gnb,
+    'bottom-alert': bottomAlert,
     'router-area' : routerArea,
   },
 
@@ -32,11 +35,16 @@ export default {
     ...mapGetters([
       'GET_isMobile',
       'GET_isIOS',
+      'GET_bottomAlert',
     ]),
   },
 
   methods : {
-    ...mapMutations(['SET_spySubscribe',]),
+    ...mapMutations([
+      'SET_spySubscribe',
+      'SET_bottomAlertSelect',
+    ]),
+
     setIsMobile(){
       this.allWrap.classList.add(this.GET_isMobile ? 'mobile-app' : 'pc-app');
       if(this.GET_isIOS){this.allWrap.classList.add('ios-app')};
@@ -48,10 +56,13 @@ export default {
   },
 
   mounted(){
+    this.SET_bottomAlertSelect();
+
+    // 데이터를 모두 받고 난 뒤 할 행동들
     this.SET_spySubscribe(function(response){
       // console.log(2, response);
-    });
-    
+      
+    });    
     this.setIsMobile();  
   },
 
@@ -108,7 +119,6 @@ span#cursor{
   display: inline-block;
   position: relative;
   width: 26px; height: 16px;
-
 }
 .pc-app #router-area [class^="icon-arrow"]{ 
   transition : all 0.3s ease;

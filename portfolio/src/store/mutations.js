@@ -34,8 +34,16 @@ export default {
     state.gnb = document.getElementById('gnb');
   },
 
+  SET_bottomAlertSelect(state){
+    state.bottomAlert = document.getElementById('bottom-alert');
+  },
+
   SET_gnbItemsSelect(state){
     state.gnbItems = document.getElementsByClassName('gnb-contents-item');
+  },
+
+  SET_contentsItem(state){
+    state.contentsItem = document.getElementsByClassName('gnb-contents-item ');
   },
 
   SET_spyDefine(state){
@@ -85,9 +93,7 @@ export default {
     state.nowGnbContentItem = data;
   },
 
-  SET_contentsItem(state){
-    state.contentsItem = document.getElementsByClassName('gnb-contents-item ');
-  },
+
 
   SET_isMini(state,data){
     state.isMini = data;
@@ -99,6 +105,10 @@ export default {
 
   SET_isGnbOpen(state,bool){
     state.isGnbOpen = bool
+  },
+
+  SET_isBottomAlert(state,bool){
+    state.isBottomAlert = bool
   },
 
 }

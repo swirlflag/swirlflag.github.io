@@ -1,7 +1,6 @@
 <template>
   <div id="router-area">
     <contnet-goto-gnb></contnet-goto-gnb>
-    <modal></modal>
     <transition 
     v-bind:name="transitionName" 
     v-on:before-enter="delayPagingStart" 
@@ -18,7 +17,7 @@ import bus from '../utils/bus.js';
 import u from '../utils/utilMethod.js';
 
 import contentGotoGnb from '../components/contentGotoGnb.vue';
-import modal from '../components/modalPopup.vue';
+import bottomAlert from '../components/bottomAlert.vue';
 export default {
 
   data(){
@@ -32,7 +31,6 @@ export default {
 
   components : {
     'contnet-goto-gnb' : contentGotoGnb,
-    'modal' : modal,
   },
 
   computed : {
@@ -186,6 +184,8 @@ export default {
   min-height : 100%;
 }
 
+
+
 #content-main{padding: 0 42px;}
 #content-main > div{margin-bottom: 40px;}
 #content-category{font-size: 12px;}
@@ -243,6 +243,12 @@ export default {
   display: flex;
   justify-content: space-between;
 }
+
+@media screen and (max-width: 768px){
+  .router-section{
+    min-height : calc(100% - 60px);
+  }
+}/*  */
 
 @media screen and (max-width: 1280px){
   #content-main{padding: 0 22px;}

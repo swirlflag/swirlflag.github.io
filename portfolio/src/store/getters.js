@@ -60,5 +60,9 @@ export default{
     return state.isGnbOpen;
   },
 
+  GET_isBottomAlert(state){
+    return state.isBottomAlert;
+  },
+
 
 }

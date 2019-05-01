@@ -31,8 +31,11 @@ K 라우터 전환시 현재 스크롤 상태 조정 => native smooth로 해둔�
 memo 데이터 먼저 로딩하는 옵저버 패턴 오류나는 현상 => vue 개발자 도구와의 충돌로 예상
 
 
-
+M from 미완료시 디자인 or modal 디자인
 M 침착하게... contact view 재 디자인까지만
+M 처음 href지정된 곳으로 연결되게
+M 404 페이지 설정
+
 M workview hover event =>  opacity로 등록만 해두자
 M 첫 로딩시 딜레이 조절하기
 

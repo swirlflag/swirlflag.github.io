@@ -327,6 +327,7 @@ export default {
     });
 
     this.testfunction();
+
     
   },
 
@@ -338,7 +339,7 @@ export default {
 
 <style scoped>
 .ios-app #gnb{
-  box-sizing :content-box;
+  /* box-sizing :content-box; */
   border-right: 2px solid #000;
 }
 

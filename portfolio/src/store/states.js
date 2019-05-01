@@ -14,10 +14,15 @@ export default {
   gnbItems : null,
   mobileActiveElements : [],
 
+  // #router view element
+  
+  bottomAlert : null,
+  isBottomAlert : false,
+
   isPaging : false,
   nowGnbContentItem : null,
 
-  
+
   categoryData  : null,
   contentsData : null,
 
@@ -29,5 +34,8 @@ export default {
   beforePath : [],
   // 라우터의 트랜지션 방향 :  true => 왼쪽에서 오른쪽 ,  false => 오른쪽에서 왼쪽
   routeDirectionLeft : false,
+
+
+  
 
 }
