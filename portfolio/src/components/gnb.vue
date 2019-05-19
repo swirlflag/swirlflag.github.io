@@ -273,9 +273,9 @@ export default {
       await this.setNavCategoryHeight();
       await this.closeNavCategoryHeight();
       await this.busSendEvent();
-      // await setTimeout(()=>{
+      await setTimeout(()=>{
         this.OPR_gnbOpen();
-      // },1000);
+      },2000);
       // duration을 나중에 로고동작 끝나고 실행하게끔 변경
     },
 

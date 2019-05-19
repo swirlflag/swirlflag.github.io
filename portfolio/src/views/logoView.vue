@@ -1,8 +1,8 @@
 <template>
   <section class="router-section logo-section">
-    제작중입니다 ㅎㅎ~~~~~~
-    <img src="../assets/logo.png" alt="">
-    <img src="../assets/logo.png" alt=""><img src="../assets/logo.png" alt=""><img src="../assets/logo.png" alt=""><img src="../assets/logo.png" alt=""><img src="../assets/logo.png" alt=""><img src="../assets/logo.png" alt=""><img src="../assets/logo.png" alt=""><img src="../assets/logo.png" alt=""><img src="../assets/logo.png" alt=""><img src="../assets/logo.png" alt="">
+    <!-- <div class="test"> -->
+      <img src="../assets/logo.png" alt="">  
+    <!-- </div> -->
   </section>
 </template>
 <script>
@@ -20,8 +20,12 @@ export default {
 .logo-section{
   margin-top: 0 !important;
   background-color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
-img{
+
+.logo-section img{
   margin:  auto;
 }
 
