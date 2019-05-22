@@ -88,6 +88,9 @@ const DOMinit = () => {
   }
   buttonsEvent();
   download();
+  setTimeout(()=>{
+    document.body.style.opacity = 1;
+  },300)
 }
 
 document.addEventListener('DOMContentLoaded', DOMinit);
