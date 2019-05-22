@@ -9,7 +9,7 @@ html,body{
 body{
   font-family: 'Noto Sans KR', sans-serif;
   color: #333;
-  letter-spacing: -0.05em;
+  letter-spacing: -0.06em;
   word-break: keep-all;
   overflow-y: hidden;
   
@@ -299,18 +299,18 @@ a.b:hover{
 #down{
   position: fixed;
   width: 50vw;
-  height: 7vw;
+  /* height: 7vw; */
   line-height: 70px;
   bottom: 0; left: calc(50% - 25vw);
   z-index: 9999;
   display: block;
   text-align: center;
-  transition: transform .8s cubic-bezier(0.165, 0.84, 0.44, 1);
+  transition: transform .7s ease;
   transform: translate3d(0,10vw,0);
   
 }
 #down.show{
-  transform: translate3d(0,0,0);
+  transform: translate3d(0,-2vw,0);
 }
 
 #down a{
@@ -321,7 +321,7 @@ a.b:hover{
   font-weight: 900;
   background-color: #fff;
   border-radius: 5000px;
-  transition: all .3s cubic-bezier(0.165, 0.84, 0.44, 1);
+  transition: all .3s ease;
   cursor: pointer;
   vertical-align: middle;
 }
