@@ -10,41 +10,42 @@
 </head>
 <body>
 
-<div id="app">
+<div id="app" class="">
 <!-- app -->
 
-<div id="nav-process" class="active">
+<div id="memo" class="hide">
+  -memo- <br>
+  (누르면 메모 꺼짐) <br> 
+  1. 테두리 없는 영역은 현재 분홍(#d3d)로 처리 <br>
+  2. 화면 전환은 테스트용으로 1초 고정
+</div>
+
+<div id="memobtn" class="hide">
+  메모켜기
+</div>
+
+<div id="nav-process" class="">
   <div class="container"><span class="bar"></span></div>
 </div>
 
-<div id="nav-timer" class="active">05:00</div>
-<h1 id="title">인생살이</h1>
+<div id="nav-timer" class="">00</div>
+
+<h1 id="title" class=""><div>인생살이</div></h1>
 
 
-<div id="page-start" class="actived">
-  <div class="top-area">
-    <div class="scroll-text">
-    (워싱턴=연합뉴스) 백나리 특파원 = 도널드 트럼프 미국 대통령이 언론 인터뷰에서 북한이 보유한 핵시설을 '5곳'으로 콕 집어 발언하면서 그 의도에 관심이 쏠리고 있다.
 
-    2차 북미정상회담 당시 북한이 내놓은 핵시설 해체 범위가 미국의 요구에 미치지 못했다는 것은 알려진 사실이지만 5곳이라는 구체적 숫자가 공개된 것은 처음이다. 협상 결렬과 교착이 북한의 책임이라는 점을 부각해 북미 간 긴장이 국내 정치적 부담으로 번지는 것을 차단하려는 의도라는 관측이 나온다.
 
-    트럼프 대통령의 발언은 19일(현지시간) 폭스뉴스와의 인터뷰에서 나왔다. 그는 군사적 충돌 가능성까지 제기된 이란과의 긴장 고조에 대해 발언하다가 불쑥 북한 얘기를 꺼냈다.
 
-    트럼프 대통령은 "(2차) 정상회담이 열린 베트남을 떠날 때 김정은 북한 국무위원장에게 '당신은 합의할 준비가 되지 않았다'고 말했다"며 "왜냐하면 그는 (핵시설) 1∼2곳(site)을 없애길 원했다. 그렇지만 그는 5곳을 갖고 있다"고 말했다. 
 
-    그러면서 "난 '나머지 3곳은 어쩔 것이냐'고 했다. '그건 좋지 않다. 합의를 하려면 진짜 합의를 하자'고 말했다"고 부연했다. 
 
-    2차 북미정상회담 당시 미국이 핵시설 5곳의 해체를 압박하고 북한이 영변과 풍계리 등 기존의 알려진 핵시설 해체만 고집하면서 결렬에 이르렀음을 짐작하게 하는 대목이다. 
 
-  </div>
-  </div>
-  
-  <div id="start-selects">
-    <div>1번으로</div>
-    <div>2번으로</div>
-    <div>3번으로</div>
-    <div>4번으로</div>
-    <div>5번으로</div>
+<div id="page-splash-1" class="">
+  <div class="image"><img src="img/test.png" alt=""></div>
+</div>
+
+<div id="page-splash-2" class="">
+  <div class="text-box">
+    문구가 나옵니다.
   </div>
 </div>
 
@@ -57,21 +58,46 @@
 
 
 
-<div id="page-choice" class="actived">
+
+<div id="page-birth" class="">
+  <div class="scroll-text">
+    텍스트<br>
+    텍스트
+  </div>
+  
+  <div id="start-selects">
+    <div data-birth="lawyer">변호사</div>
+    <div>사업가</div>
+    <div>예술가</div>
+    <div>의사</div>
+    <div>청소부</div>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+<div id="page-choice" class="">
   <div class="left-area">
     <div class="image">
-      <img src="img01.png" alt="#">
+      <img src="img/img01.png" alt="#">
     </div>
   </div>
   <div class="right-area">
     <div class="scroll-text">
-      국회 개점 휴업 상태에서 어제(20일) 저녁 있었던 여야 3당 원내대표의 이른바 맥주회동, 국회 정상화의 물꼬를 트는 자리가 될 것이라고 해서 관심을 많이 받았습니다. 5월 국회 소집 문제 또 추경 처리 문제 등을 비공개로 논의했는데, 예상대로 이 자리에서 곧바로 구체적인 결론이 나오지는 않았습니다. 앞으로 계속 만나서 논의를 이어간다는 계획입니다.
+      텍스트 텍스트
     </div>
     <div id="choice-a">
-      잠을 잔다.
+      A : <span>잠을 잔다.</span>
     </div>
     <div id="choice-b">
-      쓰레기를 치운다.
+      B : <span>쓰레기를 치운다.</span>
     </div>
   </div>
 </div>
@@ -82,18 +108,14 @@
 
 
 
-<div id="page-death" class="actived">
-  <div class="top-area">
-    <div class="image"><img src="img01.png" alt=""></div>
-  </div>
-  <div class="bottom-area">
-    <div class="scroll-text">
-      ◆최근 3년간 5억대 이상 판매, KT·LGU+도 P 시리즈 출시=21일 전자업계에 따르면 화웨이는 2016년부터 2019년 1분기까지 총 5억4500만대의 스마트폰을 판매했다. 2019년 1분기 점유율은 17.9%로, 전 세계 10명 중 2명에 가까운 사람들이 화웨이 스마트폰을 구입한 셈이다. 화웨이는 중국뿐 아니라 유럽, 일본, 아프리카에서 높은 인기를 구가하고 있는 상황이었다. 국내에서도 KT의 비와이(P9 라이트)·비와이2(P10 라이트)·비와이3(P20 라이트), LG유플러스의 P9·P9 플러스, 자급제 노바 라이트 2 등 6종을 출시하며 점유율을 높여갔다.
+<div id="page-death" class="">
 
-      그러나 구글의 한 마디에 상황이 반전됐다. 미국 정부가 화웨이를 거래제한 기업 명단에 올리자, 구글은 화웨이와의 하드웨어·소프트웨어 비즈니스를 중단하기로 결정했다. 모든 스마트폰을 안드로이드로 구동해온 화웨이로서는 치명타였다. 안드로이드가 누구나 이용할 수 있는 오픈 플랫폼이라 탑재 자체는 문제가 없다. 그러나 구글의 결정으로 화웨이는 앞으로 스마트폰 사용자에게 안드로이드 업데이트나 지메일, 유튜브와 같은 핵심 애플리케이션 서비스를 제공할 수 없게 됐다.
-    </div>
+  <div class="image"><img src="img/img01.png" alt=""></div>
+  
+  <div class="scroll-text">
+    당신은 죽었습니다.
   </div>
-
+  
 </div>
 
 
@@ -105,15 +127,15 @@
 
 
 
-<div id="page-trial" class="actived">
-  <div class="top-area">
-    <div class="image">
-      <img src="img01.png" alt="">
-    </div>
+<div id="page-trial" class="">
+  
+  <div class="image">
+    <img src="img/img01.png" alt="">
   </div>
-  <div class="bottom-area">
-    <h2>재판 중입니다...</h2>
-  </div>
+
+
+  <h2>재판 중입니다...</h2>
+  
 
 </div>
 
@@ -123,7 +145,7 @@
 
 
 
-<div id="page-infomation" class="actived">
+<div id="page-infomation" class="">
   <div class="text-box">
     첫번쨰 , 천국은 좋고 지옥은 나빠요  <br>
     두번째 , 천국은 좋고 지옥은 나빠요 <br>
@@ -134,11 +156,16 @@
 </div>
 
 
-<div id="page-result" class="active">
+
+
+
+
+
+
+
+<div id="page-result" class="">
   <div class="text-box">
     당신은.. 천국에 가게되었습니다 굿.. <br><br>
-
-    2차 북미정상회담 당시 미국이 핵시설 5곳의 해체를 압박하고 북한이 영변과 풍계리 등 기존의 알려진 핵시설 해체만 고집하면서 결렬에 이르렀음을 짐작하게 하는 대목이다. 나 구글의 결정으로 화웨이는 앞으
   </div>
 </div>
 
