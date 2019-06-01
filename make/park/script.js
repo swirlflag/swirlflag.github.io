@@ -597,7 +597,7 @@ const START_choice = () => {
     let a = page_choice.querySelector('#choice-a span');
     let b = page_choice.querySelector('#choice-b span');
     let t = page_choice.querySelector('.scroll-text div');
-    let img = page_choice.querySelector('.image img');
+    let img = page_choice.querySelector('.image');
     
     for(let i =0; i < buttons.length; ++i){
         buttons[i].addEventListener('click', ()=>{
@@ -638,8 +638,7 @@ const choiceProcess = (a,b,t,img,_this) => {
             };
 
             t.innerHTML = nowjob[state].question;
-            img.src = '';
-            img.src = 'img/' + nowjob[state].img;
+            img.style.backgroundImage = `url(img/${nowjob[state].img})`;
             
 
             if(Math.random() * 2 > 1){

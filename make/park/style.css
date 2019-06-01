@@ -366,10 +366,12 @@ div[id^="page"].a{
   justify-content: center;
   height: 100%;
   width: 100%;
+  background-image: url('img/test.png');
+  background-repeat: no-repeat;
+  background-size: contain;
+  border: 1px solid #000;
 }
-#page-choice .left-area .image img{ 
-  object-fit: contain;
-}
+
 #page-choice .right-area{
   width: 700px;
   display: flex;
