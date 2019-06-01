@@ -586,6 +586,11 @@ const START_splash = () =>{
 
 
 const START_choice = () => {
+
+    for(let i = 1; i < 10; ++i){
+      var my_image = new Image();
+      my_image.src = 'img/' + nowjob[i].img;
+    };
     
     let buttons = page_choice.querySelectorAll('.button_type1');
     
