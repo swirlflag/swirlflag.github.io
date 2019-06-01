@@ -630,6 +630,7 @@ const choiceProcess = (a,b,t,img,_this) => {
         }
 
         setTimeout(()=>{
+          
             if(state == 7){
                 page_choice.classList.add('choice2');
             }else{
@@ -637,7 +638,8 @@ const choiceProcess = (a,b,t,img,_this) => {
             };
 
             t.innerHTML = nowjob[state].question;
-            img.setAttribute('src', 'img/' + nowjob[state].img);
+            img.src = '';
+            img.src = 'img/' + nowjob[state].img;
             
 
             if(Math.random() * 2 > 1){
