@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css?family=Noto+Sans+KR:300,400,700&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Nanum+Myeongjo:400,700|Noto+Sans+KR:300,400,700&display=swap');
 #memo{
   position: fixed;
   top: 0; left: 0;
@@ -25,6 +27,7 @@ html,body{
   width: 100%; height: 100%;
   overflow: hidden;
   font-family: 'Noto Sans KR', sans-serif;
+  font-size: 25px;
 }
 /* ::-webkit-scrollbar{
   background-color: transparent;
@@ -40,13 +43,14 @@ html,body{
 a{text-decoration: none;}
 li{list-style: none;}
 
-.scroll-text{
- 
-  /* overflow-y: scroll; */
+.scroll-text, .text-box{
+  font-family: 'Nanum Myeongjo', serif;
+  line-height: 1.44em;
+  font-size: 25px;
+  text-align: center;
 }
-.text-box{
-
-  
+.scroll-text{
+  overflow-y: scroll;
 }
 
 .left-area, .right-area{
@@ -57,15 +61,54 @@ li{list-style: none;}
 }
 
 
+.invert{
+  filter : invert(100)
+}
 .image{
   width: 100%; height: 100%;
 }
+.image img{
+  width: 100%; height: 100%;
+}
+
+div[class^="button_"]{
+  border: 1px solid #000;
+  cursor: pointer;
+}
+div.button_type1{
+  border: 6px solid #000;
+  color: #000;
+  transition: color 0.3s ease , background 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  font-size: 25px;
+  padding:25px 0 ;
+
+}
+div.button_type1{
+  
+}
+div.button_type1 img{
+  transition: filter 0.3s ease;
+}
+div.button_type1:hover{
+  background-color: #000;
+  color: #fff;
+}
+div.button_type1:hover img{
+  filter: invert(100)
+}
+
+
+
 
 #app{
-  width: 1300px ; height: 867px;
+  width: 1400px ; height: 800px;
   box-sizing : border-box;
   position: relative;
-  top : calc(50% - 433px);
+  top : calc(50% - 400px);
   margin: 0 auto;
   border: 6px solid transparent;
   transition: border 0.5s ease;
@@ -78,14 +121,11 @@ li{list-style: none;}
 
 
 
-
-
-
 #nav-process{  
   width: 100%; height: 30px;
   display: flex;
   justify-content: center;
-  top: 70px;
+  top: 37px;
   position: absolute;
   transition: transform 0.5s ease, opacity 0.5s ease;
   opacity: 0;
@@ -99,18 +139,20 @@ li{list-style: none;}
 }
 
 #nav-process .container{
-  margin: 0 120px;
+  margin: 0 80px;
   width: 100%; height: 100%;
   border: 6px solid #000;
   box-sizing: border-box;
   position: relative;
+  overflow-x: hidden;
 }
 
 #nav-process .container .bar{
   position: absolute; top:0; left:0;
   display: inline-block;
-  width: 10%; height: 105%;
+  width: 0%; height: 105%;
   background-color: #000;
+  transition: width 0.5s ease;
 }
 
 
@@ -122,9 +164,9 @@ li{list-style: none;}
 
 
 #nav-timer{
-  right: 120px; 
-  top:125px;
-  width: 100px; height: 50px;
+  right: 80px; top: 106px;
+  font-size: 30px;
+
   border: 1px solid #d3d;
   text-align: right;
   font-weight: bold;
@@ -133,6 +175,7 @@ li{list-style: none;}
   opacity: 0;
   z-index: 10;
 }
+
   
 #nav-timer.a{
   opacity: 1;
@@ -151,7 +194,7 @@ h1#title{
   width: 100%;
   height: 80px;
   text-align: center;
-  top: 150px;
+  top: 106px;
   transition: transform 0.5s ease, opacity 0.5s ease;
   transform: translate3d(0,0,0);
   opacity: 0
@@ -173,10 +216,8 @@ h1#title div{
 
 
 
-
-
-
 div[id^="page"]{
+  display: flex;
   height: 500px;
   opacity: 0;
   position: absolute;
@@ -184,8 +225,9 @@ div[id^="page"]{
   pointer-events: none;
   width: 100%;
   box-sizing: border-box;
-  padding: 0 120px;
-  bottom: 70px; 
+  padding: 0 80px;
+  bottom: 80px;
+  border: 1px solid #3d3;
 }
 
 div[id^="page"].a{
@@ -194,36 +236,69 @@ div[id^="page"].a{
 }
 
 
-
-
-
-
 #page-splash-1{
   width: 100%; height: 100%;
   margin: 0;
   padding: 0;
   border: 1px solid #d3d;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   bottom: 0;
 }
 #page-splash-1 .image{
-  width: auto; height: auto;
+  width: 900px;
+  height: 300px;
+  border: 1px solid #d3d;
+}
+#page-splash-1 .image img{
+  width: 100%; height: 100%;
+  object-fit: contain;
+}
+#page-splash-1 p{
+  margin-top: 46px;
+  border: 1px solid #d3d;
+  font-size: 30px;
+  height: 100px;
+  width:900px;
+  text-align: center;
+  line-height: 100px;
 }
 
 
 
 
 
-
-#page-splash-2{
-  width: 100%; height: 100%;
+#page-start-button{
+  width: 100%;height: 100%;
   bottom: 0;
-  border: 1px solid #d3d;
   display: flex;
   justify-content: center;
   align-items: center;
+  border: 1px solid #d3d;
+}
+#page-start-button .inner-wrap{
+  width: 400px; 
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+#page-start-button .image{
+  width: 400px;
+  height: 150px;
+  border: 1px solid #d3d;
+}
+#page-start-button .image img{
+  width: 100%; height: 100%;
+  object-fit: contain;
+}
+#page-start-button .button_type1{
+  margin-top: 50px;
+  width: 100%;
+  text-align: center;
 }
 
 
@@ -233,7 +308,6 @@ div[id^="page"].a{
 
 
 #page-birth{
-  height: 500px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -242,6 +316,7 @@ div[id^="page"].a{
 #page-birth .scroll-text{
   text-align: center;
   border: 1px solid #d3d;
+  height: 230px;
 }
 
 #start-selects{
@@ -254,23 +329,22 @@ div[id^="page"].a{
   transform: translate3d(0,100%,0);
   opacity: 0;
 }
-#start-selects div{
-  
-  width: 180px; height: 180px;
-  border: 6px solid #000;
-  text-indent: -9999px; color: transparent; font-size: 0;
+#start-selects .button_type1{
+  width: 220px; height: 220px;
+  color: transparent; font-size: 0;
   cursor: pointer;
-
-}
-
-#start-selects div:nth-child(1){
-  background: url(img/test.png) no-repeat center;
+  box-sizing: border-box;
+  padding:0;
+  background: url(img/test.png) no-repeat;
   background-size: contain;
+  transition: filter 0.3s ease , border 0.3s ease;
 }
-#start-selects div:nth-child(2){
-  background: url(img/img01.png) no-repeat center;
-  background-size: contain;
+#start-selects .button_type1:hover{
+  border-color: #fff;
+  filter: invert(100);
 }
+
+
 
 
 
@@ -278,12 +352,11 @@ div[id^="page"].a{
 
 #page-choice{
   display: flex;
-  
   justify-content: space-between;
 }
 #page-choice .left-area{ 
   width: 500px; height: 500px;
-  border: 6px solid #000;
+  border: 1px solid #d3d;
   box-sizing: border-box;
 }
 
@@ -295,44 +368,69 @@ div[id^="page"].a{
   width: 100%;
 }
 #page-choice .left-area .image img{ 
-  width: 60%;
+  object-fit: contain;
 }
 #page-choice .right-area{
-  width: 500px; height: 500px;
+  width: 700px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
 }
 #page-choice .right-area > div{
-  
   box-sizing: border-box;
 }
 
 #page-choice .scroll-text{
   height: 200px;
   border: 1px solid #d3d;
-}
-#page-choice #choice-a{
-  height: 120px;
-  border: 6px solid #000;
-  cursor: pointer;
-}
-#page-choice #choice-b{
-  height: 120px;
-  border: 6px solid #000;
-  cursor: pointer;
-}
-
-
-div[id^="choice-"]{
+  text-align: center;
   display: flex;
   align-items: center;
   justify-content: center;
+  text-align: center;
 }
 
-#page-choice .scroll-text{
-  line-height: 1.3em;
+#page-choice .right-bottom-area{
+  height: 275px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
+
+#page-choice .button_type1{
+  height: 125px;
+}
+
+
+
+
+#page-choice.choice2 .scroll-text{
+  display: block;
+  height: 350px;
+}
+
+#page-choice.choice2 .right-bottom-area{
+  flex-direction: row;
+  height: auto;
+}
+
+#page-choice.choice2 .button_type1{
+  width: 330px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -341,28 +439,19 @@ div[id^="choice-"]{
 
 
 #page-death{
-  /* background-color: #ddd; */
-  height: 500px;
-  border: 1px solid #ddd;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
   width :100%;
 }
 
-#page-death .image{
-  display: flex;
-  justify-content: center;
-  height: 200px;
-}
-#page-death .image img{
-  height: 100%;
-}
 
 #page-death .scroll-text{
-  width: 100%;
+  width: 100%;height: 100%;
   border: 1px solid #d3d;
   text-align: center;
+  display: flex;
+  align-items: center;
 }
 
 
@@ -379,25 +468,59 @@ div[id^="choice-"]{
 
 
 #page-trial{
-  border: 1px solid #ddd;
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
+  justify-content: space-between;
 }
-
 
 #page-trial .image{
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 300px;
+  border: 1px solid #d3d;
+  width: 510px; height: 170px;
+  margin: 0 auto;
 }
 #page-trial .image img{
-  height: 100%;
+  object-fit: contain;
 }
-#page-trial h2{
-  text-align: center;
+#page-trial .text-box{
+  height: 185px;
 }
+#page-trial .button_type1{
+  width: 380px;  
+  margin: 0 auto;
+}
+
+
+
+
+
+
+
+
+
+
+
+#page-trial-progress{
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+#page-trial-progress .image{
+  width: 900px; height: 300px;
+  border: 1px solid #d3d;
+
+}
+#page-trial-progress .image img{
+  object-fit: contain;
+}
+#page-trial-progress p{
+  object-fit: contain;
+  margin-top: 37px;
+  font-size: 25px;
+}
+
+
+
 
 
 
@@ -419,6 +542,43 @@ div[id^="choice-"]{
   text-align: center;
   
 }
+
+
+
+
+
+
+
+
+
+
+
+
+#page-rebirth{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+#page-rebirth .image{
+  border: 1px solid #d3d;
+  width: 510px; height: 170px;
+  margin: 0 auto;
+}
+#page-rebirth .image img{
+  object-fit: contain;
+}
+#page-rebirth .scroll-text{
+  height: 185px;
+}
+#page-rebirth .button_type1{
+  width: 380px;  
+  margin: 0 auto;
+}
+
+
+
+
 
 
 

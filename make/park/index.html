@@ -6,6 +6,8 @@
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
 <title>박민경님</title>
 <link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR:100,200,300,400,700&display=swap&subset=korean" rel="stylesheet">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -16,8 +18,9 @@
 <div id="memo" class="hide">
   -memo- <br>
   (누르면 메모 꺼짐) <br> 
-  1. 테두리 없는 영역은 현재 분홍(#d3d)로 처리 <br>
-  2. 화면 전환은 테스트용으로 1초 고정
+  1. 테스트칼라 <span style="background: #fff"><span style="color:#d3d">#d3d</span> , <span style="color:#3d3">#3d3</span></span>
+  <br>2. 화면 전환은 테스트용으로 1초 고정(변경가능)
+  <br>3. 테스트 이미지들 사용(hello)
 </div>
 
 <div id="memobtn" class="hide">
@@ -25,12 +28,25 @@
 </div>
 
 <div id="nav-process" class="">
+  
   <div class="container"><span class="bar"></span></div>
 </div>
 
-<div id="nav-timer" class="">00</div>
+<div id="nav-timer" class="">
+  <i class="far fa-clock"></i>
+  <span>00</span>
+</div>
 
-<h1 id="title" class=""><div>인생살이</div></h1>
+<h1 id="title" class=""><div>LOGO</div></h1>
+
+
+
+
+
+
+
+
+
 
 
 
@@ -41,13 +57,22 @@
 
 <div id="page-splash-1" class="">
   <div class="image"><img src="img/test.png" alt=""></div>
+  <p>Full HD에 최적화되어 있습니다.</p>
 </div>
 
-<div id="page-splash-2" class="">
-  <div class="text-box">
-    문구가 나옵니다.
+
+
+<div id="page-start-button" class="">
+  <div class="inner-wrap">
+    <div class="image">
+      <img src="img/logo.png" alt="">
+    </div>
+    <div class="button_type1">
+      시작하기
+    </div>
   </div>
 </div>
+
 
 
 
@@ -61,16 +86,25 @@
 
 <div id="page-birth" class="">
   <div class="scroll-text">
-    텍스트<br>
-    텍스트
+    인간의 본성은 태어날 때 텅 비어있는 ‘백지’와 같습니다. 
+    <br>인간의 본성은 생득적으로 주어진 것이 아니라, 정의될 수 없는 가변적인 것입니다.
+    <br>
+    <br>우리는 아침에 눈을 뜨는 순간부터 선택을 하기 시작합니다.
+    <br>아침으로 무엇을 먹을까? 어떤 옷을 입을까? 대개는 매우 사소한 결정들입니다.
+    <br>하지만 이따금 정말 중요한 결정이 평생을 따라다니며 영향을 미치기도 합니다.
+    <br>어떠한 선택이 최선일지, 가장 가치 있을지, 가장 즐거울지는 미리 알 수 없습니다.
+    <br>좀 더 탁월하거나 위태로운 선택이 있을 뿐, 완벽한 선택이란 없습니다.
+    <br>삶의 방향을 정하고 자신이 누구인지 규정하여 자신만의 원칙으로 더욱 바람직한 결정을 내리시길 바랍니다. 
+    <br>
+    <br>내 인생 첫번째 선택을 시작하세요. 아래 다섯 가지의 돌잡이 물건 중 하나를 선택하세요.
   </div>
   
   <div id="start-selects">
-    <div data-birth="lawyer">변호사</div>
-    <div>사업가</div>
-    <div>예술가</div>
-    <div>의사</div>
-    <div>청소부</div>
+    <div class="button_type1" data-birth="변호사"></div>
+    <div class="button_type1" data-birth="크리에이터"></div>
+    <div class="button_type1" data-birth="CEO"></div>
+    <div class="button_type1" data-birth="의사"></div>
+    <div class="button_type1" data-birth="교사"></div>
   </div>
 </div>
 
@@ -84,23 +118,38 @@
 
 
 <div id="page-choice" class="">
+
   <div class="left-area">
     <div class="image">
-      <img src="img/img01.png" alt="#">
+      <img src="#" alt="#">
     </div>
   </div>
+
   <div class="right-area">
     <div class="scroll-text">
-      텍스트 텍스트
+      <div>
+        평소 나를 괴롭히던 힘이 쎈 녀석이 있다.
+        <br>그 녀석의 절도 행위를 목격하였다.
+        <br>나인간 당신은 어떻게 할 것인가?
+      </div>
     </div>
-    <div id="choice-a">
-      A : <span>잠을 잔다.</span>
-    </div>
-    <div id="choice-b">
-      B : <span>쓰레기를 치운다.</span>
+    <div class="right-bottom-area">
+      <div id="choice-a" class="button_type1">
+         <span>그 녀석이 도로 돌려놓게 한다</span>
+      </div>
+      <div id="choice-b" class="button_type1">
+        <span>그 사실을 못본척한다.</span>
+      </div>  
     </div>
   </div>
+
 </div>
+
+
+
+
+
+
 
 
 
@@ -109,20 +158,21 @@
 
 
 <div id="page-death" class="">
-
-  <div class="image"><img src="img/img01.png" alt=""></div>
   
   <div class="scroll-text">
-    당신은 죽었습니다.
+    나인간 당신은 변호사로서의 생을 마감하였습니다.
+
+    삶을 살아가며 선택을 통해 운명을 바꾸며 나아가는 것은 순전히 자신의 자유의지에 달려있습니다.
+    운명이 정해진 길을 따라가는 것이라면, 선택은 정해진 길이 아니라 자의적으로 결정하는 것입니다.
+    합리적인 선택이 운명에 포함되는 것이 아닐까 하는 생각이 들기도 하지만,
+    운명과 선택은 서로 교차하며 비슷한 의미와 함께 반대 의미도 담고 있습니다.
+
+    인간의 본성은 생득적으로 주어진 것이 아니라 정의될 수 없는 가변적 입니다.
+    사람의 운명은 ‘선택’에 따라 달라질 수 있는 것일까요. 
+    그렇기에 현명하게 선택하는 것이 중요합니다.
   </div>
   
 </div>
-
-
-
-
-
-
 
 
 
@@ -133,9 +183,31 @@
     <img src="img/img01.png" alt="">
   </div>
 
+  <div class="text-box">
+    자, 이제 저승으로 가아합니다.
+    <br>가기 전, 당신의 인생살이 속 10번의 선택을 판결하여 
+    <br>당신이 선인인지, 악인인지 재판하겠습니다.
+  <br>
+    <br>당신이 변호사로서 살았던 삶을 한 번 되돌아보세요.
+  </div>
 
-  <h2>재판 중입니다...</h2>
+  <div class="button_type1">
+    재판 결과 확인하기
+  </div>
   
+
+</div>
+
+
+
+
+<div id="page-trial-progress" class="">
+  
+  <div class="image">
+    <img src="img/test.png" alt="">
+  </div>
+
+  <p>재판 중입니다....</p>
 
 </div>
 
@@ -144,7 +216,7 @@
 
 
 
-
+<!-- 
 <div id="page-infomation" class="">
   <div class="text-box">
     첫번쨰 , 천국은 좋고 지옥은 나빠요  <br>
@@ -153,7 +225,7 @@
     네번째 , 천국은 좋고 지옥은 나빠요 <br>
     다섯번쨰 , 천국은 좋고 지옥은 나빠요 <br>
   </div>
-</div>
+</div> -->
 
 
 
@@ -163,12 +235,46 @@
 
 
 
+
+<!-- 
 <div id="page-result" class="">
   <div class="text-box">
     당신은.. 천국에 가게되었습니다 굿.. <br><br>
   </div>
-</div>
+</div> -->
 
+
+
+
+
+
+
+
+<div id="page-rebirth" class="">
+  
+  <div class="image">
+    <img src="img/img01.png" alt="">
+  </div>
+
+  <div class="scroll-text">
+    <br>저승에는 총 다섯 종류의 지옥에 해당하는 저승 조항들이 있습니다.
+    <br>첫번째, 이기심에 눈이 멀어 생전에 너그럽지 못했거나 베풀지 않은 자가 가게 되는 맹지옥.
+    <br>두번째, 자신의 양심을 속여 그 마음을 얼어붙게 만든 자가 가게 되는 빙지옥.
+    <br>세번째, 받은 만큼 돌려주지 않고 남을 속여 이득을 취한 자가 가게 되는 거지옥.
+    <br>네번째, 두려움에 맞서 약자를 구해주지 않고 외면해 버린 자가 가게 되는 용지옥.
+    <br>다섯번째, 야망에 불타 평정심을 잃고 양심을 버린 자가 가게 되는 불지옥.
+<br>
+    <br>나인간 당신은 이 모든 저승조항을 통과하셨습니다.
+    <br>당신에게는 새로운 삶을 살 수 있는 기회를 드리겠습니다.
+    <br>다음 생의 수많은 갈등 상황 속에서도 후회없는 선택들을 하시길 바랍니다.
+  </div>
+
+  <div class="button_type1">
+    환생하기
+  </div>
+  
+
+</div>
 
 
 
