@@ -27,6 +27,7 @@ export default {
 
 .logo-section img{
   margin:  auto;
+  width: 20vw; height: 20vw;
 }
 
 </style>
