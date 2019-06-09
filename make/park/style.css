@@ -32,7 +32,10 @@ html,body{
 }
 body{
   opacity: 0;
+  
 }
+
+
 
 
 ::-webkit-scrollbar{
@@ -85,7 +88,7 @@ div[class^="button_"]{
 div.button_type1{
   border: 6px solid #000;
   color: #000;
-  transition: color 0.3s ease , background 0.3s ease;
+  transition: color 0.3s ease , background 0.3s ease,transform 0.5s ease;;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -111,7 +114,16 @@ div.button_type1:hover img{
 
 
 
+#filter{
+  width: 100%;
+  height: 100%;
+  background-color: #fff;
+  transition: filter 1s ease;
+}
 
+#filter.bad{
+  filter : invert(100);
+}
 #app{
   width: 1400px ; height: 800px;
   box-sizing : border-box;
@@ -119,13 +131,11 @@ div.button_type1:hover img{
   top : calc(50% - 400px);
   margin: 0 auto;
   border: 6px solid transparent;
-  transition: border 0.5s ease;
+  transition: border 0.5s ease , filter 1s ease;
+  overflow: hidden;
 }
 #app.a{
   border: 6px solid #000;
-}
-#app.bad{
-  background: #ddd;
 }
 
 
@@ -178,18 +188,18 @@ div.button_type1:hover img{
   right: 80px; top: 106px;
   font-size: 30px;
 
-  border: 1px solid #d3d;
   text-align: right;
   font-weight: bold;
   position: absolute;
   transition: transform 0.5s ease, opacity 0.5s ease;
   opacity: 0;
   z-index: 10;
+  transform : translate3d(100%,0,0);
 }
-
-  
 #nav-timer.a{
   opacity: 1;
+  transform : translate3d(0,0,0);
+  
 }
 #nav-timer span{
   display: inline-block;
@@ -210,10 +220,9 @@ h1#title{
   height: 80px;
   text-align: center;
   top: 106px;
-  transition: transform 0.5s ease, opacity 0.5s ease;
-  transform: translate3d(0,0,0);
+  transition: transform 0.5s cubic-bezier(0.075, 0.82, 0.165, 1), opacity 0.5s ease;
+  transform: translate3d(0,-100%,0);
   opacity: 0
-
 }
 h1#title.a{
   transform: translate3d(0,0,0);
@@ -222,8 +231,10 @@ h1#title.a{
 
 h1#title div{
   width: 234px; height: 100%;
-  border: 1px solid #d3d;
   margin: 0 auto;
+}
+h1#title img{
+  object-fit: contain;
 }
 
 
@@ -242,7 +253,6 @@ div[id^="page"]{
   box-sizing: border-box;
   padding: 0 80px;
   bottom: 80px;
-  border: 1px solid #3d3;
 }
 
 div[id^="page"].a{
@@ -255,7 +265,7 @@ div[id^="page"].a{
   width: 100%; height: 100%;
   margin: 0;
   padding: 0;
-  border: 1px solid #d3d;
+
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -265,7 +275,6 @@ div[id^="page"].a{
 #page-splash-1 .image{
   width: 900px;
   height: 300px;
-  border: 1px solid #d3d;
 }
 #page-splash-1 .image img{
   width: 100%; height: 100%;
@@ -273,7 +282,6 @@ div[id^="page"].a{
 }
 #page-splash-1 p{
   margin-top: 46px;
-  border: 1px solid #d3d;
   font-size: 30px;
   height: 100px;
   width:900px;
@@ -291,7 +299,6 @@ div[id^="page"].a{
   display: flex;
   justify-content: center;
   align-items: center;
-  border: 1px solid #d3d;
 }
 #page-start-button .inner-wrap{
   width: 400px; 
@@ -304,7 +311,6 @@ div[id^="page"].a{
 #page-start-button .image{
   width: 400px;
   height: 150px;
-  border: 1px solid #d3d;
 }
 #page-start-button .image img{
   width: 100%; height: 100%;
@@ -320,48 +326,115 @@ div[id^="page"].a{
 
 
 
-
-
 #page-birth{
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  /* overflow: hidden; */
 }
 
 #page-birth .scroll-text{
   text-align: center;
-  border: 1px solid #d3d;
   height: 230px;
 }
 
 #start-selects{
   display: flex;
   justify-content: space-between;
-  transition: transform 0.5s ease, opacity 0.4s ease;
+}
+
+
+#start-selects div{
   transform: translate3d(0,0,0);
 }
-#start-selects.hide{
-  transform: translate3d(0,100%,0);
-  opacity: 0;
+#start-selects div:nth-child(1){
+  transition: transform 0.2s cubic-bezier(0.075, 0.82, 0.165, 1), opacity 0.3s ease, filter 0.3s ease !important;
 }
+#start-selects div:nth-child(2){
+  transition: transform 0.5s cubic-bezier(0.075, 0.82, 0.165, 1), opacity 0.3s ease, filter 0.3s ease !important;
+}
+#start-selects div:nth-child(3){
+  transition: transform 0.8s cubic-bezier(0.075, 0.82, 0.165, 1), opacity 0.3s ease, filter 0.3s ease !important;
+}
+#start-selects div:nth-child(4){
+  transition: transform 1.1s cubic-bezier(0.075, 0.82, 0.165, 1), opacity 0.3s ease, filter 0.3s ease !important;
+}
+#start-selects div:nth-child(5){
+  transition: transform 1.4s cubic-bezier(0.075, 0.82, 0.165, 1), opacity 0.3s ease ,filter 0.3s ease !important;
+}
+
+#start-selects div{
+  transform: translate3d(0,100%,0);
+}
+
+.a #start-selects div{
+  transform: translate3d(0,0,0) !important;
+}
+
+
+
+
+
+#start-selects .button_type1:nth-child(1){
+  background: url(img/lawyer.png) no-repeat;
+  background-color: #fff;
+  background-size: 75%;
+  background-position: 50%;
+}
+#start-selects .button_type1:nth-child(2){
+  background: url(img/creator.png) no-repeat;
+  background-color: #fff;
+  background-size: 75%;
+  background-position: 50%;
+
+}
+#start-selects .button_type1:nth-child(3){
+  background: url(img/ceo.png) no-repeat;
+  background-color: #fff;
+  background-size: 75%;
+  background-position: 50%;
+}
+#start-selects .button_type1:nth-child(4){
+  background: url(img/doctor.png) no-repeat;
+  background-color: #fff;
+  background-size: 75%;
+  background-position: 50%;
+}
+#start-selects .button_type1:nth-child(5){
+  background: url(img/teahcer.png) no-repeat;
+  background-color: #fff;
+  background-size: 75%;
+  background-position: 50%;
+
+}
+
 #start-selects .button_type1{
   width: 220px; height: 220px;
   color: transparent; font-size: 0;
   cursor: pointer;
   box-sizing: border-box;
   padding:0;
-  background: url(img/test.png) no-repeat;
-  background-size: contain;
-  transition: filter 0.3s ease , border 0.3s ease;
+  transition: filter 0.2s ease, border 0.2s ease !important;
 }
 #start-selects .button_type1:hover{
   border-color: #fff;
   filter: invert(100);
 }
+
 #start-selects .button_type1.fin{
   opacity: 0.5;
   pointer-events: none;
 }
+
+.bad #start-selects .button_type1{
+  opacity: 0.5;
+  pointer-events: none;
+}
+.bad #start-selects .button_type1.only{
+  opacity: 1;
+  pointer-events: all;
+}
+
 
 
 
@@ -375,9 +448,9 @@ div[id^="page"].a{
 }
 #page-choice .left-area{ 
   width: 500px; height: 500px;
-  border: 1px solid #d3d;
   box-sizing: border-box;
 }
+
 
 #page-choice .left-area .image{ 
   display: flex;
@@ -388,8 +461,9 @@ div[id^="page"].a{
   background-image: url('img/test.png');
   background-repeat: no-repeat;
   background-size: contain;
-  border: 1px solid #000;
+
 }
+
 
 #page-choice .right-area{
   width: 700px;
@@ -403,7 +477,6 @@ div[id^="page"].a{
 
 #page-choice .scroll-text{
   height: 200px;
-  border: 1px solid #d3d;
   text-align: center;
   display: flex;
   align-items: center;
@@ -420,6 +493,14 @@ div[id^="page"].a{
 
 #page-choice .button_type1{
   height: 125px;
+  transform: translateX(20%);
+}
+#page-choice.a .button_type1{
+  transform: translateX(0);
+}
+#page-choice .button_type1:hover{
+  height: 125px;
+  transform: translateX(-3%) !important;
 }
 
 
@@ -470,7 +551,6 @@ div[id^="page"].a{
 
 #page-death .scroll-text{
   width: 100%;height: 100%;
-  border: 1px solid #d3d;
   text-align: center;
 }
 
@@ -501,7 +581,6 @@ div[id^="page"].a{
 }
 
 #page-trial .image{
-  border: 1px solid #d3d;
   width: 510px; height: 170px;
   margin: 0 auto;
 }
@@ -534,7 +613,6 @@ div[id^="page"].a{
 
 #page-trial-progress .image{
   width: 900px; height: 300px;
-  border: 1px solid #d3d;
 
 }
 #page-trial-progress .image img{
@@ -588,7 +666,6 @@ div[id^="page"].a{
 }
 
 #page-rebirth .image{
-  border: 1px solid #d3d;
   width: 510px; height: 170px;
   margin: 0 auto;
 }

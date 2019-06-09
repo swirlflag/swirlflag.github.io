@@ -531,7 +531,10 @@ let score = 0;
 let scoreTarget = null;
 let timerSec = 0;
 let timerInterval = null;
+let goodChoice = null;
+let nowBad = false;
 
+let all = document.querySelector('#filter');
 let app = document.querySelector('#app');
 let process = document.querySelector('#nav-process');
 let processBar = process.querySelector('.bar');
@@ -551,9 +554,13 @@ let page_trial = document.querySelector('#page-trial');
 let page_trial_progress = document.querySelector('#page-trial-progress');
 let page_rebirth = document.querySelector('#page-rebirth');
 
-console.log(page_rebirth);
+let choiceText = page_choice.querySelector('.scroll-text div');
+let choiceImg = page_choice.querySelector('.image');
+let choiceA = page_choice.querySelector('#choice-a');
+let choiceB = page_choice.querySelector('#choice-b');
+let choiceAtext = page_choice.querySelector('#choice-a span');
+let choiceBtext = page_choice.querySelector('#choice-b span');
 
-// let choiceA, choiceB, choiceText;
 
 
 
@@ -598,106 +605,6 @@ const START_splash = () =>{
 };  
 
 
-const START_choice = () => {
-
-    for(let i = 1; i < 10; ++i){
-      var my_image = new Image();
-      my_image.src = 'img/' + nowjob[i].img;
-    };
-    
-    let buttons = page_choice.querySelectorAll('.button_type1');
-    
-    let a = page_choice.querySelector('#choice-a span');
-    let b = page_choice.querySelector('#choice-b span');
-    let t = page_choice.querySelector('.scroll-text div');
-    let img = page_choice.querySelector('.image');
-    
-    for(let i =0; i < buttons.length; ++i){
-        buttons[i].addEventListener('click', ()=>{
-            choiceProcess(a,b,t,img,buttons[i]);
-        });
-    };
-
-    choiceProcess(a,b,t,img);
-    timer.classList.add('a');
-
-};
-
-const choiceProcess = (a,b,t,img,_this) => {
-
-    clearInterval(timerInterval);
-    page_choice.classList.remove('a');
-
-
-    ++state;
-    console.log(`${state}단계 항목.`);
-    processBar.style.width = (state-1) * 10 + '%';
-
-    if(state > 10){
-        setTimeout(()=>{
-            page_death.classList.add('a');
-        },700)
-        state = 0;
-        timerSec = 0;
-        timer.classList.remove('a');
-    }else{
-
-        if(_this && _this.id == scoreTarget){
-            console.log('up!');
-            ++score;
-            console.log(score);
-        }
-
-        // a.parentElement.classList.remove('active');
-        // b.parentElement.classList.remove('active');
-
-        setTimeout(()=>{
-
-            if(state == 7){
-              timerSec = 20;
-              page_choice.classList.add('choice2');
-            }else{
-              timerSec = 15 - state + 1;
-                page_choice.classList.remove('choice2');
-            };
-
-            timerSpan.innerText = timerSec;
-            timerInterval = setInterval(()=>{
-              --timerSec;
-              timerSpan.innerText = timerSec;
-              if(timerSec <= 0){
-                if(Math.floor(Math.random()*2)){
-                  a.click();
-                  // a.parentElement.classList.add('active');
-                }else{
-                  b.click();
-                  // b.parentElement.classList.add('active');
-                }
-
-              }
-            },1000);
-
-            t.innerHTML = nowjob[state].question;
-            img.style.backgroundImage = `url(img/${nowjob[state].img})`;
-            
-            if(Math.random() * 2 > 1){
-                a.innerHTML = nowjob[state].answer.o;
-                b.innerHTML = nowjob[state].answer.x;
-                scoreTarget = 'choice-a';
-            } else{
-                a.innerHTML = nowjob[state].answer.x;
-                b.innerHTML = nowjob[state].answer.o;
-                scoreTarget = 'choice-b';
-            };
-
-            page_choice.classList.add('a');
-
-        },700);
-    };
-
-};
-
-
 
 const PAGE_SET_startbutton = () => {
     let button = page_startButton.querySelector('.button_type1');
@@ -728,16 +635,106 @@ const PAGE_SET_birth = () => {
               item.innerText = nowjobName;
             });
             page_birth.classList.remove('a');
-            START_choice();
 
-            
+            setTimeout(()=>{
+              page_choice.classList.add('a');            
+            },700);
+
+            for(let i = 1; i < 10; ++i){
+              var my_image = new Image();
+              my_image.src = 'img/' + nowjob[i].img;
+            };
+
+            timer.classList.add('a');
+
+            state = 0;
+            timerSec = 0;
+            score = 0;
+            button.classList.remove('only');
+            choice();
+          
         });
     };
     
 };
 
+const choice = (_this) => {
+
+  if(_this == goodChoice){
+    ++score;
+    if(state == 7){
+      page_choice.classList.remove('a');
+      processBar.style.width = '0%';
+      clearInterval(timerInterval);
+      setTimeout(()=>{
+        nowjobButton.classList.add('only');
+        page_birth.classList.add('a');
+      },700)
+      return;
+    }
+  };
+  
+  console.log(`현재${++state}단계`);
+  
+  page_choice.classList.remove('a');
+
+  processBar.style.width = `${(state-1) * 10}%`
+
+  setTimeout(()=>{
+    clearInterval(timerInterval);
+    page_choice.classList.remove('choice2');
+    if(state == 7){
+      page_choice.classList.add('choice2');
+      timerSec = 20;
+    }else if(state == 11){
+      page_choice.classList.remove('a');
+      page_trial.classList.add('a');
+      timer.classList.remove('a');
+      return;
+    }
+
+    timerSec = 16 - state;
+    page_choice.classList.add('a');
+
+    if(Math.random() * 2 < 1){
+      choiceAtext.innerHTML = nowjob[state].answer.o;
+      choiceBtext.innerHTML = nowjob[state].answer.x;
+      goodChoice = choiceA;
+    }else{
+      choiceAtext.innerHTML = nowjob[state].answer.x;
+      choiceBtext.innerHTML = nowjob[state].answer.o;
+      goodChoice = choiceB;
+    }
+
+    choiceText.innerHTML = nowjob[state].question;
+    choiceImg.style.backgroundImage = `url(img/${nowjob[state].img})`;
+    timerSpan.innerText = timerSec;
+
+    timerInterval = setInterval(()=>{
+      --timerSec;
+      timerSpan.innerText = timerSec
+      if(timerSec == 0){
+        if(Math.random() * 2 < 1){
+          choiceA.click();
+        }else{
+          choiceB.click();
+        }
+      }
+    },1000)
+
+  },700);
+}
+
 const PAGE_SET_choice = () => {
 
+  let buttons = page_choice.querySelectorAll('.button_type1');
+
+
+  buttons.forEach((item)=>{
+    item.addEventListener('click', ()=>{
+      choice(item);
+    });
+  });
 };
 
 
@@ -758,7 +755,7 @@ const PAGE_SET_trial = () => {
   let button = page_trial.querySelector('.button_type1');
   
   button.addEventListener('click', ()=>{
-    console.log(1);
+    
     page_trial.classList.remove('a');
 
     setTimeout(()=>{
@@ -767,12 +764,13 @@ const PAGE_SET_trial = () => {
       setTimeout(()=>{
         page_trial_progress.classList.remove('a');
         setTimeout(()=>{
-          if(score >= 5){
-            app.classList.add('bad');  
-          }else{  
-            app.classList.remove('bad');
-          }
-          
+          if(score < 5){
+            all.classList.add('bad');  
+            nowBad = true;
+          }else{
+            all.classList.remove('bad');
+            nowBad = false;
+          };
           page_rebirth.classList.add('a');
         },700);
       },3000)
@@ -784,13 +782,20 @@ const PAGE_SET_trial = () => {
 
 const PAGE_SET_rebirth = () => {
 
-
   let button = page_rebirth.querySelector('.button_type1');
+  let selects = page_birth.querySelectorAll('.button_type1');
+
+  console.log(selects);
 
   button.addEventListener('click', ()=>{
 
     page_rebirth.classList.remove('a');
-    nowjobButton.classList.add('fin');
+  
+    if(nowBad){
+      nowjobButton.classList.add('only');
+    }else{
+      nowjobButton.classList.add('fin');  
+    }
 
     processBar.style.width = 0;
 
