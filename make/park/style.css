@@ -28,17 +28,23 @@ html,body{
   overflow: hidden;
   font-family: 'Noto Sans KR', sans-serif;
   font-size: 25px;
+  
 }
-/* ::-webkit-scrollbar{
+body{
+  opacity: 0;
+}
+
+
+::-webkit-scrollbar{
   background-color: transparent;
-  width: 5px;
+  width: 6px;
 }
 ::-webkit-scrollbar-track{
-  width: 5px;
+  width: 6px;
 }
 ::-webkit-scrollbar-thumb{
   background-color: #000;
-} */
+}
 
 a{text-decoration: none;}
 li{list-style: none;}
@@ -51,6 +57,7 @@ li{list-style: none;}
 }
 .scroll-text{
   overflow-y: scroll;
+  /* padding: 10px; */
 }
 
 .left-area, .right-area{
@@ -93,7 +100,8 @@ div.button_type1{
 div.button_type1 img{
   transition: filter 0.3s ease;
 }
-div.button_type1:hover{
+div.button_type1:hover,
+div.button_type1.active{
   background-color: #000;
   color: #fff;
 }
@@ -115,6 +123,9 @@ div.button_type1:hover img{
 }
 #app.a{
   border: 6px solid #000;
+}
+#app.bad{
+  background: #ddd;
 }
 
 
@@ -144,7 +155,7 @@ div.button_type1:hover img{
   border: 6px solid #000;
   box-sizing: border-box;
   position: relative;
-  overflow-x: hidden;
+  overflow: hidden;
 }
 
 #nav-process .container .bar{
@@ -179,6 +190,10 @@ div.button_type1:hover img{
   
 #nav-timer.a{
   opacity: 1;
+}
+#nav-timer span{
+  display: inline-block;
+  width: 35px
 }
 
 
@@ -231,8 +246,8 @@ div[id^="page"]{
 }
 
 div[id^="page"].a{
-  pointer-events: all;
-  opacity: 1;
+  pointer-events: all !important;
+  opacity: 1 !important;
 }
 
 
@@ -343,6 +358,10 @@ div[id^="page"].a{
   border-color: #fff;
   filter: invert(100);
 }
+#start-selects .button_type1.fin{
+  opacity: 0.5;
+  pointer-events: none;
+}
 
 
 
@@ -406,6 +425,7 @@ div[id^="page"].a{
 
 
 
+
 #page-choice.choice2 .scroll-text{
   display: block;
   height: 350px;
@@ -452,8 +472,13 @@ div[id^="page"].a{
   width: 100%;height: 100%;
   border: 1px solid #d3d;
   text-align: center;
+}
+
+#page-death .button_type1{
   display: flex;
-  align-items: center;
+  /* display: inline-block; */
+  margin: 0 auto;
+  padding: 25px 40px;
 }
 
 
@@ -576,6 +601,14 @@ div[id^="page"].a{
 #page-rebirth .button_type1{
   width: 380px;  
   margin: 0 auto;
+}
+
+#page-rebirth .bad,
+.bad #page-rebirth .good{
+  display: none;
+}
+.bad #page-rebirth .bad{
+  display: block;
 }
 
 

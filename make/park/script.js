@@ -524,21 +524,34 @@ const data = {
 
 
 let nowjob = null;
+let nowjobButton = null;
+let nowjobName = null;
 let state = 0; 
 let score = 0;
 let scoreTarget = null;
+let timerSec = 0;
+let timerInterval = null;
 
 let app = document.querySelector('#app');
 let process = document.querySelector('#nav-process');
 let processBar = process.querySelector('.bar');
 let timer = document.querySelector('#nav-timer');
+let timerSpan = document.querySelector('#nav-timer span');
+
 let title = document.querySelector('#title');
+
+let nowjobEl = document.querySelectorAll('.nowjob');
 
 let	page_splash1 = document.querySelector('#page-splash-1');
 let page_startButton = document.querySelector('#page-start-button');
 let page_birth = document.querySelector('#page-birth');
 let page_choice = document.querySelector('#page-choice');
 let page_death = document.querySelector('#page-death');
+let page_trial = document.querySelector('#page-trial');
+let page_trial_progress = document.querySelector('#page-trial-progress');
+let page_rebirth = document.querySelector('#page-rebirth');
+
+console.log(page_rebirth);
 
 // let choiceA, choiceB, choiceText;
 
@@ -606,41 +619,67 @@ const START_choice = () => {
     };
 
     choiceProcess(a,b,t,img);
+    timer.classList.add('a');
 
 };
 
 const choiceProcess = (a,b,t,img,_this) => {
 
+    clearInterval(timerInterval);
     page_choice.classList.remove('a');
+
 
     ++state;
     console.log(`${state}단계 항목.`);
-    processBar.style.width = state * 10 + '%';
+    processBar.style.width = (state-1) * 10 + '%';
 
     if(state > 10){
         setTimeout(()=>{
             page_death.classList.add('a');
         },700)
         state = 0;
+        timerSec = 0;
+        timer.classList.remove('a');
     }else{
 
         if(_this && _this.id == scoreTarget){
             console.log('up!');
             ++score;
+            console.log(score);
         }
 
+        // a.parentElement.classList.remove('active');
+        // b.parentElement.classList.remove('active');
+
         setTimeout(()=>{
-          
+
             if(state == 7){
-                page_choice.classList.add('choice2');
+              timerSec = 20;
+              page_choice.classList.add('choice2');
             }else{
+              timerSec = 15 - state + 1;
                 page_choice.classList.remove('choice2');
             };
+
+            timerSpan.innerText = timerSec;
+            timerInterval = setInterval(()=>{
+              --timerSec;
+              timerSpan.innerText = timerSec;
+              if(timerSec <= 0){
+                if(Math.floor(Math.random()*2)){
+                  a.click();
+                  // a.parentElement.classList.add('active');
+                }else{
+                  b.click();
+                  // b.parentElement.classList.add('active');
+                }
+
+              }
+            },1000);
 
             t.innerHTML = nowjob[state].question;
             img.style.backgroundImage = `url(img/${nowjob[state].img})`;
             
-
             if(Math.random() * 2 > 1){
                 a.innerHTML = nowjob[state].answer.o;
                 b.innerHTML = nowjob[state].answer.x;
@@ -669,7 +708,6 @@ const PAGE_SET_startbutton = () => {
             page_birth.classList.add('a');
             app.classList.add('a');
             process.classList.add('a');
-            timer.classList.add('a');
             title.classList.add('a');
         },500);
     });
@@ -681,10 +719,18 @@ const PAGE_SET_birth = () => {
     
     for(let i = 0; i < buttons.length; ++i){
         let button = buttons[i];
-        button.addEventListener('click', ()=>{
-            nowjob = data[button.getAttribute('data-birth')];
+        button.addEventListener('click', (e)=>{
+            nowjobName = button.getAttribute('data-birth');
+            nowjob = data[nowjobName];
+            nowjobButton = e.target;
+
+            nowjobEl.forEach((item)=>{
+              item.innerText = nowjobName;
+            });
             page_birth.classList.remove('a');
             START_choice();
+
+            
         });
     };
     
@@ -694,13 +740,80 @@ const PAGE_SET_choice = () => {
 
 };
 
+
+const PAGE_SET_death = () => {
+
+  let button = page_death.getElementsByClassName('button_type1')[0];
+  
+  button.addEventListener('click', ()=>{
+    page_death.classList.remove('a');
+    setTimeout(()=>{
+      page_trial.classList.add('a');
+    },700)
+  });
+};
+
+const PAGE_SET_trial = () => {
+
+  let button = page_trial.querySelector('.button_type1');
+  
+  button.addEventListener('click', ()=>{
+    console.log(1);
+    page_trial.classList.remove('a');
+
+    setTimeout(()=>{
+      page_trial_progress.classList.add('a');
+
+      setTimeout(()=>{
+        page_trial_progress.classList.remove('a');
+        setTimeout(()=>{
+          if(score >= 5){
+            app.classList.add('bad');  
+          }else{  
+            app.classList.remove('bad');
+          }
+          
+          page_rebirth.classList.add('a');
+        },700);
+      },3000)
+    },700);
+
+  });
+
+};
+
+const PAGE_SET_rebirth = () => {
+
+
+  let button = page_rebirth.querySelector('.button_type1');
+
+  button.addEventListener('click', ()=>{
+
+    page_rebirth.classList.remove('a');
+    nowjobButton.classList.add('fin');
+
+    processBar.style.width = 0;
+
+    setTimeout(()=>{
+      page_birth.classList.add('a');      
+    },700);
+  });
+};
+
+
 const allInit = (e) => {
     memofn();
     PAGE_SET_startbutton();
     PAGE_SET_birth();
     PAGE_SET_choice();
+    PAGE_SET_death();
+    PAGE_SET_trial();
+    PAGE_SET_rebirth();
 
     setTimeout(()=>{START_splash()},500)
 };
 
 document.addEventListener('DOMContentLoaded', allInit);
+setTimeout(()=>{
+  document.body.style.opacity = 1;
+},0)
