@@ -32,7 +32,6 @@ html,body{
 }
 body{
   opacity: 0;
-  
 }
 
 
@@ -312,12 +311,40 @@ div[id^="page"].a{
   width: 400px;
   height: 150px;
 }
+
 #page-start-button .image img{
   width: 100%; height: 100%;
   object-fit: contain;
 }
-#page-start-button .button_type1{
+
+
+#page-start-button .div1{
+  width: 100%; 
+  position: relative;
   margin-top: 50px;
+}
+#page-start-button .div1 > *{
+  opacity: 0; 
+  transition : all 0.3s ease;
+  pointer-events: none;  
+}
+
+#page-start-button .div1 .a{
+  opacity: 1;
+  pointer-events: all;
+}
+
+#page-start-button p{
+  position: absolute;
+  top: 0;  left: 0;
+  width: 100%;
+  text-align: center;  
+  padding: 25px 0;
+}
+
+#page-start-button .div1 .button_type1{
+  position: absolute;
+  top: 0; left: 0; 
   width: 100%;
   text-align: center;
 }
@@ -436,6 +463,18 @@ div[id^="page"].a{
 }
 
 
+
+
+
+
+#page-start-alert{
+  justify-content: center;
+  align-items: center;
+}
+
+#page-start-alert p{
+  text-align: center;
+}
 
 
 
