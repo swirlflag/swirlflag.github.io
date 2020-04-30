@@ -10,7 +10,7 @@
   "dependencies": {
     "axios": "^0.18.0",
     "gsap": "^2.1.2",
-    "jquery": "^3.4.0",
+    "jquery": "^3.5.0",
     "reset-css": "^4.0.1",
     "swiper": "^4.5.0",
     "vue": "^2.5.22",
